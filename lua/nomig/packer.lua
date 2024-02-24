@@ -9,6 +9,8 @@ return require('packer').startup(function(use)
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
+    use { 'lewis6991/gitsigns.nvim' }
+
 	use({
         'navarasu/onedark.nvim',
 		as = 'my_theme',
@@ -16,9 +18,9 @@ return require('packer').startup(function(use)
 
     use {'stevearc/dressing.nvim'}
 
-    use( 'mbbill/undotree')
-	use( 'nvim-treesitter/nvim-treesitter', {run =  ':TSUpdate'})
-	use( 'tpope/vim-fugitive')
+    use{ 'mbbill/undotree' }
+	use{ 'nvim-treesitter/nvim-treesitter', {run =  ':TSUpdate'} }
+	use{ 'tpope/vim-fugitive' }
 
 	use {
 		'VonHeikemen/lsp-zero.nvim',
@@ -50,5 +52,7 @@ return require('packer').startup(function(use)
     use { 'kana/vim-textobj-entire',
         requires = { 'kana/vim-textobj-user' }
     }
+
+    use { 'tpope/vim-surround' }
 
 end)
