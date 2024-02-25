@@ -53,6 +53,11 @@ return require('packer').startup(function(use)
         requires = { 'kana/vim-textobj-user' }
     }
 
+    use { 'feline-nvim/feline.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons'
+        }
+    }
+
     use { 'tpope/vim-surround' }
 
 end)
