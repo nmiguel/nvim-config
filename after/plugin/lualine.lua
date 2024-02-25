@@ -132,7 +132,7 @@ ins_left {
   symbols = { added = ' ', modified = ' ', removed = ' ' },
   diff_color = {
     added = { fg = colors.green },
-    modified = { fg = colors.orange },
+    modified = { fg = colors.blue },
     removed = { fg = colors.red },
   },
   cond = conditions.hide_in_width,
@@ -190,7 +190,7 @@ ins_right {
     end
     return msg
   end,
-  icon = ' LSP:',
+  icon = ' ',
   color = { fg = colors.violet, gui = 'bold' },
 }
 
