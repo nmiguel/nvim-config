@@ -103,7 +103,6 @@ ins_left {
       no = colors.red,
       s = colors.orange,
       S = colors.orange,
-      [''] = colors.orange,
       ic = colors.yellow,
       R = colors.violet,
       Rv = colors.violet,
@@ -166,6 +165,11 @@ ins_left {
 ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
+    path = 1,
+    newfile_status = true,
+    symbols = {
+        modified = '  ',
+    },
     color = { fg = colors.magenta, gui = 'bold' },
 }
 
