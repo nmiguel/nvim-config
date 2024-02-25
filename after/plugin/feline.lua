@@ -1,3 +1,14 @@
+-- require'nvim-web-devicons'.setup {
+--  override = {
+--   ["git-diff-modified"] = {
+--     icon = "", -- Replace with the correct icon character for your font
+--     color = "#ffcb6b", -- Example color, change as needed
+--     cterm_color = "173", -- Example terminal color, change as needed
+--     name = "GitDiffModified"
+--   }
+--  };
+-- }
+
 local line_ok, feline = pcall(require, "feline")
 if not line_ok then
 	return
@@ -64,6 +75,7 @@ local c = {
 			fg = "green",
 			bg = "darkblue",
 		},
+        -- icon="+",
 		left_sep = "block",
 		right_sep = "block",
 	},
@@ -73,6 +85,7 @@ local c = {
 			fg = "red",
 			bg = "darkblue",
 		},
+        -- icon="-",
 		left_sep = "block",
 		right_sep = "block",
 	},
@@ -82,6 +95,10 @@ local c = {
 			fg = "fg",
 			bg = "darkblue",
 		},
+        icon= {
+           str = "  ",
+           hl = { fg = 'blue' },
+        },
 		left_sep = "block",
 		right_sep = "right_filled",
 	},
@@ -114,7 +131,7 @@ local c = {
 		},
 	},
 	diagnostic_hints = {
-		provider = "diagnostic_hints",
+		poovider = "diagnostic_hints",
 		hl = {
 			fg = "aqua",
 		},
