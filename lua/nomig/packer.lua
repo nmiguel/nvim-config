@@ -2,41 +2,47 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-	use 'wbthomason/packer.nvim'
+    use 'wbthomason/packer.nvim'
 
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.5',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
 
     use { 'lewis6991/gitsigns.nvim' }
 
-	use({
+    use({
         'navarasu/onedark.nvim',
-		as = 'my_theme',
-	})
+        as = 'my_theme',
+    })
 
-    use {'stevearc/dressing.nvim'}
+    use { 'stevearc/dressing.nvim' }
 
-    use{ 'mbbill/undotree' }
-	use{ 'nvim-treesitter/nvim-treesitter', {run =  ':TSUpdate'} }
-	use{ 'tpope/vim-fugitive' }
+    use { 'mbbill/undotree' }
 
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v3.x',
-		requires = {
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
 
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'L3MON4D3/LuaSnip'},
-		}
-	}
+
+    use { 'tpope/vim-fugitive' }
+
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v3.x',
+        requires = {
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
+
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            -- Autocompletion
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'L3MON4D3/LuaSnip' },
+        }
+    }
 
     use {
         'numToStr/Comment.nvim',
@@ -47,7 +53,7 @@ return require('packer').startup(function(use)
 
     use { "ahmedkhalf/project.nvim" }
 
-    use { 'sansyrox/vim-python-virtualenv' }
+    use { 'linux-cultist/venv-selector.nvim' }
 
     use { 'kana/vim-textobj-entire',
         requires = { 'kana/vim-textobj-user' }
@@ -60,4 +66,13 @@ return require('packer').startup(function(use)
 
     use { 'tpope/vim-surround' }
 
+    use { "akinsho/toggleterm.nvim", tag = '*', config = function()
+        require("toggleterm").setup()
+    end }
+
+    use { "jiangmiao/auto-pairs" }
+
+    use { 'ThePrimeagen/harpoon',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
 end)
