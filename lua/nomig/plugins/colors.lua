@@ -9,5 +9,13 @@ function MyTheme(color)
     }
     vim.cmd('colorscheme onedark')
 end
+return {
 
-MyTheme()
+     'navarasu/onedark.nvim' ,
+     lazy = false,
+        name = 'my_theme',
+        config = function()
+            MyTheme()
+        end
+    
+}
