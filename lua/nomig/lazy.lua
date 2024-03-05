@@ -13,12 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
-	spec = {
-		{ import = "nomig.plugins" },
-	},
-	defaults = {
-		lazy = false,
-		version = false,
-	},
-	checker = { enabled = true },
+    spec = {
+        { import = "nomig.plugins" },
+    },
+    defaults = {
+        lazy = false,
+        version = false,
+    },
+    checker = {
+        enabled = true,
+        notify = true,
+    },
+    change_detection = {
+        -- automatically check for config file changes and reload the ui
+        enabled = true,
+        notify = false, -- get a notification when changes are found
+    },
 })

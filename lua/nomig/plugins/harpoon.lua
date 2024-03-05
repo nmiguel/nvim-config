@@ -1,8 +1,34 @@
 return {
     'ThePrimeagen/harpoon',
-    dependencies =  'nvim-lua/plenary.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
 
-    config = function ()
+    keys = {
+        {
+            "<leader>a",
+            function() require("harpoon.mark").add_file() end,
+            mode = "n",
+            desc = "Harpoon add",
+        },
+        {
+            "<leader>j",
+            function() require("harpoon.ui").nav_next() end,
+            mode = "n",
+            desc = "Harpoon next",
+        },
+        {
+            "<leader>f",
+            function() require("harpoon.ui").nav_prev() end,
+            mode = "n",
+            desc = "Harpoon prev",
+        },
+        {
+            "<leader>h",
+            function() require("harpoon.ui").toggle_quick_menu() end,
+            mode = "n",
+            desc = "Harpoon list",
+        },
+    },
+    config = function()
         require("harpoon").setup({
             global_settings = {
                 -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
@@ -27,12 +53,7 @@ return {
                 tabline = false,
                 tabline_prefix = "   ",
                 tabline_suffix = "   ",
-
             },
         })
-        vim.keymap.set("n", "<leader>a", function() require("harpoon.mark").add_file() end)
-        vim.keymap.set("n", "<leader>j", function() require("harpoon.ui").nav_next() end)
-        vim.keymap.set("n", "<leader>f", function() require("harpoon.ui").nav_prev() end)
-        vim.keymap.set("n", "<leader>h", function() require("harpoon.ui").toggle_quick_menu() end)
     end
 }
