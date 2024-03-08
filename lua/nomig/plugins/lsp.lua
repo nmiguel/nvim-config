@@ -13,6 +13,7 @@ return {
         -- Autocompletion
         { 'folke/neodev.nvim' },
         { 'L3MON4D3/LuaSnip' },
+        { 'nvim-telescope/telescope.nvim' },
     },
 
     config = function()
@@ -23,25 +24,29 @@ return {
         vim.api.nvim_create_autocmd('LspAttach', {
             desc = 'LSP actions',
             callback = function(event)
-                local opts = {buffer = event.buf}
+                local opts = {buffer = event.buf, noremap = true}
 
-                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                vim.keymap.set("n", "gd", require('telescope.builtin').lsp_definitions, opts)
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
                 vim.keymap.set("n", "<leader>va", function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set("n", "<leader>vr", function() vim.lsp.buf.references() end, opts)
+                vim.keymap.set("n", "<leader>vr", require('telescope.builtin').lsp_references, opts)
                 vim.keymap.set("n", "<leader>vn", function() vim.lsp.buf.rename() end, opts)
-                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+                vim.keymap.set("i", "<C-s>", function() vim.lsp.buf.signature_help() end, opts)
+                vim.keymap.set("n", '<leader>ds', require('telescope.builtin').lsp_document_symbols, opts)
+                vim.keymap.set("n", '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts)
             end
         })
+
 
         -- to learn how to use mason.nvim with lsp-zero
         -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
         require('mason').setup({})
         require('mason-lspconfig').setup({
-            ensure_installed = {'pyright', 'csharp_ls'},
+            ensure_installed = {'pyright', 'omnisharp'},
             handlers = {
                 lua_ls = function()
-                    require('lspconfig').lua_ls.setup({
+                    local lspconfig = require("lspconfig")
+                    lspconfig.lua_ls.setup({
 
                     })
                 end,
@@ -59,32 +64,15 @@ return {
                             }
                         }
                     })
-                end
+                end,
+                ["omnisharp"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.omnisharp.setup({
+                        settings = {
+                        }
+                    })
+                end,
             }
         })
     end
-        -- local cmp = require('cmp')
-        -- local cmp_select = {behavior = cmp.SelectBehavior.Select}
-        --
-        -- -- this is the function that loads the extra snippets to luasnip
-        -- -- from rafamadriz/friendly-snippets
-        -- -- require('luasnip.loaders.from_vscode').lazy_load()
-        --
-        -- cmp.setup({
-        --     sources = {
-        --         {name = 'path'},
-        --         {name = 'nvim_lsp'},
-        --         {name = 'nvim_lua'},
-        --         {name = 'luasnip', keyword_length = 2},
-        --         {name = 'buffer', keyword_length = 3},
-        --     },
-        --     mapping = cmp.mapping.preset.insert({
-        --         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-        --         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        --         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        --         ['<C-Space>'] = cmp.mapping.complete(),
-        --     }),
-        --     window = {
-        --     },
-        -- })
 }

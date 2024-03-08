@@ -7,20 +7,44 @@ return {
     },
     ft = "python",
 
-    config = function()
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "python",
-            callback = function()
-                vim.keymap.set("n", "<leader>rp", ":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>")
-                vim.keymap.set("n", '<leader>pe', '<cmd>VenvSelect<cr>')
-                vim.keymap.set("n", '<leader>pc', '<cmd>VenvSelectCached<cr>')
-            end,
-        })
+    keys = {
+        { mode = "n",
+        "<leader>rp",
+        ":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>",
+        desc = "Run python file",
+        },
 
-        require('venv-selector').setup {
-            --- other configuration
-            search = true,
-            parents = 1,
-        }
-    end
+        { mode = "n",
+        '<leader>pe',
+        '<cmd>VenvSelect<cr>',
+        desc = "Select venv",
+        },
+
+        { mode = "n",
+        '<leader>pc',
+        '<cmd>VenvSelectCached<cr>',
+        desc = "Select cached venv",
+        },
+
+    },
+
+    config = function()
+        -- vim.api.nvim_create_autocmd("FileType", {
+        --     pattern = "python",
+        --     desc = 'Auto select virtualenv Nvim open',
+        --     callback = function()
+        --         -- local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
+        --         -- if venv ~= '' then
+        --         require('venv-selector').retrieve_from_cache()
+        --         vim.cmd("LspRestart")
+        --         -- end
+        --     end,
+        --     once = true,
+        -- })
+
+    end,
+    opts = {
+        search = true,
+        parents = 1,
+    }
 }

@@ -1,14 +1,64 @@
 return {
     "folke/noice.nvim",
     event = "VeryLazy",
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+        {
+            "rcarriga/nvim-notify",
+            opts = {
+                on_open = function() end,
+                on_close = function() end,
+                max_width = 200,
+                max_height = 200,
+                background_colour = "#000000",
+                fps = 160,
+                icons = {
+                    DEBUG = "",
+                    ERROR = "",
+                    INFO = "",
+                    TRACE = "✎",
+                    WARN = ""
+                },
+                level = 2,
+                minimum_width = 50,
+                render = "default",
+                stages = "fade_in_slide_out",
+                time_formats = {
+                    notification = "%T",
+                    notification_history = "%FT%T"
+                },
+                timeout = 5000,
+                top_down = true
+            }
+        }
+    },
     opts = {
         lsp = {
             progress = { enabled = false },
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                 ["vim.lsp.util.stylize_markdown"] = true,
+                ["cmp.entry.get_documentation"] = true,
             },
         },
+        presets = {
+            lsp_doc_border = true, -- add a border to hover docs and signature help
+            long_message_to_split = true, -- long messages will be sent to a split
+            inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        },
+        -- routes = {
+        --     {
+        --         filter = {
+        --             event = "msg_show",
+        --             any = {
+        --                 { find = "%d+L, %d+B" },
+        --                 { find = "; after #%d+" },
+        --                 { find = "; before #%d+" },
+        --             },
+        --         },
+        --         view = "mini",
+        --     },
+        -- },
         views = {
             cmdline_popup = {
                 position = {
@@ -67,39 +117,4 @@ return {
         -- },
 
     },
-    dependencies = {
-        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-        "MunifTanjim/nui.nvim",
-        -- OPTIONAL:
-        --   `nvim-notify` is only needed, if you want to use the notification view.
-        --   If not available, we use `mini` as the fallback
-        {
-            "rcarriga/nvim-notify",
-            opts = {
-                on_open = function() end,
-                on_close = function() end,
-                max_width = 200,
-                max_height = 200,
-                background_colour = "#000000",
-                fps = 160,
-                icons = {
-                    DEBUG = "",
-                    ERROR = "",
-                    INFO = "",
-                    TRACE = "✎",
-                    WARN = ""
-                },
-                level = 2,
-                minimum_width = 50,
-                render = "default",
-                stages = "fade_in_slide_out",
-                time_formats = {
-                    notification = "%T",
-                    notification_history = "%FT%T"
-                },
-                timeout = 5000,
-                top_down = true
-            }
-        }
-    }
 }
