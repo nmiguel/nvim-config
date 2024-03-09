@@ -11,16 +11,14 @@ return {
         -- Color table for highlights
         -- stylua: ignore
         local colors = {
-            bg       = '#384a57',
-            fg       = '#bbc2cf',
+            bg       = '#101625',
+            fg       = '#78acff',
             yellow   = '#ECBE7B',
             cyan     = '#008080',
-            darkblue = '#081633',
             green    = '#98be65',
             orange   = '#FF8800',
-            violet   = '#a9a1e1',
-            magenta  = '#c678dd',
-            blue     = '#51afef',
+            main_font   = '#cfe1ff',
+            blue     = '#1f4e99',
             red      = '#ec5f67',
         }
 
@@ -83,18 +81,18 @@ return {
             table.insert(config.sections.lualine_x, component)
         end
 
-        ins_left {
-            function()
-                return '▊'
-            end,
-            color = { fg = colors.violet }, -- Sets highlighting of component
-            padding = { left = 0, right = 1 }, -- We don't need space before this
-        }
+        -- ins_left {
+        --     function()
+        --         return '▊'
+        --     end,
+        --     color = { fg = colors.light_blue }, -- Sets highlighting of component
+        --     padding = { left = 0, right = 1 }, -- We don't need space before this
+        -- }
 
         ins_left {
             -- mode component
             function()
-                return ''
+                return ''
             end,
             color = function()
                 -- auto change color according to neovims mode
@@ -104,13 +102,13 @@ return {
                     v = colors.blue,
                     [''] = colors.blue,
                     V = colors.blue,
-                    c = colors.magenta,
+                    c = colors.blue,
                     no = colors.red,
                     s = colors.orange,
                     S = colors.orange,
                     ic = colors.yellow,
-                    R = colors.violet,
-                    Rv = colors.violet,
+                    R = colors.main_font,
+                    Rv = colors.main_font,
                     cv = colors.red,
                     ce = colors.red,
                     r = colors.cyan,
@@ -121,23 +119,23 @@ return {
                 }
                 return { fg = mode_color[vim.fn.mode()] }
             end,
-            padding = { right = 1 },
+            padding = { left = 1, right = 1 },
         }
 
         ins_left {
             'branch',
             icon = '',
-            color = { fg = colors.violet, gui = 'bold' },
+            color = { fg = colors.main_font, gui = 'bold' },
         }
 
 
         ins_left {
             'diff',
             -- Is it me or the symbol for modified us really weird
-            symbols = { added = ' ', modified = ' ', removed = ' ' },
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
             diff_color = {
                 added = { fg = colors.green },
-                modified = { fg = colors.blue },
+                modified = { fg = colors.fg },
                 removed = { fg = colors.red },
             },
             cond = conditions.hide_in_width,
@@ -175,7 +173,14 @@ return {
             symbols = {
                 modified = '  ',
             },
-            color = { fg = colors.magenta, gui = 'bold' },
+            color = { fg = colors.main_font, gui = 'bold' },
+        }
+
+        ins_right {
+            function ()
+                return require("arrow.statusline").text_for_statusline_with_icons()
+            end,
+            color = { fg = colors.green, gui = 'bold' },
         }
 
         ins_right {
@@ -196,7 +201,7 @@ return {
                 return msg
             end,
             icon = ' ',
-            color = { fg = colors.violet, gui = 'bold' },
+            color = { fg = colors.main_font, gui = 'bold' },
         }
 
         -- Add components to right sections
@@ -223,13 +228,13 @@ return {
                     cond = conditions.buffer_not_empty,
                 }
 
-                ins_right {
-                    function()
-                        return '▊'
-                    end,
-                    color = { fg = colors.violet },
-                    padding = { left = 1 },
-                }
+                -- ins_right {
+                --     function()
+                --         return '▊'
+                --     end,
+                --     color = { fg = colors.light_blue },
+                --     padding = { left = 1 },
+                -- }
 
 
                 -- Now don't forget to initialize lualine
