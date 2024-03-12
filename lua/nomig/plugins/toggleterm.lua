@@ -16,7 +16,7 @@ return {
                 -- end,
             }
 
-            vim.keymap.set('t', '<esc>', [[<C-\><C-n>]])
+            vim.keymap.set('t', '<C-q>', [[<C-\><C-n>]])
             vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]])
         end
     }
