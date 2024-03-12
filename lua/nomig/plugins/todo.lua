@@ -1,7 +1,7 @@
 return {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    lazy = false,
+    event = "VeryLazy",
     opts ={
         -- highlight = {
         --     pattern = [[.*<(KEYWORDS)\s*]], -- pattern or table of patterns, used for highlighting (vim regex)

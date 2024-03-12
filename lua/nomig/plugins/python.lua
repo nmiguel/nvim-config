@@ -29,22 +29,23 @@ return {
     },
 
     config = function()
-        -- vim.api.nvim_create_autocmd("FileType", {
-        --     pattern = "python",
-        --     desc = 'Auto select virtualenv Nvim open',
-        --     callback = function()
-        --         -- local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
-        --         -- if venv ~= '' then
-        --         require('venv-selector').retrieve_from_cache()
-        --         vim.cmd("LspRestart")
-        --         -- end
-        --     end,
-        --     once = true,
-        -- })
+        local opts = {
+            search = true,
+            parents = 1,
+        }
+        require('venv-selector').setup(opts)
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "python",
+            desc = 'Auto select virtualenv Nvim open',
+            callback = function()
+                -- local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
+                -- if venv ~= '' then
+                require('venv-selector').retrieve_from_cache()
+                vim.cmd("LspRestart")
+                -- end
+            end,
+            once = true,
+        })
 
     end,
-    opts = {
-        search = true,
-        parents = 1,
-    }
 }

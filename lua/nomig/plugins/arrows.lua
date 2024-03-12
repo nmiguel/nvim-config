@@ -1,6 +1,6 @@
 return {
     "otavioschwanck/arrow.nvim",
-    lazy = false,
+    event = "VeryLazy",
     opts = {
         show_icons = true,
         leader_key = '<leader>h' -- Recommended to be a single key

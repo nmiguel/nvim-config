@@ -1,6 +1,6 @@
 return {
     'mbbill/undotree',
-    events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+    events = "VeryLazy",
     keys = {
         {
             "<leader>u",

@@ -1,11 +1,14 @@
 return {
     'stevearc/dressing.nvim',
-    'tpope/vim-fugitive',
-    'tpope/vim-surround',
+
+    {
+        'tpope/vim-surround',
+        event = { "BufWritePost", "BufReadPost", "InsertEnter" },
+    },
 
     {
         'numToStr/Comment.nvim',
-        events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+        event = { "BufWritePost", "BufReadPost", "InsertEnter" },
         config = function()
             require('Comment').setup()
         end
@@ -13,6 +16,7 @@ return {
 
     {
         'kana/vim-textobj-entire',
+        event = { "VeryLazy" },
         dependencies = { 'kana/vim-textobj-user' },
     },
 }

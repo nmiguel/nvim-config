@@ -6,6 +6,8 @@ return {
     --     "cs",
     --     "yaml"
     -- },
+
+    event = "VeryLazy",
     dependencies = {
         { 'williamboman/mason.nvim' },
         { 'williamboman/mason-lspconfig.nvim' },
