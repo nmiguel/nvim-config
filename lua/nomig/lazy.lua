@@ -21,8 +21,8 @@ require("lazy").setup({
         version = false,
     },
     checker = {
-        enabled = true,
-        notify = true,
+        enabled = false,
+        notify = false,
     },
     change_detection = {
         -- automatically check for config file changes and reload the ui
