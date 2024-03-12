@@ -5,8 +5,8 @@ return {
 		{
 			-- Customize or remove this keymap to your liking
 			"<leader>cf",
-			"<cmd>FormatWrite<cr>",
-			mode = "n",
+			"<cmd>Format<cr>",
+			mode = { "n", "x" },
 			desc = "Conform File",
 		},
 	},
@@ -15,10 +15,9 @@ return {
 			filetype = {
 				lua = { require("formatter.filetypes.lua").stylua },
 				python = { require("formatter.filetypes.python").black },
-				cs = { require("formatter.filetypes.cs").chsarpier },
-				["*"] = {
-					require("formatter.defaults").prettier,
-				},
+				cs = { require("formatter.filetypes.cs").csharpier },
+				json = { require("formatter.defaults").prettier },
+				yaml = { require("formatter.defaults").prettier },
 			},
 			-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
 		})
