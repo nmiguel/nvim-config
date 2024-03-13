@@ -3,10 +3,11 @@ return {
     keys = {
         { mode = "n",
         "<leader>pv",
-        "<cmd>Oil<cr>"
+        "<cmd>Oil --float<cr>"
         },
     },
     config = function()
-        require("oil").setup()
+        require("oil").setup({
+        })
     end,
 }
