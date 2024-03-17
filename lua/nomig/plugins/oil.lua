@@ -1,5 +1,6 @@
 return {
     "stevearc/oil.nvim",
+    cond = false,
     keys = {
         { mode = "n",
         "<leader>pv",

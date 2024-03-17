@@ -74,7 +74,20 @@ return {
                         }
                     })
                 end,
-            }
+                ["gopls"] = function ()
+                    vim.api.nvim_create_autocmd("FileType", {
+                        pattern = "go",
+                        desc = 'Set go run key',
+                        callback = function()
+                            vim.keymap.set("n", "<leader>rp", ":w<CR>:exec '!go run ' . shellescape(expand('%'))<CR>")
+                        end,
+                        once = true,
+                    })
+                    local lspconfig = require("lspconfig")
+                    lspconfig.gopls.setup({
+                    })
+                end
+            },
         })
     end
 }
