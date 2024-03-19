@@ -12,14 +12,15 @@ return {
 	},
 	config = function()
 		require("formatter").setup({
+            logging = true,
+            log_level = vim.log.levels.DEBUG,
 			filetype = {
 				lua = { require("formatter.filetypes.lua").stylua },
 				python = { require("formatter.filetypes.python").black },
 				cs = { require("formatter.filetypes.cs").csharpier },
-				json = { require("formatter.defaults").prettier },
-				yaml = { require("formatter.defaults").prettier },
+				json = { require("formatter.filetypes.json").prettier },
+				yaml = { require("formatter.filetypes.yaml").prettier },
 			},
-			-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
 		})
 	end,
 }

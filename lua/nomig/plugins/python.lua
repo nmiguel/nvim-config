@@ -41,7 +41,7 @@ return {
                 -- local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
                 -- if venv ~= '' then
                 require('venv-selector').retrieve_from_cache()
-                vim.cmd("LspRestart")
+                vim.api.nvim_command("silent LspRestart")
                 -- end
             end,
             once = true,

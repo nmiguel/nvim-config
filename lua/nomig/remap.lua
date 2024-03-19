@@ -10,7 +10,7 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
     return keymap_set(mode, lhs, rhs, opts)
 end
 vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>oe', '<cmd>!explorer.exe %:h<cr><cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>oe', '<cmd>silent !explorer.exe %:h<cr><cr>', {noremap = true})
 
 --Prime's Stuff
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
