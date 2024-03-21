@@ -15,6 +15,7 @@ return {
 		{ "<leader>gs", mode = "n", "<cmd>Fugit2<cr>" },
 	},
 	-- "kdheepak/lazygit.nvim",
+    --
 	-- -- optional for floating window border decoration
 	-- dependencies = {
 	--     "nvim-lua/plenary.nvim",
