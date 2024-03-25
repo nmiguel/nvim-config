@@ -1,6 +1,12 @@
 return {
     "akinsho/toggleterm.nvim",
-    event = "VeryLazy",
+    keys = {
+        {
+            mode = "n",
+            "<C-\\>",
+            "<cmd>lua require('toggleterm').toggle()<CR>",
+        }
+    },
     config = function()
         require("toggleterm").setup{
             open_mapping = [[<c-\>]],

@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		{ "nvim-telescope/telescope.nvim" },
 	},
-	lazy = false,
+	lazy = false,  -- needs to always be loaded
 	keys = {
 		{
 			mode = "n",
@@ -17,6 +17,7 @@ return {
 			-- db_path = vim.fn.expand("$HOME/neoclip.sqlite3")
 			keys = {
 				telescope = {
+                    -- <cr> rather than <C-P> (which is previous)
 					i = {
 						paste = "<cr>",
 					},

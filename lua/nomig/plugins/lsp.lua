@@ -7,7 +7,7 @@ return {
     --     "yaml"
     -- },
 
-    event = "VeryLazy",
+    event = "BufEnter",
     dependencies = {
         { 'williamboman/mason.nvim' },
         { 'williamboman/mason-lspconfig.nvim' },

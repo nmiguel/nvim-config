@@ -2,7 +2,7 @@ return {
   "williamboman/mason.nvim",
   cmd = "Mason",
   build = ":MasonUpdate",
-  event = "VeryLazy",
+  event = "BufEnter",
   opts = {
     ensure_installed = {
       "stylua",

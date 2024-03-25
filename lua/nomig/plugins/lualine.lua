@@ -1,6 +1,6 @@
 return {
     'nvim-lualine/lualine.nvim',
-    lazy = false,
+    event = "BufEnter",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function ()
         -- Eviline config for lualine

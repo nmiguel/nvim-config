@@ -1,6 +1,6 @@
 return {
 	"mrjones2014/smart-splits.nvim",
-    lazy = false,
+    lazy = false,  -- needs to always be loaded
 
 	config = function()
 		-- resize window

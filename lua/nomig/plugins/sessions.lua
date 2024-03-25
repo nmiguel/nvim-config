@@ -2,6 +2,7 @@ return {
     "Shatur/neovim-session-manager",
     dependencies = 'nvim-lua/plenary.nvim',
     lazy = false,
+    priority = 1000,
 
     keys = {
         {

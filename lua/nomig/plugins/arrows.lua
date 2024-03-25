@@ -1,9 +1,9 @@
 return {
     "otavioschwanck/arrow.nvim",
-    event = "VeryLazy",
+    event = "BufEnter",
     opts = {
         show_icons = true,
-        leader_key = '<leader>h' -- Recommended to be a single key
+        leader_key = '<leader>h'
     },
     keys = {
         { mode = "n",

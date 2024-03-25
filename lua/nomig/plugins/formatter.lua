@@ -1,6 +1,5 @@
 return {
 	"mhartington/formatter.nvim",
-	event = { "VeryLazy" },
 	keys = {
 		{
 			-- Customize or remove this keymap to your liking
