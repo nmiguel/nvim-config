@@ -15,11 +15,11 @@ return {
 		notes_dir = vim.fn.stdpath("data") .. "/jot",
 		win_opts = {
 			relative = "editor",
-			width = 36,
+			width = 70,
 			height = 100,
 			anchor = "NE",
 			row = 0,
-			col = vim.api.nvim_list_uis()[1].width - 36,
+			col = vim.api.nvim_list_uis()[1].width,
 			-- split = "right",
 			focusable = false,
 		},
