@@ -12,6 +12,7 @@ vim.opt.smartindent = true
 vim.opt.hidden = true
 
 vim.opt.swapfile = false
+vim.opt.fillchars = { eob = " " }
 vim.opt.backup = false
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
