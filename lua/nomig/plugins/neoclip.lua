@@ -14,7 +14,8 @@ return {
 	config = function()
 		require("neoclip").setup({
 			-- enable_persistent_history = false,
-			-- db_path = vim.fn.expand("$HOME/neoclip.sqlite3")
+			-- db_path = vim.fn.stdpath("data") .. "/neoclip.sqlite3"
+
 			keys = {
 				telescope = {
                     -- <cr> rather than <C-P> (which is previous)
