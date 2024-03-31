@@ -9,9 +9,6 @@ return {
 	config = function()
 		local harpoon = require("harpoon")
 
-        local opts = {
-            ui_nav_wrap = true
-        }
 		-- REQUIRED
 		harpoon:setup()
 		-- REQUIRED
@@ -27,10 +24,14 @@ return {
 
 		-- Toggle previous & next buffers stored within Harpoon list
 		vim.keymap.set("n", "<leader>f", function()
-			harpoon:list():prev(opts)
+			harpoon:list():prev({
+            ui_nav_wrap = true
+        })
 		end)
 		vim.keymap.set("n", "<leader>j", function()
-			harpoon:list():next(opts)
+			harpoon:list():next({
+            ui_nav_wrap = true
+        })
 		end)
 	end,
 }
