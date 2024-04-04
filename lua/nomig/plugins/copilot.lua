@@ -23,7 +23,7 @@ return {
 				keymap = {
 					jump_prev = "[[",
 					jump_next = "]]",
-					accept = "<C-J>",
+					accept = "<C-O>",
 					refresh = "gr",
 					open = "<M-CR>",
 				},
@@ -37,7 +37,7 @@ return {
 				auto_trigger = true,
 				debounce = 75,
 				keymap = {
-					accept = "<M-l>",
+					accept = "<C-J>",
 					accept_word = false,
 					accept_line = false,
 					next = "<M-]>",
