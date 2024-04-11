@@ -13,14 +13,14 @@ return {
         }
     },
 
-    opts = {
-        sessions_dir = vim.fn.stdpath("data") .. "/sessions",
-        autosave_ignore_buftypes = {}, -- All buffers of these bufer types will be closed before the session is saved.
-        autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
-        max_path_length = 80,  -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
-    },
-
     config = function()
+        require('session_manager').setup( {
+            sessions_dir = vim.fn.stdpath("data") .. "/sessions",
+            autosave_ignore_buftypes = {}, -- All buffers of these bufer types will be closed before the session is saved.
+            autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
+            autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
+            max_path_length = 80,  -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
+        })
         -- Auto save session
         vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
             callback = function ()

@@ -19,7 +19,7 @@ return {
 		end)
 
 		vim.keymap.set("n", "<leader>a", function()
-			harpoon:list():append()
+            harpoon:list():add()
 		end)
 
 		-- Toggle previous & next buffers stored within Harpoon list
