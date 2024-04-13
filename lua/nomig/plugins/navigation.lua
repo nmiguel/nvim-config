@@ -5,8 +5,10 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope.nvim",
+		{ "cuducos/yaml.nvim", ft = "yaml" },
 		{
 			"Myzel394/jsonfly.nvim",
+			ft = "json",
 			config = function()
 				require("telescope").setup({
 					extensions = {
@@ -31,8 +33,11 @@ return {
 			mode = "n",
 			function()
 				-- if file type is json then use jsonfly
-				if vim.bo.filetype == "json" then
+				type = vim.bo.filetype
+				if type == "json" then
 					vim.cmd("Telescope jsonfly")
+				elseif type == "yaml" then
+					vim.cmd("YAMLTelescope")
 				else
 					vim.cmd("AerialToggle")
 				end
