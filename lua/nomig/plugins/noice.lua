@@ -33,6 +33,11 @@ return {
         }
     },
     opts = {
+        cmdline = {
+            format = {
+                help = { pattern = "vert bo help" },
+            },
+        },
         lsp = {
             progress = { enabled = false },
             override = {

@@ -30,3 +30,5 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
+
+vim.cmd("cnorea h vert bo help")
