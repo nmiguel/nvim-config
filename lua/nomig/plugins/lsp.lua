@@ -53,7 +53,8 @@ return {
 		-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 		require("mason").setup({})
 		require("mason-lspconfig").setup({
-			ensure_installed = { "pyright", "omnisharp" },
+			-- ensure_installed = { "pyright", "omnisharp" },
+			ensure_installed = { "pyright", "gopls"},
 			handlers = {
 				lua_ls = function()
 					local lspconfig = require("lspconfig")

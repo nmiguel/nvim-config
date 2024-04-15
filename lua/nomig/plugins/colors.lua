@@ -6,6 +6,16 @@ function MyTheme()
     vim.cmd('colorscheme onedark')
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 
+    -- random
+    -- lsp virtual text bg
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg="#993939" })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none", fg="#93691d" })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "none", fg="#2b6f77" })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = "none", fg="#8a3fa0" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextError", { bg = "none", fg="#993939" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextInfo", { bg = "none", fg="#93691d" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextWarn", { bg = "none", fg="#2b6f77" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextHint", { bg = "none", fg="#8a3fa0" })
     --cmp fixes
     vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })

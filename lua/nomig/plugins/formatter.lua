@@ -16,7 +16,7 @@ return {
 			filetype = {
 				lua = { require("formatter.filetypes.lua").stylua },
 				python = { require("formatter.filetypes.python").black },
-				cs = { require("formatter.filetypes.cs").csharpier },
+				cs = { require("formatter.filetypes.cs").clangformat },
 				json = { require("formatter.filetypes.json").prettier },
 				yaml = { require("formatter.filetypes.yaml").prettier },
 			},
