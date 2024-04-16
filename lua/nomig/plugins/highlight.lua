@@ -14,6 +14,7 @@ return {
 					},
 					delay = 100,
 					filetypes_denylist = {
+                        "blame",
 						"dirbuf",
 						"dirvish",
 						"fugitive",
