@@ -33,7 +33,7 @@ return {
 			mode = "n",
 			function()
 				-- if file type is json then use jsonfly
-				type = vim.bo.filetype
+				local type = vim.bo.filetype
 				if type == "json" then
 					vim.cmd("Telescope jsonfly")
 				elseif type == "yaml" then

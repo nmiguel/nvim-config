@@ -1,6 +1,7 @@
 return {
-	"ThePrimeagen/harpoon",
-	branch = "harpoon2",
+	"kimabrandt-flx/harpoon",
+	-- branch = "kimabrandt-flx:feat_sync_selection",
+    commit = "5bdbb379d949f7a48c08decb10250debe0a0d398",
     lazy = false,
 	dependencies = {
         "nvim-lua/plenary.nvim",
