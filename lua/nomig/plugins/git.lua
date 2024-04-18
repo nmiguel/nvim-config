@@ -1,3 +1,12 @@
+local function fix_size(str, size)
+	if string.len(str) < size then
+		str = str .. string.rep(" ", size - string.len(str))
+	elseif string.len(str) > size then
+		str = string.sub(str, 1, size - 3) .. "..."
+	end
+	return str
+end
+
 return {
 	"kdheepak/lazygit.nvim",
 
@@ -41,7 +50,7 @@ return {
 									hl = "Comment",
 								},
 								{
-									textValue = line_porcelain.author,
+									textValue = fix_size(line_porcelain.author, 15),
 									hl = hash,
 								},
 								{
