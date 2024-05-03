@@ -2,7 +2,6 @@ return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
         "nvim-lua/plenary.nvim",
-        "Myzel394/jsonfly.nvim",
     },
     lazy = false,
 	config = function()
