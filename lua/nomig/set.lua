@@ -37,3 +37,5 @@ vim.cmd("cnorea h vert bo help")
 -- Use ripgrep
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"
+
+vim.opt.showmode = false

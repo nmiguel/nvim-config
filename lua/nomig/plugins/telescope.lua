@@ -1,22 +1,32 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-    lazy = false,
+		"nvim-lua/plenary.nvim",
+	},
+	lazy = false,
+	keys = {
+		{ mode = "n", "<leader>pf", require("telescope.builtin").find_files },
+		{
+			mode = "n",
+			"<leader>paf",
+			function()
+				require("telescope.builtin").find_files({ no_ignore = true })
+			end,
+		},
+		{ mode = "n", "<leader>ps", require("telescope.builtin").live_grep },
+		{ mode = "n", "<leader>ds", require("telescope.builtin").help_tags },
+	},
 	config = function()
-		local builtin = require("telescope.builtin")
-		-- local telescope = require('telescope')
-		-- telescope.setup({
-		--     pickers = {
-		--         hidden = true
-		--     }
-		-- })
-		vim.keymap.set("n", "<leader>pf", builtin.find_files)
-		vim.keymap.set("n", "<leader>paf", function()
-			builtin.find_files({ no_ignore = true })
-		end)
-		vim.keymap.set("n", "<leader>ps", builtin.live_grep)
-		vim.keymap.set("n", "<leader>ds", builtin.help_tags)
+		local actions = require("telescope.actions")
+		require("telescope").setup({
+			defaults = {
+				mappings = {
+					i = {
+						["<esc>"] = actions.close,
+					},
+				},
+                path_display ={  "filename_first" },
+			},
+		})
 	end,
 }

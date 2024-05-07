@@ -2,7 +2,6 @@ return {
 	"mhartington/formatter.nvim",
 	keys = {
 		{
-			-- Customize or remove this keymap to your liking
 			"<leader>cf",
 			"<cmd>Format<cr>",
 			mode = { "n", "x" },
@@ -11,13 +10,19 @@ return {
 	},
 	config = function()
 		require("formatter").setup({
-            logging = true,
-            log_level = vim.log.levels.DEBUG,
+			logging = true,
+			log_level = vim.log.levels.DEBUG,
 			filetype = {
 				lua = { require("formatter.filetypes.lua").stylua },
 				python = { require("formatter.filetypes.python").black },
 				cs = { require("formatter.filetypes.cs").clangformat },
-				json = { require("formatter.filetypes.json").prettier },
+				json = {
+					function()
+						local jq = require("formatter.filetypes.json").jq()
+						jq.args = { "--indent", "4", "." }
+						return jq
+					end,
+				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
 			},
 		})

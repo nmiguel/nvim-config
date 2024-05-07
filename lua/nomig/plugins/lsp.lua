@@ -54,7 +54,7 @@ return {
 		require("mason").setup({})
 		require("mason-lspconfig").setup({
 			-- ensure_installed = { "pyright", "omnisharp" },
-			ensure_installed = { "pyright", "gopls", "yamlls"},
+			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls"},
 			handlers = {
 				lua_ls = function()
 					local lspconfig = require("lspconfig")
@@ -110,6 +110,12 @@ return {
 					local lspconfig = require("lspconfig")
 					lspconfig.gopls.setup({})
 				end,
+                ["jsonls"] = function()
+					local lspconfig = require("lspconfig")
+					lspconfig.jsonls.setup({
+						settings = {},
+					})
+                end,
                 ["yamlls"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.yamlls.setup({
