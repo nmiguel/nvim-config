@@ -1,51 +1,61 @@
 return {
-    'linux-cultist/venv-selector.nvim',
-    dependencies = {
-        'neovim/nvim-lspconfig',
-        'nvim-telescope/telescope.nvim',
-        'mfussenegger/nvim-dap-python',
-    },
-    ft = "python",
+	{
+		"linux-cultist/venv-selector.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"nvim-telescope/telescope.nvim",
+			"mfussenegger/nvim-dap-python",
+		},
+		ft = "python",
 
-    keys = {
-        { mode = "n",
-        "<leader>rp",
-        ":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>",
-        desc = "Run python file",
-        },
+		keys = {
+			{
+				mode = "n",
+				"<leader>rp",
+				":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>",
+				desc = "Run python file",
+			},
 
-        { mode = "n",
-        '<leader>pe',
-        '<cmd>VenvSelect<cr>',
-        desc = "Select venv",
-        },
+			{ mode = "n", "<leader>pe", "<cmd>VenvSelect<cr>", desc = "Select venv" },
 
-        { mode = "n",
-        '<leader>pc',
-        '<cmd>VenvSelectCached<cr>',
-        desc = "Select cached venv",
-        },
+			{
+				mode = "n",
+				"<leader>pc",
+				"<cmd>VenvSelectCached<cr>",
+				desc = "Select cached venv",
+			},
+		},
 
-    },
+		config = function()
+			local opts = {
+				search = true,
+				parents = 1,
+			}
+			require("venv-selector").setup(opts)
+			require("venv-selector").retrieve_from_cache()
+		end,
+	},
 
-    config = function()
-        local opts = {
-            search = true,
-            parents = 1,
-        }
-        require('venv-selector').setup(opts)
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "python",
-            desc = 'Auto select virtualenv Nvim open',
-            callback = function()
-                -- local venv = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
-                -- if venv ~= '' then
-                require('venv-selector').retrieve_from_cache()
-                vim.api.nvim_command("silent LspRestart")
-                -- end
-            end,
-            once = true,
-        })
-
-    end,
+	{
+		"mfussenegger/nvim-dap-python",
+		config = function()
+			require("dap-python").setup("python")
+			-- An example configuration to launch any Python file, via Houdini
+			-- table.insert(
+			--     require("dap").configurations.python,
+			--     {
+			--         type = "python",
+			--         request = "launch",
+			--         name = "Launch Via hython",
+			--         program = "${file}",
+			--         python = "/opt/hfs19.5.569/bin/hython"
+			--         -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+			--     }
+			-- )
+		end,
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
 }
