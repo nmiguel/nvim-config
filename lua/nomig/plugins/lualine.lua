@@ -5,6 +5,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		{
 			"letieu/harpoon-lualine",
+            enabled = false,
 			dependencies = {
 				{
 					"ThePrimeagen/harpoon",
@@ -168,9 +169,14 @@ return {
 		})
 
 		ins(config.sections.lualine_x, {
-			"harpoon2",
+			"grapple",
 			color = { fg = colors.dark_blue, gui = "bold" },
 		})
+
+		-- ins(config.sections.lualine_x, {
+		-- 	"harpoon2",
+		-- 	color = { fg = colors.dark_blue, gui = "bold" },
+		-- })
 
 		ins(config.sections.lualine_x, {
 			-- Lsp server name .

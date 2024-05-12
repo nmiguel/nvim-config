@@ -3,6 +3,7 @@ return {
 	-- branch = "kimabrandt-flx:feat_sync_selection",
     commit = "5bdbb379d949f7a48c08decb10250debe0a0d398",
     lazy = false,
+    enabled = false,
 	dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope.nvim",
