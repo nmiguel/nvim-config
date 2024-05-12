@@ -48,13 +48,18 @@ return {
 				vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
 			end,
 		})
+		local _border = "single"
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = _border,
+		})
 
 		-- to learn how to use mason.nvim with lsp-zero
 		-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 		require("mason").setup({})
 		require("mason-lspconfig").setup({
 			-- ensure_installed = { "pyright", "omnisharp" },
-			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls"},
+			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls" },
 			handlers = {
 				lua_ls = function()
 					local lspconfig = require("lspconfig")
@@ -110,18 +115,18 @@ return {
 					local lspconfig = require("lspconfig")
 					lspconfig.gopls.setup({})
 				end,
-                ["jsonls"] = function()
+				["jsonls"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.jsonls.setup({
 						settings = {},
 					})
-                end,
-                ["yamlls"] = function()
+				end,
+				["yamlls"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.yamlls.setup({
 						settings = {},
 					})
-                end,
+				end,
 			},
 		})
 	end,
