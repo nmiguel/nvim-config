@@ -1,16 +1,4 @@
 function MyTheme()
-	require("onedark").setup({
-		transparent = true,
-	})
-
-	vim.cmd("colorscheme onedark")
-
-	vim.diagnostic.config({
-		virtual_text = {
-			prefix = "",
-		},
-	})
-
 	-- lsp virtual text bg
 	vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#993939" })
 	vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none", fg = "#93691d" })
@@ -47,12 +35,19 @@ function MyTheme()
 	vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
 end
 
--- MyTheme()
 return {
-	"navarasu/onedark.nvim",
-	lazy = false,
-	name = "my_theme",
-	config = function()
-		MyTheme()
-	end,
+	{
+		"navarasu/onedark.nvim",
+		lazy = false,
+		name = "my_theme",
+		config = function()
+			require("onedark").setup({
+				transparent = true,
+			})
+
+			vim.cmd("colorscheme onedark")
+
+			MyTheme()
+		end,
+	},
 }

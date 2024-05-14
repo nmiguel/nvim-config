@@ -15,7 +15,10 @@ return {
 			filetype = {
 				lua = { require("formatter.filetypes.lua").stylua },
 				python = { require("formatter.filetypes.python").black },
-				cs = { require("formatter.filetypes.cs").clangformat },
+				cs = { function ()
+                    local csharpier = require("formatter.filetypes.cs").csharpier()
+                    return csharpier
+                end},
 				json = {
 					function()
 						local jq = require("formatter.filetypes.json").jq()

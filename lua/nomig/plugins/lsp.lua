@@ -9,13 +9,24 @@ return {
 
 	event = "BufEnter",
 	dependencies = {
-		{ "williamboman/mason.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
 
 		-- Autocompletion
-		{ "folke/neodev.nvim" },
-		{ "L3MON4D3/LuaSnip" },
-		{ "nvim-telescope/telescope.nvim" },
+		"folke/neodev.nvim",
+		"L3MON4D3/LuaSnip",
+		"nvim-telescope/telescope.nvim",
+		"Hoffs/omnisharp-extended-lsp.nvim",
+		{
+			"iabdelkareem/csharp.nvim",
+			dependencies = {
+				"williamboman/mason.nvim",
+				"Tastyep/structlog.nvim",
+			},
+			config = function()
+				require("csharp").setup()
+			end,
+		},
 	},
 
 	config = function()
@@ -23,6 +34,13 @@ return {
 		vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
 		vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+
+        vim.diagnostic.config({
+            virtual_text = {
+                prefix = "",
+            },
+        })
+
 		require("neodev").setup({})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -50,6 +68,10 @@ return {
 		})
 		local _border = "single"
 
+		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+			border = _border,
+		})
+
 		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 			border = _border,
 		})
@@ -58,8 +80,7 @@ return {
 		-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 		require("mason").setup({})
 		require("mason-lspconfig").setup({
-			-- ensure_installed = { "pyright", "omnisharp" },
-			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls" },
+			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls", "omnisharp" },
 			handlers = {
 				lua_ls = function()
 					local lspconfig = require("lspconfig")
@@ -98,9 +119,46 @@ return {
 					})
 				end,
 				["omnisharp"] = function()
-					local lspconfig = require("lspconfig")
-					lspconfig.omnisharp.setup({
-						settings = {},
+					require("lspconfig").omnisharp.setup({
+						handlers = {
+							["textDocument/definition"] = require("omnisharp_extended").handler,
+						},
+						-- cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
+
+						-- Enables support for reading code style, naming convention and analyzer
+						-- settings from .editorconfig.
+						enable_editorconfig_support = true,
+
+						-- If true, MSBuild project system will only load projects for files that
+						-- were opened in the editor. This setting is useful for big C# codebases
+						-- and allows for faster initialization of code navigation features only
+						-- for projects that are relevant to code that is being edited. With this
+						-- setting enabled OmniSharp may load fewer projects and may thus display
+						-- incomplete reference lists for symbols.
+						enable_ms_build_load_projects_on_demand = false, -- default false
+
+						-- Enables support for roslyn analyzers, code fixes and rulesets.
+						enable_roslyn_analyzers = true, -- default false
+
+						-- Specifies whether 'using' directives should be grouped and sorted during
+						-- document formatting.
+						organize_imports_on_format = true, -- default false
+
+						-- Enables support for showing unimported types and unimported extension
+						-- methods in completion lists. When committed, the appropriate using
+						-- directive will be added at the top of the current file. This option can
+						-- have a negative impact on initial completion responsiveness,
+						-- particularly for the first few completion sessions after opening a
+						-- solution.
+						enable_import_completion = true, -- default false
+
+						-- Specifies whether to include preview versions of the .NET SDK when
+						-- determining which version to use for project loading.
+						sdk_include_prereleases = true,
+
+						-- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+						-- true
+						analyze_open_documents_only = true, -- default false
 					})
 				end,
 				["gopls"] = function()
