@@ -35,11 +35,11 @@ return {
 		vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
-        vim.diagnostic.config({
-            virtual_text = {
-                prefix = "",
-            },
-        })
+		vim.diagnostic.config({
+			virtual_text = {
+				prefix = "",
+			},
+		})
 
 		require("neodev").setup({})
 
@@ -80,9 +80,12 @@ return {
 		-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 		require("mason").setup({})
 		require("mason-lspconfig").setup({
-			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls", "omnisharp" },
+			ensure_installed = { "pyright", "gopls", "yamlls", "jsonls", "omnisharp", "zls" },
 			handlers = {
-				lua_ls = function()
+				function(server_name) -- default handler (optional)
+					require("lspconfig")[server_name].setup({})
+				end,
+				["lua_ls"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.lua_ls.setup({
 						settings = {
@@ -123,7 +126,7 @@ return {
 						handlers = {
 							["textDocument/definition"] = require("omnisharp_extended").handler,
 						},
-						-- cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
+						cmd = { "dotnet", "/usr/bin/omnisharp/OmniSharp.dll"},
 
 						-- Enables support for reading code style, naming convention and analyzer
 						-- settings from .editorconfig.
@@ -183,6 +186,12 @@ return {
 					local lspconfig = require("lspconfig")
 					lspconfig.yamlls.setup({
 						settings = {},
+					})
+				end,
+				["zls"] = function()
+					local lspconfig = require("lspconfig")
+					lspconfig.zls.setup({
+						settings = { zig_exe_path = "/usr/bin/zig/zig"},
 					})
 				end,
 			},
