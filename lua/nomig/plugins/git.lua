@@ -17,7 +17,7 @@ return {
 			"FabijanZulj/blame.nvim",
 			keys = {
 				{
-					"<leader>b",
+					"<leader>bg",
 					"<cmd>BlameToggle<CR>",
 					mode = "n",
 					desc = "Toggle Blame",
