@@ -37,9 +37,56 @@ end
 
 return {
 	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		-- enabled = false,
+		priority = 1000,
+		config = function()
+			require("tokyonight").setup({
+				transparent = true,
+				sidebars = { "Packer" },
+                style = "night",
+				dim_inactive = true,
+                styles = {
+                    sidebars = "transparent",
+                    float = "transparent",
+                },
+				on_colors = function(c)
+					c.bg = "NONE"
+					c.bg_dark = "NONE"
+					c.bg_float = "NONE"
+				end,
+				on_highlights = function(hl, c)
+					hl.DiagnosticVirtualTextInfo = {
+						bg = "none",
+                        fg = hl.DiagnosticVirtualTextInfo.fg,
+					}
+					hl.DiagnosticVirtualTextWarn = {
+						bg = "none",
+                        fg = hl.DiagnosticVirtualTextWarn.fg,
+					}
+					hl.DiagnosticVirtualTextError = {
+						bg = "none",
+                        fg = hl.DiagnosticVirtualTextError.fg,
+					}
+					hl.DiagnosticVirtualTextHint = {
+						bg = "none",
+                        fg = hl.DiagnosticVirtualTextHint.fg,
+					}
+                    hl.WinSeparator = {
+                        fg = c.purple,
+                        bg = "none",
+                    }
+				end,
+			})
+            vim.cmd("colorscheme tokyonight")
+		end,
+	},
+	{
 		"navarasu/onedark.nvim",
 		lazy = false,
-		name = "my_theme",
+		enabled = false,
+		priority = 1000,
 		config = function()
 			require("onedark").setup({
 				transparent = true,

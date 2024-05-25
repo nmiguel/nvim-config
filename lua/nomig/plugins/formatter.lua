@@ -27,6 +27,7 @@ return {
 					end,
 				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
+				zig = { require("formatter.filetypes.zig").zigfmt },
 			},
 		})
 	end,

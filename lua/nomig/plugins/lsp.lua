@@ -41,6 +41,8 @@ return {
 			},
 		})
 
+		-- vim.lsp.inlay_hint.enable()
+
 		require("neodev").setup({})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -49,9 +51,6 @@ return {
 				local opts = { buffer = event.buf, noremap = true }
 
 				vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
-				vim.keymap.set("n", "K", function()
-					vim.lsp.buf.hover()
-				end, opts)
 				vim.keymap.set("n", "<leader>va", function()
 					vim.lsp.buf.code_action()
 				end, opts)
@@ -129,7 +128,7 @@ return {
 								telemetry = {
 									enable = false,
 								},
-                            },
+							},
 						},
 					})
 				end,
@@ -153,7 +152,7 @@ return {
 						handlers = {
 							["textDocument/definition"] = require("omnisharp_extended").handler,
 						},
-						cmd = { "/usr/bin/dotnet/dotnet", "/usr/bin/Omnisharp/OmniSharp.dll" },
+						cmd = { "mono", "/usr/bin/Omnisharp/OmniSharp.dll" },
 
 						-- Enables support for reading code style, naming convention and analyzer
 						-- settings from .editorconfig.
@@ -189,6 +188,7 @@ return {
 						-- Only run analyzers against open files when 'enableRoslynAnalyzers' is
 						-- true
 						analyze_open_documents_only = true, -- default false
+                        use_mono = true,
 					})
 				end,
 				["gopls"] = function()
@@ -216,9 +216,12 @@ return {
 					})
 				end,
 				["zls"] = function()
+                    vim.g.zig_fmt_autosave = 0
 					local lspconfig = require("lspconfig")
 					lspconfig.zls.setup({
-						settings = { zig_exe_path = "/usr/bin/zig/zig" },
+						settings = {
+							zig_exe_path = "/usr/bin/zig/zig",
+						},
 					})
 				end,
 			},

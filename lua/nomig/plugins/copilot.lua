@@ -4,13 +4,19 @@ return {
 	keys = {
 		{
 			"<leader>ce",
-			"<cmd>Copilot enable<CR>",
+			function()
+                vim.cmd("Copilot enable")
+                print("Copilot enabled")
+            end,
 			mode = "n",
 			desc = "Enable Copilot",
 		},
 		{
 			"<leader>cd",
-			"<cmd>Copilot disable<CR>",
+			function()
+                vim.cmd("Copilot disable")
+                print("Copilot disabled")
+            end,
 			mode = "n",
 			desc = "Disable Copilot",
 		},

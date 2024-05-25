@@ -1,13 +1,9 @@
 return {
 	"stevearc/dressing.nvim",
 	{
-		"numToStr/Comment.nvim",
-		event = { "BufWritePost", "BufReadPost", "InsertEnter" },
-		config = function()
-			require("Comment").setup()
-		end,
+		"levouh/tint.nvim",
+		opts = {},
 	},
-
 	{
 		"echasnovski/mini.surround",
 		event = { "VeryLazy" },

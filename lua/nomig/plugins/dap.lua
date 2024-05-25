@@ -48,13 +48,30 @@ return {
 
 				vim.cmd([[DapContinue]]) -- Important: This will lazy-load nvim-dap
 			end)
+
+			require("nvim-dap-virtual-text").setup({
+				-- This just tries to mitigate the chance that I leak tokens here. Probably won't stop it from happening...
+				only_first_definition = false,
+				all_references = true,
+				display_callback = function(variable)
+					if #variable.value > 15 then
+						return "  " .. string.sub(variable.value, 1, 15) .. "... "
+					end
+
+					return " " .. variable.value
+				end,
+			})
+
+			vim.api.nvim_set_hl(0, "NvimDapVirtualText", { bg = "none", fg = "#34ebeb" })
+			vim.api.nvim_set_hl(0, "NvimDapVirtualTextError", { bg = "none", fg = "#fc0f0f" })
+			vim.api.nvim_set_hl(0, "NvimDapVirtualTextChanged", { bg = "none", fg = "#fc860f" })
 		end,
 		dependencies = {
-            "nvim-neotest/nvim-nio",
+			"nvim-neotest/nvim-nio",
 			"mfussenegger/nvim-dap",
+			"theHamsta/nvim-dap-virtual-text",
 		},
 	},
-
 
 	-- Remember nvim-dap breakpoints between sessions, ``:PBToggleBreakpoint``
 	{

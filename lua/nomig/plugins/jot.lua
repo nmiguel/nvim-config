@@ -1,11 +1,12 @@
 return {
-	"nmiguel/jot.lua",
+	"letieu/jot.lua",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	keys = {
 		{
 			"<leader>td",
-			function() require('jot').open()
-            end,
+			function()
+				require("jot").open()
+			end,
 			mode = "n",
 			desc = "Open jot",
 		},
@@ -14,14 +15,9 @@ return {
 		quit_key = "q",
 		notes_dir = vim.fn.stdpath("data") .. "/jot",
 		win_opts = {
-			relative = "editor",
-			width = 70,
-			height = 100,
-			anchor = "NE",
-			row = 0,
-			col = vim.api.nvim_list_uis()[1].width,
-			-- split = "right",
+			split = "right",
 			focusable = false,
+            width = 80,
 		},
 	},
 }
