@@ -3,16 +3,6 @@ return {
 	event = "BufEnter",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		{
-			"letieu/harpoon-lualine",
-            enabled = false,
-			dependencies = {
-				{
-					"ThePrimeagen/harpoon",
-					branch = "harpoon2",
-				},
-			},
-		},
 	},
 	config = function()
 		-- Eviline config for lualine
@@ -172,11 +162,6 @@ return {
 			"grapple",
 			color = { fg = colors.dark_blue, gui = "bold" },
 		})
-
-		-- ins(config.sections.lualine_x, {
-		-- 	"harpoon2",
-		-- 	color = { fg = colors.dark_blue, gui = "bold" },
-		-- })
 
 		ins(config.sections.lualine_x, {
 			-- Lsp server name .
