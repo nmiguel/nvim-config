@@ -2,40 +2,6 @@ return {
 	"brenoprata10/nvim-highlight-colors",
 	event = "BufEnter",
 
-	dependencies = {
-		{
-			"RRethy/vim-illuminate",
-			config = function()
-				require("illuminate").configure({
-					providers = {
-						"lsp",
-						"treesitter",
-						"regex",
-					},
-					delay = 100,
-					filetypes_denylist = {
-                        "blame",
-						"dirbuf",
-						"dirvish",
-						"fugitive",
-                        "aerial",
-                        "netrw",
-                        "lazy",
-                        "mason",
-					},
-					-- under_cursor: whether or not to illuminate under the cursor
-					under_cursor = true,
-					min_count_to_highlight = 2,
-					-- case_insensitive_regex: sets regex case sensitivity
-					case_insensitive_regex = false,
-				})
-
-				vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#525252" })
-				vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = "#525252" })
-				vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#525252" })
-			end,
-		},
-	},
 	opts = {
 		---@usage 'background'|'foreground'|'virtual'
 		render = "virtual",
