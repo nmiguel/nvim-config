@@ -57,6 +57,10 @@ return {
 					c.bg_float = "NONE"
 				end,
 				on_highlights = function(hl, c)
+                    hl.LineNr = {
+                        fg = c.purple,
+                        bg = "none",
+                    }
 					hl.DiagnosticVirtualTextInfo = {
 						bg = "none",
                         fg = hl.DiagnosticVirtualTextInfo.fg,
