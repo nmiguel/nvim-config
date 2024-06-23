@@ -28,6 +28,7 @@ return {
 				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
 				zig = { require("formatter.filetypes.zig").zigfmt },
+				go = { require("formatter.filetypes.go").gofmt },
 				gleam = { function ()
                     local gleam = { exe = "gleam", args = { "format", "--stdin" }, stdin = true }
                     return gleam
