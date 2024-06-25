@@ -7,14 +7,15 @@ return {
 			"mfussenegger/nvim-dap-python",
 		},
 		ft = "python",
+		branch = "regexp",
 
 		keys = {
-			{
-				mode = "n",
-				"<leader>rp",
-				":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>",
-				desc = "Run python file",
-			},
+			-- {
+			-- 	mode = "n",
+			-- 	"<leader>rp",
+			-- 	":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>",
+			-- 	desc = "Run python file",
+			-- },
 
 			{ mode = "n", "<leader>pe", "<cmd>VenvSelect<cr>", desc = "Select venv" },
 
@@ -28,11 +29,11 @@ return {
 
 		config = function()
 			local opts = {
-				search = true,
-				parents = 1,
+				-- search = true,
+				-- parents = 1,
 			}
 			require("venv-selector").setup(opts)
-			require("venv-selector").retrieve_from_cache()
+			-- require("venv-selector").retrieve_from_cache()
 		end,
 	},
 
