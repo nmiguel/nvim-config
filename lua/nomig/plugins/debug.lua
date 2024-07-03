@@ -5,4 +5,5 @@ return {
         "echasnovski/mini.nvim",
         "nvim-treesitter/nvim-treesitter"
     },
+    event = "VeryLazy",
 }

@@ -81,6 +81,14 @@ return {
                         fg = c.purple,
                         bg = "none",
                     }
+                    hl.GitSignsAdd = {
+                        fg = c.green,
+                        bg = "none",
+                    }
+                    hl.GitSignsChange = {
+                        fg = c.blue,
+                        bg = "none",
+                    }
 				end,
 			})
             vim.cmd("colorscheme tokyonight")

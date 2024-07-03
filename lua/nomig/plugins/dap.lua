@@ -31,7 +31,7 @@ return {
 				require("dapui").close()
 			end)
 		end,
-		lazy = true,
+        event = "VeryLazy",
 	},
 
 	-- A default "GUI" front-end for nvim-dap
