@@ -97,9 +97,6 @@ return {
 			border = _border,
 		})
 
-		-- TODO: find a better place for this (ftplugins?)
-		require("lspconfig").gleam.setup({})
-
 		-- to learn how to use mason.nvim with lsp-zero
 		-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 		require("mason").setup({})
@@ -222,16 +219,45 @@ return {
 					})
 				end,
 				["gopls"] = function()
-					vim.api.nvim_create_autocmd("FileType", {
-						pattern = "go",
-						desc = "Set go run key",
-						callback = function()
-							vim.keymap.set("n", "<leader>rp", ":w<CR>:exec '!go run ' . shellescape(expand('%'))<CR>")
-						end,
-						once = true,
-					})
 					local lspconfig = require("lspconfig")
-					lspconfig.gopls.setup({})
+					lspconfig.gopls.setup({
+						settings = {
+							gopls = {
+								gofumpt = true,
+								codelenses = {
+									gc_details = false,
+									generate = true,
+									regenerate_cgo = true,
+									run_govulncheck = true,
+									test = true,
+									tidy = true,
+									upgrade_dependency = true,
+									vendor = true,
+								},
+								hints = {
+									assignVariableTypes = true,
+									compositeLiteralFields = true,
+									compositeLiteralTypes = true,
+									constantValues = true,
+									functionTypeParameters = true,
+									parameterNames = true,
+									rangeVariableTypes = true,
+								},
+								analyses = {
+									fieldalignment = true,
+									nilness = true,
+									unusedparams = true,
+									unusedwrite = true,
+									useany = true,
+								},
+								usePlaceholders = true,
+								completeUnimported = true,
+								staticcheck = true,
+								directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+								semanticTokens = true,
+							},
+						},
+					})
 				end,
 				["jsonls"] = function()
 					local lspconfig = require("lspconfig")
