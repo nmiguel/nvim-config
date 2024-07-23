@@ -38,6 +38,9 @@ return {
 				local gitdir = vim.fn.finddir(".git", filepath .. ";")
 				return gitdir and #gitdir > 0 and #gitdir < #filepath
 			end,
+            is_not_term = function()
+                return string.find(vim.api.nvim_buf_get_name(0), "^term://") == nil
+            end,
 		}
 
 		-- Config
@@ -116,7 +119,8 @@ return {
 
 		ins(config.sections.lualine_c, {
 			"filename",
-			cond = conditions.buffer_not_empty,
+			-- cond = conditions.buffer_not_empty,
+            cond = function() return (conditions.buffer_not_empty() and conditions.is_not_term()) end,
 			path = 1,
 			newfile_status = true,
 			symbols = {
