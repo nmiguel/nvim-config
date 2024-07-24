@@ -47,7 +47,7 @@ return {
 		local config = {
 			options = {
 				-- Disable sections and component separators
-                section_separators = { left = '', right = '' },
+                section_separators = "",
 				component_separators = "",
 				theme = {
 					normal = {

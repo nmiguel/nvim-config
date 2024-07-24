@@ -4,11 +4,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
         focus = true,
-        win = {
-            type = "split",
-            position = "right",
-            size = 60,
-        },
+        -- win = {
+        --     type = "split",
+        --     position = "right",
+        --     size = 60,
+        -- },
     },
     keys = {
         { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)" },

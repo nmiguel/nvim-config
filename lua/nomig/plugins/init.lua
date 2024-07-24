@@ -1,9 +1,11 @@
 return {
 	"stevearc/dressing.nvim",
+	"tpope/vim-vinegar",
 	{
 		"levouh/tint.nvim",
 		opts = {},
 	},
+	-- { "plax-00/endscroll.nvim", opts = {} },
 	{
 		"echasnovski/mini.surround",
 		event = { "VeryLazy" },

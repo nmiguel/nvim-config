@@ -1,40 +1,5 @@
 return {
 	{
-		"rachartier/tiny-code-action.nvim",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope.nvim" },
-		},
-		event = "LspAttach",
-		config = function()
-			require("tiny-code-action").setup()
-			vim.api.nvim_set_keymap(
-				"n",
-				"<leader>va",
-				"<cmd>lua require('tiny-code-action').code_action()<cr>",
-				{ noremap = true, silent = true }
-			)
-		end,
-	},
-	{
-		"kosayoda/nvim-lightbulb",
-		event = "VeryLazy",
-		config = function()
-			vim.api.nvim_set_hl(0, "LightBulbSign", { fg = "#FFA500", bg = "none" })
-			require("nvim-lightbulb").setup({
-				autocmd = { enabled = true },
-				sign = {
-					enabled = true,
-					-- Text to show in the sign column.
-					-- Must be between 1-2 characters.
-					text = "",
-					-- Highlight group to highlight the sign column text.
-					hl = "LightBulbSign",
-				},
-			})
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
 		-- ft = {
 		--     "python",
@@ -324,6 +289,41 @@ return {
 							},
 						})
 					end,
+				},
+			})
+		end,
+	},
+	{
+		"rachartier/tiny-code-action.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope.nvim" },
+		},
+		event = "LspAttach",
+		config = function()
+			require("tiny-code-action").setup()
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>va",
+				"<cmd>lua require('tiny-code-action').code_action()<cr>",
+				{ noremap = true, silent = true }
+			)
+		end,
+	},
+	{
+		"kosayoda/nvim-lightbulb",
+		event = "LspAttach",
+		config = function()
+			vim.api.nvim_set_hl(0, "LightBulbSign", { fg = "#FFA500", bg = "none" })
+			require("nvim-lightbulb").setup({
+				autocmd = { enabled = true },
+				sign = {
+					enabled = true,
+					-- Text to show in the sign column.
+					-- Must be between 1-2 characters.
+					text = "",
+					-- Highlight group to highlight the sign column text.
+					hl = "LightBulbSign",
 				},
 			})
 		end,

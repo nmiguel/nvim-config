@@ -31,6 +31,9 @@ return {
 
 		config = function()
 			require("neotest").setup({
+                diagnostic = {
+                    enabled = true,
+                },
                 status = {
                     signs = false,
                 },

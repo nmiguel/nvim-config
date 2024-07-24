@@ -14,11 +14,16 @@ return {
 			log_level = vim.log.levels.DEBUG,
 			filetype = {
 				lua = { require("formatter.filetypes.lua").stylua },
-				python = { require("formatter.filetypes.python").black },
-				cs = { function ()
-                    local csharpier = require("formatter.filetypes.cs").csharpier()
-                    return csharpier
-                end},
+				python = {
+					require("formatter.filetypes.python").isort,
+					require("formatter.filetypes.python").black,
+				},
+				cs = {
+					function()
+						local csharpier = require("formatter.filetypes.cs").csharpier()
+						return csharpier
+					end,
+				},
 				json = {
 					function()
 						local jq = require("formatter.filetypes.json").jq()
@@ -28,11 +33,16 @@ return {
 				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
 				zig = { require("formatter.filetypes.zig").zigfmt },
-				go = { require("formatter.filetypes.go").gofmt },
-				gleam = { function ()
-                    local gleam = { exe = "gleam", args = { "format", "--stdin" }, stdin = true }
-                    return gleam
-                end,},
+				go = {
+					-- require("formatter.filetypes.go").goimports,
+					require("formatter.filetypes.go").gofmt,
+				},
+				gleam = {
+					function()
+						local gleam = { exe = "gleam", args = { "format", "--stdin" }, stdin = true }
+						return gleam
+					end,
+				},
 			},
 		})
 	end,
