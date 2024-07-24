@@ -47,16 +47,17 @@ return {
 		local config = {
 			options = {
 				-- Disable sections and component separators
-				-- component_separators = { left = "", right = "" },
-				-- section_separators = { left = "", right = "" },
-				section_separators = "",
+                section_separators = { left = '', right = '' },
 				component_separators = "",
 				theme = {
-					-- We are going to use lualine_c an lualine_x as left and
-					-- right section. Both are highlighted by c theme .  So we
-					-- are just setting default looks o statusline
-					normal = { c = { fg = colors.fg, bg = colors.bg } },
-					inactive = { c = { fg = colors.fg, bg = colors.bg } },
+					normal = {
+                        a = { fg = colors.fg, bg = colors.bg },
+                        b = { fg = colors.fg, bg = colors.bg },
+                        c = { fg = colors.fg, bg = colors.bg },
+                        x = { fg = colors.fg, bg = colors.bg },
+                        y = { fg = colors.fg, bg = colors.bg },
+                        z = { fg = colors.fg, bg = colors.bg },
+                    },
 				},
 				globalstatus = true,
 			},
@@ -70,13 +71,6 @@ return {
 				lualine_z = {},
 				-- These will be filled later
 			},
-			inactive_sections = {
-				-- these are to remove the defaults
-				lualine_a = {},
-				lualine_b = {},
-				lualine_y = {},
-				lualine_z = {},
-			},
 		}
 
 		-- Inserts a component in lualine_c at left section
@@ -84,10 +78,10 @@ return {
 			table.insert(tab, component)
 		end
 
-		ins(config.sections.lualine_c, {
+		ins(config.sections.lualine_a, {
 			-- mode component
 			function()
-				return ""
+				return "ᓚᘏᗢ"
 			end,
 			color = function()
 				-- auto change color according to neovims mode
@@ -112,12 +106,12 @@ return {
 					["!"] = colors.red,
 					t = colors.red,
 				}
-				return { fg = mode_color[vim.fn.mode()] }
+				return { fg = mode_color[vim.fn.mode()], gui = "bold"}
 			end,
-			padding = { left = 1, right = 1 },
+            -- separator = { left = '' }
 		})
 
-		ins(config.sections.lualine_c, {
+		ins(config.sections.lualine_b, {
 			"filename",
 			-- cond = conditions.buffer_not_empty,
             cond = function() return (conditions.buffer_not_empty() and conditions.is_not_term()) end,
@@ -138,10 +132,9 @@ return {
 				modified = { fg = colors.fg },
 				removed = { fg = colors.red },
 			},
-			cond = conditions.hide_in_width,
+            draw_empty = true,
+			-- cond = conditions.hide_in_width,
 		})
-
-		-- ins_left { 'location' }
 
 		ins(config.sections.lualine_c, {
 			"diagnostics",
@@ -156,7 +149,7 @@ return {
 
 		-- Insert mid section. You can make any number of sections in neovim :)
 		-- for lualine it's any number greater then 2
-		ins(config.sections.lualine_c, {
+		ins(config.sections.lualine_x, {
 			function()
 				return "%="
 			end,
