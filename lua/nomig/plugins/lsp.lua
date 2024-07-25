@@ -74,33 +74,27 @@ return {
 					local opts = { buffer = event.buf, noremap = true }
 
 					vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
+					vim.keymap.set("n", "gt", require("telescope.builtin").lsp_type_definitions, opts)
+					vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
 					-- Uses a different plugin
-					-- vim.keymap.set("n", "<leader>va", function()
-					-- 	vim.lsp.buf.code_action()
-					-- end, opts)
+					-- vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>vr", require("telescope.builtin").lsp_references, opts)
-					vim.keymap.set("n", "<leader>vn", function()
-						vim.lsp.buf.rename()
-					end, opts)
-					vim.keymap.set("i", "<C-s>", function()
-						vim.lsp.buf.signature_help()
-					end, opts)
+					-- vim.keymap.set("n", "<leader>vr", vim.lsp.buf., opts)
+					vim.keymap.set("n", "<leader>vn", vim.lsp.buf.rename, opts)
+					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
 					vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, opts)
 					vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
 				end,
 			})
-			local _border = "single"
 
+			local _border = "single"
 			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 				border = _border,
 			})
-
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = _border,
 			})
 
-			-- to learn how to use mason.nvim with lsp-zero
-			-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 			require("mason").setup({})
 			require("mason-lspconfig").setup({
 				ensure_installed = { "pyright", "gopls", "yamlls", "jsonls", "zls" },
