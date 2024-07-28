@@ -10,7 +10,6 @@ return {
 			-- Autocompletion
 			"L3MON4D3/LuaSnip",
 			"nvim-telescope/telescope.nvim",
-			{ "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
 
 			-- Lua extra config
 			{
@@ -182,32 +181,6 @@ return {
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,
 			})
-			local omnisharp_opts = {
-				capabilities = capabilities,
-				handlers = {
-					["textDocument/definition"] = function(...)
-						return require("omnisharp_extended").handler(...)
-					end,
-				},
-				keys = {
-					{
-						"gd",
-						function()
-							require("omnisharp_extended").telescope_lsp_definitions()
-						end,
-						desc = "Goto Definition",
-					},
-				},
-				enable_roslyn_analyzers = true,
-				organize_imports_on_format = true,
-				enable_import_completion = true,
-				use_mono = true,
-				root_dir = function()
-					return vim.loop.cwd() -- current working directory
-				end,
-			}
-			lspconfig.omnisharp.setup(omnisharp_opts)
-			-- lspconfig.omnisharp_mono.setup(omnisharp_opts)
 		end,
 	},
 	{
@@ -246,9 +219,9 @@ return {
 		end,
 	},
 	{
-    -- Notifies to state of the LSP server
+		-- Notifies to state of the LSP server
 		"j-hui/fidget.nvim",
-        enabled = false,
+		enabled = false,
 		opts = {
 			-- options
 			notification = {
