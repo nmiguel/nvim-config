@@ -88,8 +88,10 @@ return {
 			})
 			require("mason-lspconfig").setup({})
 
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
 				settings = {
 					Lua = {
 						workspace = {
@@ -116,6 +118,7 @@ return {
 				},
 			})
 			lspconfig.pyright.setup({
+				capabilities = capabilities,
 				settings = {
 					python = {
 						analysis = {
@@ -129,6 +132,7 @@ return {
 				},
 			})
 			lspconfig.gopls.setup({
+				capabilities = capabilities,
 				settings = {
 					gopls = {
 						gofumpt = true,
@@ -173,12 +177,13 @@ return {
 				},
 			})
 			lspconfig.jsonls.setup({
-				settings = {},
+				capabilities = capabilities,
 			})
 			lspconfig.yamlls.setup({
-				settings = {},
+				capabilities = capabilities,
 			})
-			lspconfig.omnisharp.setup({
+			local omnisharp_opts = {
+				capabilities = capabilities,
 				handlers = {
 					["textDocument/definition"] = function(...)
 						return require("omnisharp_extended").handler(...)
@@ -196,10 +201,13 @@ return {
 				enable_roslyn_analyzers = true,
 				organize_imports_on_format = true,
 				enable_import_completion = true,
-                root_dir = function ()
-                    return vim.loop.cwd() -- current working directory
-                end,
-			})
+				use_mono = true,
+				root_dir = function()
+					return vim.loop.cwd() -- current working directory
+				end,
+			}
+			lspconfig.omnisharp.setup(omnisharp_opts)
+			-- lspconfig.omnisharp_mono.setup(omnisharp_opts)
 		end,
 	},
 	{
@@ -236,5 +244,18 @@ return {
 				},
 			})
 		end,
+	},
+	{
+    -- Notifies to state of the LSP server
+		"j-hui/fidget.nvim",
+        enabled = false,
+		opts = {
+			-- options
+			notification = {
+				window = {
+					winblend = 0,
+				},
+			},
+		},
 	},
 }
