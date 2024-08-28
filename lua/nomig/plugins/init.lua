@@ -3,6 +3,7 @@ return {
 	"tpope/vim-vinegar",
 	{
 		"levouh/tint.nvim",
+        enabled = false,
 		opts = {},
 	},
 	-- { "plax-00/endscroll.nvim", opts = {} },
