@@ -7,7 +7,7 @@ return {
 		vim.keymap.set("n", "<leader>md", "<cmd>Markview<CR>")
 		require("markview").setup({
 			modes = { "n", "no", "i" },
-			hybrid_modes = { "n", "no", "i" },
+			-- hybrid_modes = { "n", "no", "i" },
 			list_items = {
 				shift_width = 2,
 			},
@@ -16,6 +16,6 @@ return {
 				checked = { text = "", hl = "GitSignsAdd" },
 			},
 		})
-        -- vim.cmd("Markview")
+        vim.cmd("Markview")
 	end,
 }
