@@ -1,6 +1,7 @@
 return {
 	"sschleemilch/slimline.nvim",
 	config = function()
+        vim.opt.laststatus = 3
 		require("slimline").setup({
 			bold = false, -- makes primary parts and mode bold
 			verbose_mode = false, -- Mode as single letter or as a word
