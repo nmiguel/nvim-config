@@ -37,3 +37,6 @@ vim.keymap.set("n", "<leader>p", "<nop>")  -- I press this so much before decidi
 
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
+
+vim.api.nvim_set_keymap('n', 'j','gj' , {noremap = true})
+vim.api.nvim_set_keymap('n', 'k','gk' , {noremap = true})
