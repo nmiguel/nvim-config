@@ -57,6 +57,10 @@ return {
 					c.bg_float = "NONE"
 				end,
 				on_highlights = function(hl, c)
+                    hl.StatusLine = {
+                        fg = c.fg,
+                        bg = "none",
+                    }
                     hl.LineNr = {
                         fg = c.purple,
                         bg = "none",

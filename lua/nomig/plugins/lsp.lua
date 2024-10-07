@@ -87,6 +87,7 @@ return {
 			})
 			require("mason-lspconfig").setup({})
 
+			local util = require("lspconfig/util")
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities.textDocument.foldingRange = {
 				dynamicRegistration = false,
@@ -123,6 +124,19 @@ return {
 			})
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
+				cmd = { "pyright-langserver", "--stdio" },
+				filetypes = { "python" },
+				root_dir = function(fname)
+					local root_files = {
+						"pyproject.toml",
+						"pyrightconfig.json",
+						"Pipfile",
+						"setup.py",
+						"setup.cfg",
+						".git",
+					}
+					return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+				end,
 				settings = {
 					python = {
 						analysis = {
