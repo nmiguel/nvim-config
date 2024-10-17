@@ -45,57 +45,82 @@ return {
 			require("tokyonight").setup({
 				transparent = true,
 				sidebars = { "Packer" },
-                style = "night",
+				style = "night",
 				dim_inactive = true,
-                styles = {
-                    sidebars = "transparent",
-                    float = "transparent",
-                },
+				styles = {
+					sidebars = "transparent",
+					float = "transparent",
+				},
 				on_colors = function(c)
 					c.bg = "NONE"
 					c.bg_dark = "NONE"
 					c.bg_float = "NONE"
 				end,
 				on_highlights = function(hl, c)
-                    hl.StatusLine = {
-                        fg = c.fg,
-                        bg = "none",
-                    }
-                    hl.LineNr = {
-                        fg = c.purple,
-                        bg = "none",
-                    }
+					hl.StatusLine = {
+						fg = c.fg,
+						bg = "none",
+					}
+					hl.LineNr = {
+						fg = c.purple,
+						bg = "none",
+					}
 					hl.DiagnosticVirtualTextInfo = {
 						bg = "none",
-                        fg = hl.DiagnosticVirtualTextInfo.fg,
+						fg = hl.DiagnosticVirtualTextInfo.fg,
 					}
 					hl.DiagnosticVirtualTextWarn = {
 						bg = "none",
-                        fg = hl.DiagnosticVirtualTextWarn.fg,
+						fg = hl.DiagnosticVirtualTextWarn.fg,
 					}
 					hl.DiagnosticVirtualTextError = {
 						bg = "none",
-                        fg = hl.DiagnosticVirtualTextError.fg,
+						fg = hl.DiagnosticVirtualTextError.fg,
 					}
 					hl.DiagnosticVirtualTextHint = {
 						bg = "none",
-                        fg = hl.DiagnosticVirtualTextHint.fg,
+						fg = hl.DiagnosticVirtualTextHint.fg,
 					}
-                    hl.WinSeparator = {
-                        fg = c.purple,
+					hl.WinSeparator = {
+						fg = c.purple,
+						bg = "none",
+					}
+					hl.GitSignsAdd = {
+						fg = c.green,
+						bg = "none",
+					}
+					hl.GitSignsChange = {
+						fg = c.blue,
+						bg = "none",
+					}
+					hl.BlinkCmpMenu = {
+                        fg = c.fg,
                         bg = "none",
                     }
-                    hl.GitSignsAdd = {
-                        fg = c.green,
+                    hl.Pmenu = {
+                        fg = c.fg,
                         bg = "none",
                     }
-                    hl.GitSignsChange = {
-                        fg = c.blue,
+					hl.BlinkCmpMenuBorder = hl.TelescopeBorder
+					hl.BlinkCmpMenuSelection = hl.PmenuSel
+					hl.BlinkCmpLabel = {
+                        fg = "none",
                         bg = "none",
                     }
+					hl.BlinkCmpLabelMatch = {
+                        fg = c.red,
+                        bg = "none",
+                    }
+					hl.BlinkCmpKind = hl.Special
+					hl.BlinkCmpDoc = hl.NormalFloat
+					hl.BlinkCmpDocBorder = hl.TelescopeBorder
+					hl.BlinkCmpDocCursorLine = hl.Visual
+					hl.BlinkCmpSignatureHelp = hl.NormalFloat
+					hl.BlinkCmpSignatureHelpBorder = hl.TelescopeBorder
+					hl.BlinkCmpSignatureHelpActiveParameter = hl.LspSignatureActiveParameter
 				end,
 			})
-            vim.cmd("colorscheme tokyonight")
+			vim.cmd("colorscheme tokyonight")
 		end,
 	},
 	{

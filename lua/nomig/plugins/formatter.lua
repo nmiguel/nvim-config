@@ -13,10 +13,12 @@ return {
 			logging = true,
 			log_level = vim.log.levels.DEBUG,
 			filetype = {
-				lua = { require("formatter.filetypes.lua").stylua },
+				markdown = {
+					require("formatter.filetypes.markdown").prettier(),
+				},
+				lua = { require("formatter.filetypes.lua").stylua() },
 				python = {
-					-- require("formatter.filetypes.python").isort,
-					require("formatter.filetypes.python").black,
+					require("formatter.filetypes.python").ruff(),
 				},
 				cs = {
 					function()

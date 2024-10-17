@@ -8,7 +8,6 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 
 			-- Autocompletion
-			"L3MON4D3/LuaSnip",
 			"nvim-telescope/telescope.nvim",
 
 			-- Lua extra config
@@ -25,16 +24,6 @@ return {
 					},
 				},
 				{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-				{ -- optional completion source for require statements and module annotations
-					"hrsh7th/nvim-cmp",
-					opts = function(_, opts)
-						opts.sources = opts.sources or {}
-						table.insert(opts.sources, {
-							name = "lazydev",
-							group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-						})
-					end,
-				},
 			},
 		},
 
@@ -89,10 +78,6 @@ return {
 
 			local util = require("lspconfig/util")
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
 
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
@@ -236,18 +221,5 @@ return {
 				},
 			})
 		end,
-	},
-	{
-		-- Notifies to state of the LSP server
-		"j-hui/fidget.nvim",
-		enabled = false,
-		opts = {
-			-- options
-			notification = {
-				window = {
-					winblend = 0,
-				},
-			},
-		},
 	},
 }
