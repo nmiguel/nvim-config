@@ -2,16 +2,13 @@ return {
 	"saghen/blink.cmp",
 	lazy = false,
 	dependencies = "rafamadriz/friendly-snippets",
+    version = 'v0.*',
 
 	opts = {
 		nerd_font_variant = "normal",
 		trigger = { signature_help = { enabled = true } },
 		keymap = {
-			accept = "<C-y>",
-			select_next = "<C-n>",
-			select_prev = "<C-p>",
-			snippet_forward = "<Tab>",
-			snippet_backward = "<S-Tab>",
+			preset = "default",
 		},
 		accept = {
 			create_undo_point = false,
@@ -25,11 +22,6 @@ return {
 			},
 			signature_help = {
 				border = "single",
-			},
-		},
-		fuzzy = {
-			prebuiltBinaries = {
-				-- forceVersion = "0.1.0",
 			},
 		},
 	},

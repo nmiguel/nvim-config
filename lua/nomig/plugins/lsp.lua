@@ -7,7 +7,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 
-			-- Autocompletion
+            "saghen/blink.cmp",
 			"nvim-telescope/telescope.nvim",
 
 			-- Lua extra config
@@ -77,7 +77,8 @@ return {
 			require("mason-lspconfig").setup({})
 
 			local util = require("lspconfig/util")
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+			local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
