@@ -1,11 +1,10 @@
 return {
-	"stevearc/aerial.nvim",
+	"oskarrrrrrr/symbols.nvim",
 	-- Optional dependencies
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope.nvim",
-		{ "cuducos/yaml.nvim", ft = "yaml" },
 	},
 
 	keys = {
@@ -13,37 +12,39 @@ return {
 			"<leader>lf",
 			mode = "n",
 			function()
-				local type = vim.bo.filetype
-				if type == "yaml" then
-					require("telescope.builtin").lsp_document_symbols()
-				else
-					vim.cmd("AerialToggle")
-				end
+				vim.cmd("Symbols")
 			end,
 			desc = "Navigate file",
 		},
 	},
-	opts = {
-		backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
-		layout = {
-			default_direction = "left",
-			min_width = 20,
-		},
-		close_automatic_events = { "unfocus" },
-		close_on_select = true,
-		autojump = true,
-		filter_kind = {
-			["_"] = {
-				"Class",
-				"Constructor",
-				"Enum",
-				"Function",
-				"Interface",
-				"Module",
-				"Method",
-				"Struct",
+	config = function()
+		local r = require("symbols.recipes")
+
+		-- Define the custom filter function
+		local filter_function = function(ft, symbol)
+			if ft == "python" then
+				local kind = symbol.kind
+				if kind == "Variable" or kind == "Constant" then
+					return false
+				end
+				return true
+			end
+			return r.DefaultFilters.sidebar.symbol_filter(ft, symbol)
+		end
+
+		-- Setup symbols with the copied filters
+		require("symbols").setup({
+			hide_cursor = false,
+			sidebar = {
+                -- cursor_follow = false,
+				symbol_filter = filter_function,
+				-- auto_peek = true,
+				close_on_goto = true,
 			},
-			yaml = { "Key" },
-		},
-	},
+            preview = {
+                -- show_always = true,
+            },
+			keymaps = {},
+		})
+	end,
 }
