@@ -30,15 +30,9 @@ return {
 	lazy = false,
 	keys = {
 		-- { mode = "n", "<leader>pf", require("telescope.builtin").find_files },
-		{
-			mode = "n",
-			"<leader>paf",
-			function()
-				require("telescope.builtin").find_files({ no_ignore = true })
-			end,
-		},
 		{ mode = "n", "<leader>ps", require("telescope.builtin").live_grep },
 		{ mode = "n", "<leader>ds", require("telescope.builtin").help_tags },
+		{ mode = "v", "<leader>*", require("telescope.builtin").grep_string },
 	},
 	config = function()
 		local actions = require("telescope.actions")
@@ -53,10 +47,10 @@ return {
 			},
 			extensions = {
 				smart_open = {
-                    open_buffer_indicators = {
-                        previous = ">",
-                        others = "-"
-                    }
+					open_buffer_indicators = {
+						previous = ">",
+						others = "-",
+					},
 				},
 			},
 		})
