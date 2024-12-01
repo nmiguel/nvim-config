@@ -12,7 +12,7 @@ return {
 			"<leader>lf",
 			mode = "n",
 			function()
-				vim.cmd("Symbols")
+				vim.cmd("SymbolsToggle")
 			end,
 			desc = "Navigate file",
 		},
@@ -34,16 +34,17 @@ return {
 
 		-- Setup symbols with the copied filters
 		require("symbols").setup({
-			hide_cursor = false,
 			sidebar = {
-                -- cursor_follow = false,
+				hide_cursor = false,
+				-- cursor_follow = false,
 				symbol_filter = filter_function,
-				-- auto_peek = true,
+				cursor_follow = true,
+				auto_peek = true,
 				close_on_goto = true,
 			},
-            preview = {
-                -- show_always = true,
-            },
+			-- preview = {
+			-- 	show_always = true,
+			-- },
 			keymaps = {},
 		})
 	end,
