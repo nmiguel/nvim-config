@@ -44,7 +44,14 @@ return {
 		end,
 	},
 	"stevearc/dressing.nvim",
-	"tpope/vim-vinegar",
+	{
+		"mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+		config = function()
+			vim.keymap.set("n", "-", "<cmd>Yazi<CR>", { noremap = true, silent = true })
+            require("yazi").setup({keymaps = { show_help = "?"}})
+		end,
+	},
 	{
 		"levouh/tint.nvim",
 		enabled = false,
@@ -71,20 +78,6 @@ return {
 				auto = true,
 			})
 		end,
-	},
-	{
-		"prichrd/netrw.nvim",
-		opts = {
-			-- Put your configuration here, or leave the object empty to take the default
-			-- configuration.
-			icons = {
-				symlink = "", -- Symlink icon (directory and file)
-				directory = "", -- Directory icon
-				file = "", -- File icon
-			},
-			use_devicons = true, -- Uses nvim-web-devicons if true, otherwise use the file icon specified above
-			mappings = {}, -- Custom key mappings}
-		},
 	},
 	{
 		"meznaric/key-analyzer.nvim",
