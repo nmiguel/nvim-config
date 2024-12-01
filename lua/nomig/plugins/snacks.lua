@@ -3,23 +3,21 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	opts = {
-		styles = {},
-        words = { enabled = true },
-        notifier = { enabled = false },
-        quickfile = { enabled = false },
+	config = function()
+		require("snacks").setup({
+			styles = {},
+			words = { enabled = true },
+			notifier = { enabled = false },
+			quickfile = { enabled = false },
 
-		bigfile = { enabled = true },
-		statuscolumn = { enabled = true },
-	},
+			bigfile = { enabled = true },
+			statuscolumn = { enabled = true },
+		})
+		vim.api.nvim_create_user_command("Github", function()
+			Snacks.gitbrowse()
+		end, {})
+	end,
 	keys = {
-		{
-			"<leader>gh",
-			function()
-				Snacks.gitbrowse()
-			end,
-			desc = "Open Remote",
-		},
 		{
 			"<leader>gf",
 			function()
