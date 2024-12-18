@@ -6,6 +6,9 @@ return {
 	config = function()
 		require("snacks").setup({
 			styles = {},
+			scroll = {
+				enabled = false,
+			},
 			words = { enabled = true },
 			notifier = { enabled = false },
 			quickfile = { enabled = false },
