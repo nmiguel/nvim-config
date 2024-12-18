@@ -46,10 +46,13 @@ return {
 	"stevearc/dressing.nvim",
 	{
 		"mikavilpas/yazi.nvim",
-        event = "VeryLazy",
+		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Yazi<CR>", { noremap = true, silent = true })
-            require("yazi").setup({keymaps = { show_help = "?"}})
+			require("yazi").setup({
+				open_for_directories = true,
+				keymaps = { show_help = "?" },
+			})
 		end,
 	},
 	{
