@@ -24,7 +24,7 @@ return {
 			},
 			ignored_filetypes = { "NvimTree" },
 			default_amount = 7,
-			at_edge = "split", -- Changed this to 'split' to create a new split at the edge
+			at_edge = 'split', -- Changed this to 'split' to create a new split at the edge
 			move_cursor_same_row = false,
 			cursor_follows_swapped_bufs = false,
 			resize_mode = {
@@ -40,8 +40,8 @@ return {
 				"BufEnter",
 				"WinEnter",
 			},
-			multiplexer_integration = nil, -- Automatically integrates with Wezterm
-			disable_multiplexer_nav_when_zoomed = true,
+			multiplexer_integration = false, -- Automatically integrates with Wezterm
+			disable_multiplexer_nav_when_zoomed = false,
 			kitty_password = nil,
 			log_level = "info",
 		})
