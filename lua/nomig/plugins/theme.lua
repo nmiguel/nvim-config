@@ -89,7 +89,7 @@ return {
 					hl.BlinkCmpDoc = hl.Float
 					hl.BlinkCmpDocBorder = hl.TelescopeBorder
 					hl.BlinkCmpSignatureHelp = hl.Float
-					hl.BlinkCmpSignatureHelpBorder = hl.Float
+					hl.BlinkCmpSignatureHelpBorder = hl.TelescopeBorder
 					hl.BlinkCmpSignatureHelpActiveParameter = hl.LspSignatureActiveParameter
 				end,
 			})
