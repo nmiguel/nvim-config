@@ -2,27 +2,46 @@ return {
 	"saghen/blink.cmp",
 	lazy = false,
 	dependencies = "rafamadriz/friendly-snippets",
-    version = 'v0.*',
+	version = "v0.*",
 
-	opts = {
-		nerd_font_variant = "normal",
-		trigger = { signature_help = { enabled = true } },
-		keymap = {
-			preset = "default",
-		},
-		accept = {
-			create_undo_point = false,
-		},
-		windows = {
-			autocomplete = {
-				border = "single",
+	config = function()
+		---@diagnostic disable: missing-fields
+        local rounded_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+		require("blink.cmp").setup({
+			appearance = {
+				nerd_font_variant = "normal",
 			},
-			documentation = {
-				border = "single",
+
+			keymap = {
+				preset = "default",
 			},
-			signature_help = {
-				border = "single",
+
+			completion = {
+				accept = {
+					create_undo_point = false,
+					auto_brackets = {
+						enabled = false,
+					},
+				},
+
+				menu = {
+					border = rounded_border,
+				},
+
+				documentation = {
+					auto_show = true,
+					window = {
+						border = rounded_border,
+					},
+				},
+
+				signature = {
+					enabled = true,
+					window = {
+						border = rounded_border,
+					},
+				},
 			},
-		},
-	},
+		})
+	end,
 }
