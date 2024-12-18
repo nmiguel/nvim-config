@@ -9,20 +9,45 @@ return {
 		},
 	},
 	config = function()
+				local prettier = {
+					require("formatter.filetypes.javascript").prettier,
+				}
 		require("formatter").setup({
 			logging = true,
 			log_level = vim.log.levels.DEBUG,
 			filetype = {
 				markdown = {
-					require("formatter.filetypes.markdown").prettier(),
+					require("formatter.filetypes.markdown").prettier,
 				},
-				lua = { require("formatter.filetypes.lua").stylua() },
+				lua = { require("formatter.filetypes.lua").stylua },
 				python = {
-					require("formatter.filetypes.python").ruff(),
+					function()
+						local iruff = require("formatter.filetypes.python").iruff()
+						iruff.args = {
+							"check",
+							"-q",
+							"--select",
+							"I",
+							"--fix",
+							-- "-",
+						}
+						iruff.stdin = false
+						return iruff
+					end,
+					function()
+						local ruff = require("formatter.filetypes.python").iruff()
+						ruff.args = {
+							"format",
+							"-q",
+							-- "-",
+						}
+						ruff.stdin = false
+						return ruff
+					end,
 				},
 				cs = {
 					function()
-						local csharpier = require("formatter.filetypes.cs").csharpier()
+						local csharpier = require("formatter.filetypes.cs").csharpier
 						return csharpier
 					end,
 				},
@@ -34,17 +59,13 @@ return {
 					end,
 				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
-				zig = { require("formatter.filetypes.zig").zigfmt },
 				go = {
 					-- require("formatter.filetypes.go").goimports,
 					require("formatter.filetypes.go").gofmt,
 				},
-				gleam = {
-					function()
-						local gleam = { exe = "gleam", args = { "format", "--stdin" }, stdin = true }
-						return gleam
-					end,
-				},
+				css = prettier,
+				html = prettier,
+				htmldjango = prettier,
 			},
 		})
 	end,
