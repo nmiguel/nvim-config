@@ -64,6 +64,6 @@ return {
 			},
 			server_opts_overrides = {},
 		})
-
+        require("copilot.command").disable()
 	end,
 }
