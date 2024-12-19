@@ -7,7 +7,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 
-            "saghen/blink.cmp",
+			"saghen/blink.cmp",
 			"nvim-telescope/telescope.nvim",
 
 			-- Lua extra config
@@ -28,12 +28,24 @@ return {
 		},
 
 		config = function()
-			vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-			vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-			vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-
+			local diagnostic_highlights = {
+				[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
+				[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
+				[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
+				[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
+			}
 			vim.diagnostic.config({
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "",
+						[vim.diagnostic.severity.WARN] = "",
+						[vim.diagnostic.severity.INFO] = "",
+						[vim.diagnostic.severity.HINT] = "",
+					},
+					numhl = diagnostic_highlights,
+					linehl = diagnostic_highlights,
+					priority = 10, -- Default priority; adjust if needed
+				},
 				virtual_text = {
 					spacing = 4,
 					prefix = "",
@@ -44,6 +56,7 @@ return {
 
 			-- vim.lsp.inlay_hint.enable()
 
+			local _border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)
@@ -60,25 +73,19 @@ return {
 					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
 					vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, opts)
 					vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
+					vim.keymap.set("n", "K", function()
+						vim.lsp.buf.hover({ border = _border })
+					end, opts)
 				end,
 			})
 
-			local _border = "single"
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = _border,
-			})
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = _border,
-			})
-
 			require("mason").setup({
-				ensure_installed = { "pyright", "gopls", "yamlls", "jsonls", "zls" },
+				ensure_installed = { "basedpyright", "gopls", "yamlls", "jsonls" },
 			})
 			require("mason-lspconfig").setup({})
 
 			local util = require("lspconfig/util")
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-			local capabilities = require('blink.cmp').get_lsp_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
@@ -108,9 +115,52 @@ return {
 					},
 				},
 			})
+			local ruff_capabilities = vim.tbl_deep_extend("force", {}, capabilities)
+			ruff_capabilities.hoverProvider = false -- Ruff LSP only provides hover for rules
+			lspconfig.ruff.setup({
+				init_options = {
+					settings = {
+						fixAll = false,
+						organizeImports = false,
+						configurationPreference = "editorOnly",
+						lint = {
+							ignore = { "E741" },
+						},
+					},
+				},
+				capabilities = ruff_capabilities,
+			})
+			-- lspconfig.basedpyright.setup({
+			-- 	capabilities = capabilities,
+			-- 	cmd = { "basedpyright", "--level", "error" },
+			-- 	filetypes = { "python" },
+			-- 	root_dir = function(fname)
+			-- 		local root_files = {
+			-- 			"pyproject.toml",
+			-- 			"pyrightconfig.json",
+			-- 			"Pipfile",
+			-- 			"setup.py",
+			-- 			"setup.cfg",
+			-- 			".git",
+			-- 		}
+			-- 		return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+			-- 	end,
+			-- 	settings = {
+			-- 		basedpyright = {
+			-- 			disableOrganizeImports = true,
+			-- 			analysis = {
+			-- 				autoSearchPaths = true,
+			-- 				diagnosticMode = "openFilesOnly",
+			-- 				useLibraryCodeForTypes = true,
+			-- 				typeCheckingMode = "off",
+			-- 				exclude = { "venv" },
+			-- 			},
+			-- 		},
+			-- 	},
+			--          })
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
-				cmd = { "pyright-langserver", "--stdio" },
+				cmd = { "pyright-langserver", "--level", "error", "--stdio" },
 				filetypes = { "python" },
 				root_dir = function(fname)
 					local root_files = {
@@ -121,7 +171,8 @@ return {
 						"setup.cfg",
 						".git",
 					}
-					return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+					return util.root_pattern(unpack(root_files))(fname)
+						or vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
 				end,
 				settings = {
 					python = {
@@ -166,7 +217,7 @@ return {
 							unusedwrite = true,
 							useany = true,
 						},
-						usePlaceholders = true,
+						usePlaceholders = false,
 						completeUnimported = true,
 						staticcheck = true,
 						directoryFilters = {
@@ -195,10 +246,11 @@ return {
 			{ "nvim-telescope/telescope.nvim" },
 		},
 		event = "LspAttach",
+		enabled = false, -- Needs to be updated to 0.11
 		config = function()
 			require("tiny-code-action").setup()
-			vim.api.nvim_set_keymap(
-				"n",
+			vim.keymap.set(
+				{ "n", "v" },
 				"<leader>va",
 				"<cmd>lua require('tiny-code-action').code_action()<cr>",
 				{ noremap = true, silent = true }
@@ -208,6 +260,7 @@ return {
 	{
 		"kosayoda/nvim-lightbulb",
 		event = "LspAttach",
+		enabled = false, -- Needs to be updated to 0.11
 		config = function()
 			vim.api.nvim_set_hl(0, "LightBulbSign", { fg = "#FFA500", bg = "none" })
 			require("nvim-lightbulb").setup({
@@ -222,5 +275,21 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		name = "tailwind-tools",
+		build = ":UpdateRemotePlugins",
+		ft = "html",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-telescope/telescope.nvim", -- optional
+			"neovim/nvim-lspconfig", -- optional
+		},
+		opts = {
+			document_color = {
+				enabled = false, -- can be toggled by commands
+			},
+		},
 	},
 }
