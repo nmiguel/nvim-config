@@ -36,7 +36,8 @@ return {
 		-- { mode = "n", "<leader>pf", require("telescope.builtin").find_files },
 		{ mode = "n", "<leader>ps", require("telescope.builtin").live_grep },
 		{ mode = "n", "<leader>ds", require("telescope.builtin").help_tags },
-		{ mode = "v", "<leader>*", require("telescope.builtin").grep_string },
+		{ mode = "n", "<leader>:", require("telescope.builtin").commands },
+		{ mode = { "v", "n" }, "<leader>*", require("telescope.builtin").grep_string },
 	},
 	config = function()
 		local actions = require("telescope.actions")
