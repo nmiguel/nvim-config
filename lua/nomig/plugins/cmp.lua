@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	lazy = false,
-	dependencies = "rafamadriz/friendly-snippets",
+	dependencies = { "rafamadriz/friendly-snippets", "xzbdmw/colorful-menu.nvim" },
 	version = "v0.*",
 
 	config = function()
@@ -13,17 +13,6 @@ return {
 
 			keymap = {
 				preset = "default",
-                -- Allow tab to accept in cmdline
-				-- ["<Tab>"] = {
-				-- 	function(_)
-				-- 		if vim.api.nvim_get_mode().mode == "c" then
-				-- 			return
-				-- 		end
-				-- 		return true
-				-- 	end,
-				-- 	"accept",
-				-- },
-                -- TODO: add back the default tab function
 			},
 
 			completion = {
@@ -36,6 +25,17 @@ return {
 
 				menu = {
 					border = rounded_border,
+					draw = {
+						-- We don't need label_description now because label and label_description are already
+						-- conbined together in label by colorful-menu.nvim.
+						columns = { { "kind_icon" }, { "label", gap = 1 } },
+						components = {
+							label = {
+								text = require("colorful-menu").blink_components_text,
+								highlight = require("colorful-menu").blink_components_highlight,
+							},
+						},
+					},
 				},
 
 				documentation = {
@@ -54,7 +54,7 @@ return {
 			},
 			sources = {
 				default = { "lsp", "path", "buffer" },
-                cmdline = {}
+				cmdline = {},
 			},
 		})
 	end,
