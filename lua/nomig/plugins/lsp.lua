@@ -180,4 +180,20 @@ return {
 			},
 		},
 	},
+	{
+		"chrisgrieser/nvim-lsp-endhints",
+		event = "LspAttach",
+        -- enabled = false,
+		opts = {
+			icons = {
+				type = "󰜁  ",
+				parameter = "󰏪  ",
+				offspec = "  ", -- hint kind not defined in official LSP spec
+				unknown = "  ", -- hint kind is nil
+			},
+			label = {
+				padding = 2,
+			},
+		},
+	},
 }

@@ -94,9 +94,9 @@ return {
 					hl.BlinkCmpSignatureHelpActiveParameter = hl.LspSignatureActiveParameter
 
 					hl.LspInlayHint = {
-						fg = hl.Comment.fg,
+						fg = hl.Debug.fg,
 						bg = "none",
-						italic = true,
+						-- italic = true,
 						-- underline = true,
 					}
 				end,
