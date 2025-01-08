@@ -5,6 +5,9 @@ return {
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+			config = function()
+				require("telescope").load_extension("fzf")
+			end,
 		},
 		{
 			-- Uses frecency and other metrics to sort files
@@ -25,7 +28,14 @@ return {
 				},
 			},
 			dependencies = {
-				"kkharji/sqlite.lua",
+				{
+					"kkharji/sqlite.lua",
+					config = function()
+						if vim.loop.os_uname().version:match("Windows") then
+							vim.g.sqlite_clib_path = "C:\\devlibs\\sqlite\\sqlite3.dll"
+						end
+					end,
+				},
 				-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
 				{ "nvim-telescope/telescope-fzy-native.nvim" },
 			},
