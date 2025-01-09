@@ -1,11 +1,13 @@
 return {
 	"saghen/blink.cmp",
 	lazy = false,
-	dependencies = { "rafamadriz/friendly-snippets", "xzbdmw/colorful-menu.nvim" },
+	-- enabled = false,
+	dependencies = { {'L3MON4D3/LuaSnip', version = 'v2.*'}, "xzbdmw/colorful-menu.nvim" },
 	version = "v0.*",
 
 	config = function()
 		local rounded_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+
 		require("blink.cmp").setup({
 			appearance = {
 				nerd_font_variant = "normal",
@@ -53,8 +55,11 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "path", "buffer" },
+				default = { "lsp", "path", "snippets", "buffer" },
 				cmdline = {},
+			},
+			snippets = {
+				preset = "luasnip",
 			},
 		})
 	end,
