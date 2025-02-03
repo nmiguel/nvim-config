@@ -2,7 +2,7 @@ return {
 	"saghen/blink.cmp",
 	lazy = false,
 	-- enabled = false,
-	dependencies = { {'L3MON4D3/LuaSnip', version = 'v2.*'}, "xzbdmw/colorful-menu.nvim" },
+	dependencies = { { "L3MON4D3/LuaSnip", version = "v2.*" }, "xzbdmw/colorful-menu.nvim" },
 	version = "v0.*",
 
 	config = function()
@@ -55,8 +55,16 @@ return {
 				},
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				cmdline = {},
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
+						score_offset = 100,
+					},
+				},
 			},
 			snippets = {
 				preset = "luasnip",
