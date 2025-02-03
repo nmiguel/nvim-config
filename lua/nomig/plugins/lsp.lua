@@ -122,6 +122,9 @@ return {
 				capabilities = capabilities,
 				settings = require("nomig.plugins.lsp.gopls"),
 			})
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
+			})
 			lspconfig.jsonls.setup({
 				capabilities = capabilities,
 			})

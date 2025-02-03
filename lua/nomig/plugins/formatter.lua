@@ -9,9 +9,9 @@ return {
 		},
 	},
 	config = function()
-				local prettier = {
-					require("formatter.filetypes.javascript").prettier,
-				}
+		local prettier = {
+			require("formatter.filetypes.javascript").prettier,
+		}
 		require("formatter").setup({
 			logging = true,
 			log_level = vim.log.levels.DEBUG,
@@ -59,6 +59,7 @@ return {
 					end,
 				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
+                rust = { require("formatter.filetypes.rust").rustfmt },
 				go = {
 					-- require("formatter.filetypes.go").goimports,
 					require("formatter.filetypes.go").gofmt,
