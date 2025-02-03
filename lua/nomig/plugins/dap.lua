@@ -1,6 +1,7 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
+        lazy = true,
 		config = function()
 			vim.keymap.set("n", "<leader>b", ":DapToggleBreakpoint<CR>")
 			vim.keymap.set("n", "<leader>d<space>", ":DapContinue<CR>")
@@ -37,6 +38,7 @@ return {
 	-- A default "GUI" front-end for nvim-dap
 	{
 		"rcarriga/nvim-dap-ui",
+        lazy = true,
 		config = function()
 			require("dapui").setup()
 
