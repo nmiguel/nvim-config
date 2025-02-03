@@ -1,13 +1,35 @@
 return {
-	"stevearc/oil.nvim",
-	---@module 'oil'
-	---@type oil.SetupOpts
-	opts = {},
-	keys = {
-		{ mode = "n", "-", "<cmd>Oil<CR>", { noremap = true, silent = true, description = "Open Oil" } },
-	},
+	{
+		"refractalize/oil-git-status.nvim",
 
-	-- Optional dependencies
-	dependencies = { { "echasnovski/mini.icons", opts = {} } },
-	-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+		dependencies = {
+			"stevearc/oil.nvim",
+		},
+
+		config = true,
+	},
+	{
+		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
+		opts = {
+			win_options = {
+				signcolumn = "yes:1",
+			},
+
+			keymaps = {
+				["q"] = { "actions.close", mode = "n" },
+			},
+			view_options = {
+				show_hidden = true,
+			},
+		},
+		keys = {
+			{ mode = "n", "-", "<cmd>Oil<CR>", { noremap = true, silent = true, description = "Open Oil" } },
+		},
+
+		-- Optional dependencies
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+	},
 }
