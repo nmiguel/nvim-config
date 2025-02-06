@@ -16,10 +16,10 @@ return {
 			bigfile = { enabled = true },
 			statuscolumn = { enabled = true },
 
-            scope = {
-                cursor = false,
-                siblings = true,
-            },
+			scope = {
+				cursor = false,
+				siblings = true,
+			},
 
 			indent = {
 				only_current = true,
@@ -75,10 +75,43 @@ return {
 		},
 		{
 			mode = "n",
+			"<leader>paf",
+			function()
+				Snacks.picker.smart({
+					multi = {
+						"buffers",
+						"recent",
+						{
+							finder = "files",
+							format = "file",
+							show_empty = true,
+							hidden = true,
+							ignored = true,
+							follow = false,
+							supports_live = true,
+						},
+					},
+				})
+			end,
+		},
+		{
+			mode = "n",
 			"<leader>pf",
 			function()
-				Snacks.picker.recent({
-					filter = { cwd = true }, -- replicate `cwd_only = true`
+				Snacks.picker.smart({
+					multi = {
+						"buffers",
+						"recent",
+						{
+							finder = "files",
+							format = "file",
+							show_empty = true,
+							hidden = true,
+							ignored = false,
+							follow = false,
+							supports_live = true,
+						},
+					},
 				})
 			end,
 		},
