@@ -7,7 +7,8 @@ return {
 			"williamboman/mason.nvim",
 
 			"saghen/blink.cmp",
-			"nvim-telescope/telescope.nvim",
+			-- "nvim-telescope/telescope.nvim",
+			"folke/snacks.nvim",
 			"justinsgithub/wezterm-types",
 
 			{
@@ -66,15 +67,15 @@ return {
 				callback = function(event)
 					local opts = { buffer = event.buf, noremap = true }
 
-					vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
-					vim.keymap.set("n", "gt", require("telescope.builtin").lsp_type_definitions, opts)
-					vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
+					vim.keymap.set("n", "gd", require("snacks").picker.lsp_definitions, opts)
+					vim.keymap.set("n", "gt", require("snacks").picker.lsp_type_definitions, opts)
+					vim.keymap.set("n", "gi", require("snacks").picker.lsp_implementations, opts)
 					vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
-					vim.keymap.set("n", "<leader>vr", require("telescope.builtin").lsp_references, opts)
+					vim.keymap.set("n", "<leader>vr", require("snacks").picker.lsp_references, opts)
 					vim.keymap.set("n", "<leader>vn", vim.lsp.buf.rename, opts)
 					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
-					vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, opts)
-					vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
+					vim.keymap.set("n", "<leader>ds", require("snacks").picker.lsp_symbols, opts)
+					vim.keymap.set("n", "<leader>ws", require("snacks").picker.lsp_workspace_symbols, opts)
 					vim.keymap.set("n", "K", function()
 						vim.lsp.buf.hover({ border = _border })
 					end, opts)
