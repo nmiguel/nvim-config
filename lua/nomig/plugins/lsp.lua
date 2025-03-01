@@ -33,7 +33,11 @@ return {
 				[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
 				[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
 			}
+
 			vim.diagnostic.config({
+				virtual_lines = {
+					current_line = true,
+				},
 				signs = {
 					text = {
 						[vim.diagnostic.severity.ERROR] = "",
@@ -49,6 +53,7 @@ return {
 					spacing = 4,
 					prefix = "",
 					source = "if_many",
+					current_line = false,
 				},
 				update_in_insert = false,
 			})
