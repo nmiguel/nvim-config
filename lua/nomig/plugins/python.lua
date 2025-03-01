@@ -7,7 +7,7 @@ return {
 			"mfussenegger/nvim-dap-python",
 		},
 		ft = "python",
-        lazy = true,
+		lazy = true,
 		branch = "regexp",
 
 		keys = {
@@ -36,6 +36,25 @@ return {
 			require("venv-selector").setup(opts)
 			-- require("venv-selector").retrieve_from_cache()
 		end,
+	},
+	{
+		"fredrikaverpil/pydoc.nvim",
+		dependencies = {
+			{ "folke/snacks.nvim" }, -- optional
+			{
+				"nvim-treesitter/nvim-treesitter",
+				opts = {
+					ensure_installed = { "markdown" },
+				},
+			},
+		},
+		cmd = { "PyDoc" },
+		opts = {
+			picker = {
+				type = "snacks",
+				snacks = {},
+			},
+		},
 	},
 
 	{
