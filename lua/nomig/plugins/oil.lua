@@ -26,6 +26,7 @@ return {
 		},
 		keys = {
 			{ mode = "n", "-", "<cmd>Oil<CR>", { noremap = true, silent = true, description = "Open Oil" } },
+			{ mode = "n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, silent = true, description = "Open Oil in CWD" } },
 		},
 
 		-- Optional dependencies
