@@ -13,7 +13,7 @@ return {
 			words = { enabled = true },
 			notifier = { enabled = false },
 			quickfile = { enabled = false },
-			bigfile = { enabled = true },
+			-- bigfile = { enabled = true },
 			statuscolumn = { enabled = true },
 
 			scope = {
