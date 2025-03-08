@@ -50,12 +50,12 @@ return {
 					linehl = diagnostic_highlights,
 					priority = 10, -- Default priority; adjust if needed
 				},
-				virtual_text = {
-					spacing = 4,
-					prefix = "",
-					source = "if_many",
-					current_line = false,
-				},
+				-- virtual_text = {
+				-- 	spacing = 4,
+				-- 	prefix = "",
+				-- 	source = "if_many",
+				-- 	current_line = false,
+				-- },
 				update_in_insert = false,
 			})
 
@@ -84,59 +84,14 @@ return {
 
 			require("mason").setup({})
 
-			local util = require("lspconfig/util")
+			-- Set default configuration for all servers
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			vim.lsp.config("*", {
+				root_markers = { ".git" },
+				capabilities = capabilities,
+			})
 
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = require("nomig.plugins.lsp.lua_ls"),
-				},
-			})
-			local ruff_capabilities = vim.tbl_deep_extend("force", {}, capabilities)
-			ruff_capabilities.hoverProvider = false -- Ruff LSP only provides hover for rules
-			lspconfig.ruff.setup({
-				init_options = {
-					settings = {
-						fixAll = false,
-						organizeImports = false,
-						configurationPreference = "editorOnly",
-						lint = {
-							ignore = { "E741" },
-						},
-					},
-				},
-				capabilities = ruff_capabilities,
-			})
-			lspconfig.basedpyright.setup({
-				capabilities = capabilities,
-				filetypes = { "python" },
-				root_dir = function(fname)
-					return util.root_pattern(
-						"pyrightconfig.json",
-						"pyproject.toml",
-						"Pipfile",
-						"setup.py",
-						"setup.cfg",
-						".git"
-					)(fname) or vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
-				end,
-				settings = require("nomig.plugins.lsp.basedpyright"),
-			})
-			lspconfig.gopls.setup({
-				capabilities = capabilities,
-				settings = require("nomig.plugins.lsp.gopls"),
-			})
-			lspconfig.rust_analyzer.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.jsonls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.yamlls.setup({
-				capabilities = capabilities,
-			})
+            -- require("nomig.plugins.lsp_servers")
 		end,
 	},
 }

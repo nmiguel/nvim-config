@@ -58,6 +58,25 @@ return {
 						bg = "none",
 					}
 
+                    hl.TabLineFill = {
+                        fg = hl.TabLineFill.fg,
+                        bg = "none"
+                    }
+                    hl.TabLine = {
+                        fg = hl.TabLine.fg,
+                        bg = "none"
+                    }
+                    hl.TabLineSel = {
+                        fg = hl.TabLineSel.bg,
+                        bg = "none"
+                    }
+                    hl.WinBarNC = {
+                        bg = "none"
+                    }
+                    hl.WinBar = {
+                        bg = "none"
+                    }
+
 					-- Completion Menu Adjustments
 					hl.BlinkCmpMenu = {
 						fg = c.fg,

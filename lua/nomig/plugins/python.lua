@@ -11,21 +11,7 @@ return {
 		branch = "regexp",
 
 		keys = {
-			-- {
-			-- 	mode = "n",
-			-- 	"<leader>rp",
-			-- 	":w<CR>:exec '!python ' . shellescape(expand('%'))<CR>",
-			-- 	desc = "Run python file",
-			-- },
-
 			{ mode = "n", "<leader>pe", "<cmd>VenvSelect<cr>", desc = "Select venv" },
-
-			{
-				mode = "n",
-				"<leader>pc",
-				"<cmd>VenvSelectCached<cr>",
-				desc = "Select cached venv",
-			},
 		},
 
 		config = function()
@@ -40,7 +26,7 @@ return {
 	{
 		"fredrikaverpil/pydoc.nvim",
 		dependencies = {
-			{ "folke/snacks.nvim" }, -- optional
+			{ "folke/snacks.nvim" },
 			{
 				"nvim-treesitter/nvim-treesitter",
 				opts = {
@@ -59,20 +45,9 @@ return {
 
 	{
 		"mfussenegger/nvim-dap-python",
+		ft = "python",
 		config = function()
-			require("dap-python").setup("python")
-			-- An example configuration to launch any Python file, via Houdini
-			-- table.insert(
-			--     require("dap").configurations.python,
-			--     {
-			--         type = "python",
-			--         request = "launch",
-			--         name = "Launch Via hython",
-			--         program = "${file}",
-			--         python = "/opt/hfs19.5.569/bin/hython"
-			--         -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
-			--     }
-			-- )
+			require("dap-python").setup("python3")
 		end,
 		dependencies = {
 			"mfussenegger/nvim-dap",

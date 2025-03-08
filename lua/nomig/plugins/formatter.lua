@@ -65,7 +65,7 @@ return {
 					require("formatter.filetypes.go").gofmt,
 				},
 				css = prettier,
-				html = prettier,
+				html = require("formatter.filetypes.html").htmlbeautifier,
 				htmldjango = prettier,
 			},
 		})
