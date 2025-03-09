@@ -1,7 +1,11 @@
 return {
 	"sschleemilch/slimline.nvim",
+	version = "1.2.x",
+	dependencies = {
+		"cbochs/grapple.nvim",
+	},
 	config = function()
-        vim.opt.laststatus = 3
+		vim.opt.laststatus = 3
 		require("slimline").setup({
 			bold = false, -- makes primary parts and mode bold
 			verbose_mode = false, -- Mode as single letter or as a word
@@ -9,13 +13,23 @@ return {
 			components = { -- Choose components and their location
 				left = {
 					"mode",
-                    "path",
+					"path",
 					"diagnostics",
 				},
-				center = {
-				},
+				center = {},
 				right = {
 					"git",
+					function()
+						local h = require("slimline.highlights")
+						local c = require("slimline").config
+						local primary = require("grapple").statusline({ include_icon = false })
+						if #primary == 0 then
+							return ""
+						end
+						local secondary = "󰛢"
+
+						return h.hl_component({ primary = primary, secondary = secondary }, h.hls.component, c.sep)
+					end,
 					"filetype_lsp",
 					-- "progress",
 				},
