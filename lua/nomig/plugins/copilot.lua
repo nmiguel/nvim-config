@@ -1,6 +1,5 @@
 return {
 	"zbirenbaum/copilot.lua",
-	event = "InsertEnter",
 	keys = {
 		{
 			"<leader>ce",
@@ -64,6 +63,5 @@ return {
 			},
 			server_opts_overrides = {},
 		})
-        require("copilot.command").disable()
 	end,
 }
