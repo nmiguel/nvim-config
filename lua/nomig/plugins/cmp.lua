@@ -3,7 +3,7 @@ return {
 	lazy = false,
 	-- enabled = false,
 	dependencies = { { "L3MON4D3/LuaSnip", version = "v2.*" }, "xzbdmw/colorful-menu.nvim" },
-	version = "v0.13.x",
+	version = "v1.x.x",
 
 	config = function()
 		local rounded_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
