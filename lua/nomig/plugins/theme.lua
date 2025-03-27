@@ -58,24 +58,24 @@ return {
 						bg = "none",
 					}
 
-                    hl.TabLineFill = {
-                        fg = hl.TabLineFill.fg,
-                        bg = "none"
-                    }
-                    hl.TabLine = {
-                        fg = hl.TabLine.fg,
-                        bg = "none"
-                    }
-                    hl.TabLineSel = {
-                        fg = hl.TabLineSel.bg,
-                        bg = "none"
-                    }
-                    hl.WinBarNC = {
-                        bg = "none"
-                    }
-                    hl.WinBar = {
-                        bg = "none"
-                    }
+					hl.TabLineFill = {
+						fg = hl.TabLineFill.fg,
+						bg = "none",
+					}
+					hl.TabLine = {
+						fg = hl.TabLine.fg,
+						bg = "none",
+					}
+					hl.TabLineSel = {
+						fg = hl.TabLineSel.bg,
+						bg = "none",
+					}
+					hl.WinBarNC = {
+						bg = "none",
+					}
+					hl.WinBar = {
+						bg = "none",
+					}
 
 					-- Completion Menu Adjustments
 					hl.BlinkCmpMenu = {
@@ -117,6 +117,11 @@ return {
 						bg = "none",
 						-- italic = true,
 						-- underline = true,
+					}
+
+					hl.SnacksPickerToggle = {
+						fg = hl.SnacksPickerToggle.fg,
+						bg = "none",
 					}
 				end,
 			})
