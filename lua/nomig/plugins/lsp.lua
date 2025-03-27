@@ -29,31 +29,39 @@ return {
 
 		config = function()
 			local diagnostic_highlights = {
-				[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
-				[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
-				[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
-				[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
+				[vim.diagnostic.severity.ERROR] = "DiagnosticError",
+				[vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+				[vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+				[vim.diagnostic.severity.HINT] = "DiagnosticHint",
 			}
 
 			vim.diagnostic.config({
+				severity_sort = true,
 				virtual_lines = {
 					current_line = true,
 				},
+				underline = {
+					severity = { vim.diagnostic.severity.ERROR },
+				},
 				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = "",
-						[vim.diagnostic.severity.WARN] = "",
-						[vim.diagnostic.severity.INFO] = "",
-						[vim.diagnostic.severity.HINT] = "",
+						[vim.diagnostic.severity.ERROR] = " ",
+						[vim.diagnostic.severity.WARN] = "!!",
+						[vim.diagnostic.severity.INFO] = "!",
+						[vim.diagnostic.severity.HINT] = "?",
 					},
 					numhl = diagnostic_highlights,
-					linehl = diagnostic_highlights,
-					priority = 10, -- Default priority; adjust if needed
+					-- linehl = diagnostic_highlights,
+					priority = 10000,
 				},
 				-- virtual_text = {
-				-- 	spacing = 4,
-				-- 	prefix = "",
+				-- 	spacing = 2,
+				-- 	prefix = " ",
 				-- 	source = "if_many",
+				--                 severity = vim.diagnostic.severity.ERROR,
+				-- 	format = function(_) -- disable text
+				-- 		return ""
+				-- 	end,
 				-- 	current_line = false,
 				-- },
 				update_in_insert = false,
@@ -91,7 +99,7 @@ return {
 				capabilities = capabilities,
 			})
 
-            -- require("nomig.plugins.lsp_servers")
+			-- require("nomig.plugins.lsp_servers")
 		end,
 	},
 }
