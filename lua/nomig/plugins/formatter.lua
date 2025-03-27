@@ -13,8 +13,8 @@ return {
 			require("formatter.filetypes.javascript").prettier,
 		}
 		require("formatter").setup({
-			logging = true,
-			log_level = vim.log.levels.DEBUG,
+			logging = false,
+			log_level = vim.log.levels.ERROR,
 			filetype = {
 				markdown = {
 					require("formatter.filetypes.markdown").prettier,
@@ -59,10 +59,19 @@ return {
 					end,
 				},
 				yaml = { require("formatter.filetypes.yaml").prettier },
-                rust = { require("formatter.filetypes.rust").rustfmt },
+				rust = { require("formatter.filetypes.rust").rustfmt },
 				go = {
 					-- require("formatter.filetypes.go").goimports,
-					require("formatter.filetypes.go").gofmt,
+					require("formatter.filetypes.go").gofumpt,
+				},
+				http = {
+					function()
+						return {
+							exe = "kulala-fmt",
+							args = { "format" },
+							stdin = false,
+						}
+					end,
 				},
 				css = prettier,
 				html = require("formatter.filetypes.html").htmlbeautifier,
