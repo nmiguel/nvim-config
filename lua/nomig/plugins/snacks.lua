@@ -23,6 +23,16 @@ return {
 
 			indent = {
 				only_current = true,
+				filter = function()
+					local whitelist = { "lua", "python", "go", "json", "rust", "zig", "yaml" }
+					local found = false
+					for _, k in ipairs(whitelist) do
+						if vim.bo.ft == k then
+							found = true
+						end
+					end
+					return found
+				end,
 				enabled = true,
 				animate = { enabled = false },
 				scope = { enabled = false, hl = hl },
@@ -43,12 +53,14 @@ return {
 				matcher = {
 					fuzzy = true,
 					smartcase = true,
+					ignorecase = false,
 					frecency = true,
-					sort_empty = true,
+					-- sort_empty = true,
 				},
 				formatters = {
 					file = {
 						filename_first = true,
+						git_status_hl = true,
 					},
 				},
 				win = {
@@ -58,6 +70,13 @@ return {
 						},
 					},
 				},
+				-- toggles = {
+				-- 	follow = "",
+				-- 	hidden = "",
+				-- 	ignored = "",
+				-- 	modified = "",
+				-- 	regex = { icon = "R", value = false },
+				-- },
 			},
 		})
 		vim.api.nvim_create_user_command("Github", function()
@@ -71,6 +90,13 @@ return {
 			"<leader>PP",
 			function()
 				Snacks.picker()
+			end,
+		},
+		{
+			mode = "n",
+			"<leader>pt",
+			function()
+				Snacks.picker.explorer({})
 			end,
 		},
 		{
@@ -94,24 +120,48 @@ return {
 				})
 			end,
 		},
+		-- {
+		-- 	mode = "n",
+		-- 	"<leader>pf",
+		-- 	function()
+		-- 		Snacks.picker.files({
+		-- 			finder = "files",
+		-- 			format = "file",
+		-- 			show_empty = true,
+		-- 			hidden = true,
+		-- 			ignored = true,
+		-- 			follow = false,
+		-- 		})
+		-- 		-- Snacks.picker.smart({
+		-- 		-- 	format = "file",
+		-- 		-- 	matcher = {
+		-- 		-- 		cwd_bonus = true,
+		-- 		-- 		frecency = true,
+		-- 		-- 		sort_empty = true,
+		-- 		-- 	},
+		-- 		-- 	transform = "unique_file",
+		-- 		-- 	multi = {
+		-- 		-- 		"buffers",
+		-- 		-- 		"recent",
+		-- 		-- 		{
+		-- 		-- 			finder = "files",
+		-- 		-- 			format = "file",
+		-- 		-- 			show_empty = true,
+		-- 		-- 			hidden = true,
+		-- 		-- 			ignored = false,
+		-- 		-- 			follow = false,
+		-- 		-- 			supports_live = true,
+		-- 		-- 		},
+		-- 		-- 	},
+		-- 		-- })
+		-- 	end,
+		-- },
 		{
 			mode = "n",
-			"<leader>pf",
+			"<leader>lf",
 			function()
-				Snacks.picker.smart({
-					multi = {
-						"buffers",
-						"recent",
-						{
-							finder = "files",
-							format = "file",
-							show_empty = true,
-							hidden = true,
-							ignored = false,
-							follow = false,
-							supports_live = true,
-						},
-					},
+				Snacks.picker.lsp_symbols({
+					layout = "default",
 				})
 			end,
 		},
@@ -144,6 +194,20 @@ return {
 			end,
 		},
 		-- Other functions
+		{
+			"<leader>xx",
+			function()
+				Snacks.picker.diagnostics_buffer()
+			end,
+			desc = "Diagnostics in current buffer",
+		},
+		{
+			"<leader>xX",
+			function()
+				Snacks.picker.diagnostics()
+			end,
+			desc = "Diagnostics",
+		},
 		{
 			"<leader>gf",
 			function()
