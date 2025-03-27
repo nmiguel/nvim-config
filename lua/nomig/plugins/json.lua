@@ -1,22 +1,17 @@
 return {
-	"cenk1cenk2/jq.nvim",
-	ft = "json",
+	"nmiguel/jqscratch.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"MunifTanjim/nui.nvim",
-		"grapp-dev/nui-components.nvim",
 	},
-    keys = {
-        {
-            mode = "n",
-            "<leader>pj",
-            function ()
-                require("jq").run()
-            end,
-            { noremap = true, silent = true },
-        },
-    },
-    config = function ()
-        require("jq").setup({})
-    end,
+	keys = {
+		{
+			mode = "n",
+			"<leader>pj",
+			function()
+				require("jqscratch").toggle()
+			end,
+			{ noremap = true, silent = true },
+		},
+	},
+	opts = {},
 }
