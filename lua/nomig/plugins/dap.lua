@@ -3,8 +3,11 @@ return {
 		"mfussenegger/nvim-dap",
 		lazy = true,
 		dependencies = {
-			"igorlfs/nvim-dap-view",
-			opts = {},
+			{ "igorlfs/nvim-dap-view", opts = {} },
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
+			},
 		},
 		config = function()
 			vim.keymap.set("n", "<leader>b", ":DapToggleBreakpoint<CR>")
