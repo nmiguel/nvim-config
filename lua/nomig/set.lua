@@ -31,6 +31,9 @@ vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
 
+
+-- vim.o.winborder = 'rounded'
+
 -- Open help in vertical split
 vim.cmd("cnorea h vert bo help")
 
