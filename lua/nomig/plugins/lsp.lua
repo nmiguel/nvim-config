@@ -37,9 +37,9 @@ return {
 
 			vim.diagnostic.config({
 				severity_sort = true,
-				virtual_lines = {
-					current_line = true,
-				},
+				-- virtual_lines = {
+				-- 	current_line = true,
+				-- },
 				underline = {
 					severity = { vim.diagnostic.severity.ERROR },
 				},
@@ -69,7 +69,35 @@ return {
 
 			vim.lsp.inlay_hint.enable()
 
-			local _border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+			local group = vim.api.nvim_create_augroup("OoO", {})
+
+            -- Set up diagnostic float window
+			local function au(typ, pattern, cmdOrFn)
+				if type(cmdOrFn) == "function" then
+					vim.api.nvim_create_autocmd(typ, { pattern = pattern, callback = cmdOrFn, group = group })
+				else
+					vim.api.nvim_create_autocmd(typ, { pattern = pattern, command = cmdOrFn, group = group })
+				end
+			end
+
+			au({ "CursorHold", "InsertLeave" }, nil, function()
+				local opts = {
+					focusable = false,
+					scope = "cursor",
+                    border = "rounded",
+					close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
+				}
+				vim.diagnostic.open_float(nil, opts)
+			end)
+
+			au("InsertEnter", nil, function()
+				vim.diagnostic.enable(false)
+			end)
+
+			au("InsertLeave", nil, function()
+				vim.diagnostic.enable(true)
+			end)
+
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)
@@ -85,7 +113,7 @@ return {
 					vim.keymap.set("n", "<leader>ds", require("snacks").picker.lsp_symbols, opts)
 					vim.keymap.set("n", "<leader>ws", require("snacks").picker.lsp_workspace_symbols, opts)
 					vim.keymap.set("n", "K", function()
-						vim.lsp.buf.hover({ border = _border })
+						vim.lsp.buf.hover({ border = "rounded" })
 					end, opts)
 				end,
 			})
