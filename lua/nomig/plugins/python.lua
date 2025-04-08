@@ -1,26 +1,10 @@
 return {
 	{
-		"linux-cultist/venv-selector.nvim",
-		dependencies = {
-			"neovim/nvim-lspconfig",
-			"nvim-telescope/telescope.nvim",
-			"mfussenegger/nvim-dap-python",
-		},
-		ft = "python",
-		lazy = true,
-		branch = "regexp",
-
-		keys = {
-			{ mode = "n", "<leader>pe", "<cmd>VenvSelect<cr>", desc = "Select venv" },
-		},
-
+		"benomahony/uv.nvim",
 		config = function()
-			local opts = {
-				-- search = true,
-				-- parents = 1,
-			}
-			require("venv-selector").setup(opts)
-			-- require("venv-selector").retrieve_from_cache()
+			require("uv").setup({
+                keymaps = false,
+            })
 		end,
 	},
 	{
