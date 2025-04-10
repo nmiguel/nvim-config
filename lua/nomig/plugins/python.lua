@@ -8,26 +8,6 @@ return {
 		end,
 	},
 	{
-		"fredrikaverpil/pydoc.nvim",
-		dependencies = {
-			{ "folke/snacks.nvim" },
-			{
-				"nvim-treesitter/nvim-treesitter",
-				opts = {
-					ensure_installed = { "markdown" },
-				},
-			},
-		},
-		cmd = { "PyDoc" },
-		opts = {
-			picker = {
-				type = "snacks",
-				snacks = {},
-			},
-		},
-	},
-
-	{
 		"mfussenegger/nvim-dap-python",
 		ft = "python",
 		config = function()
