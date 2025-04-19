@@ -7,7 +7,6 @@ return {
 			"williamboman/mason.nvim",
 
 			"saghen/blink.cmp",
-			-- "nvim-telescope/telescope.nvim",
 			"folke/snacks.nvim",
 			"justinsgithub/wezterm-types",
 
@@ -37,9 +36,6 @@ return {
 
 			vim.diagnostic.config({
 				severity_sort = true,
-				-- virtual_lines = {
-				-- 	current_line = true,
-				-- },
 				underline = {
 					severity = { vim.diagnostic.severity.ERROR },
 				},
@@ -127,7 +123,14 @@ return {
 				capabilities = capabilities,
 			})
 
-			-- require("nomig.plugins.lsp_servers")
+            vim.lsp.enable({
+                "gopls",
+                "jsonls",
+                "lua_ls",
+                "ruff",
+                "basedpyright",
+                "yamlls"
+            })
 		end,
 	},
 }
