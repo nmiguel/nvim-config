@@ -16,30 +16,28 @@ return {
 	{
 		"rachartier/tiny-code-action.nvim",
 		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope.nvim" },
+			"nvim-lua/plenary.nvim",
+			"folke/snacks.nvim",
 		},
 		event = "LspAttach",
-		enabled = false, -- Needs to be updated to 0.11
 		config = function()
 			require("tiny-code-action").setup()
-			vim.keymap.set(
-				{ "n", "v" },
-				"<leader>va",
-				"<cmd>lua require('tiny-code-action').code_action()<cr>",
-				{ noremap = true, silent = true }
-			)
+			vim.keymap.set({ "n", "v" }, "<leader>va", function()
+				require("tiny-code-action").code_action()
+			end, { noremap = true, silent = true })
 		end,
 	},
 	{
 		"kosayoda/nvim-lightbulb",
 		event = "LspAttach",
-		enabled = false, -- Needs to be updated to 0.11
+		-- enabled = false, -- Needs to be updated to 0.11
 		config = function()
 			vim.api.nvim_set_hl(0, "LightBulbSign", { fg = "#FFA500", bg = "none" })
 			require("nvim-lightbulb").setup({
 				autocmd = { enabled = true },
-				sign = {
+
+				virtual_text = {
+					-- sign = {
 					enabled = true,
 					-- Text to show in the sign column.
 					-- Must be between 1-2 characters.
