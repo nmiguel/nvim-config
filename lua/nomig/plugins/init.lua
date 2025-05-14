@@ -1,7 +1,7 @@
 return {
 	{
 		"karb94/neoscroll.nvim",
-        enabled = false,
+		enabled = false,
 		config = function()
 			require("neoscroll").setup({
 				easing = "cubic",
@@ -45,6 +45,13 @@ return {
 		end,
 	},
 	"stevearc/dressing.nvim",
+	{
+		"2kabhishek/nerdy.nvim",
+		dependencies = {
+			"folke/snacks.nvim",
+		},
+		cmd = "Nerdy",
+	},
 	{
 		"levouh/tint.nvim",
 		enabled = false,
