@@ -67,6 +67,8 @@ return {
 					input = {
 						keys = {
 							["<Esc>"] = { "close", mode = { "n", "i" } },
+							["<C-up>"] = { "toggle_hidden", mode = { "i", "n" } },
+							["<C-down>"] = { "toggle_ignored", mode = { "i", "n" } },
 						},
 					},
 				},
@@ -120,42 +122,42 @@ return {
 				})
 			end,
 		},
-		-- {
-		-- 	mode = "n",
-		-- 	"<leader>pf",
-		-- 	function()
-		-- 		Snacks.picker.files({
-		-- 			finder = "files",
-		-- 			format = "file",
-		-- 			show_empty = true,
-		-- 			hidden = true,
-		-- 			ignored = true,
-		-- 			follow = false,
-		-- 		})
-		-- 		-- Snacks.picker.smart({
-		-- 		-- 	format = "file",
-		-- 		-- 	matcher = {
-		-- 		-- 		cwd_bonus = true,
-		-- 		-- 		frecency = true,
-		-- 		-- 		sort_empty = true,
-		-- 		-- 	},
-		-- 		-- 	transform = "unique_file",
-		-- 		-- 	multi = {
-		-- 		-- 		"buffers",
-		-- 		-- 		"recent",
-		-- 		-- 		{
-		-- 		-- 			finder = "files",
-		-- 		-- 			format = "file",
-		-- 		-- 			show_empty = true,
-		-- 		-- 			hidden = true,
-		-- 		-- 			ignored = false,
-		-- 		-- 			follow = false,
-		-- 		-- 			supports_live = true,
-		-- 		-- 		},
-		-- 		-- 	},
-		-- 		-- })
-		-- 	end,
-		-- },
+		{
+			mode = "n",
+			"<leader>pf",
+			function()
+				Snacks.picker.files({
+					finder = "files",
+					format = "file",
+					show_empty = true,
+					hidden = true,
+					ignored = true,
+					follow = false,
+				})
+				-- Snacks.picker.smart({
+				-- 	format = "file",
+				-- 	matcher = {
+				-- 		cwd_bonus = true,
+				-- 		frecency = true,
+				-- 		sort_empty = true,
+				-- 	},
+				-- 	transform = "unique_file",
+				-- 	multi = {
+				-- 		"buffers",
+				-- 		"recent",
+				-- 		{
+				-- 			finder = "files",
+				-- 			format = "file",
+				-- 			show_empty = true,
+				-- 			hidden = true,
+				-- 			ignored = false,
+				-- 			follow = false,
+				-- 			supports_live = true,
+				-- 		},
+				-- 	},
+				-- })
+			end,
+		},
 		{
 			mode = "n",
 			"<leader>lf",

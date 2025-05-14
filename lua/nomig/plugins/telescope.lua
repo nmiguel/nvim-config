@@ -3,13 +3,6 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
-			config = function()
-				require("telescope").load_extension("fzf")
-			end,
-		},
-		{
 			-- Uses frecency and other metrics to sort files
 			"danielfalk/smart-open.nvim",
 			branch = "0.2.x",
@@ -17,15 +10,15 @@ return {
 				require("telescope").load_extension("smart_open")
 			end,
 			keys = {
-				{
-					mode = "n",
-					"<leader>pf",
-					function()
-						require("telescope").extensions.smart_open.smart_open({
-							cwd_only = true,
-						})
-					end,
-				},
+				-- {
+				-- 	mode = "n",
+				-- 	"<leader>pf",
+				-- 	function()
+				-- 		require("telescope").extensions.smart_open.smart_open({
+				-- 			cwd_only = true,
+				-- 		})
+				-- 	end,
+				-- },
 			},
 			dependencies = {
 				{
@@ -60,9 +53,9 @@ return {
 						others = ".",
 					},
 				},
-				fzf = {},
+				-- fzf = {},
 			},
 		})
-		require("telescope").load_extension("fzf")
+		require("telescope").load_extension("fzy_native")
 	end,
 }
