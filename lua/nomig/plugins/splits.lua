@@ -4,7 +4,7 @@ return {
 
 	config = function()
 		-- resize window
-		vim.keymap.set("n", "<leader><leader>r", require("smart-splits").start_resize_mode)
+		-- vim.keymap.set("n", "<leader><leader>r", require("smart-splits").start_resize_mode)
 		-- moving between splits
 		vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
 		vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
