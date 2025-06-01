@@ -1,6 +1,5 @@
 vim.g.mapleader = " "
 
-
 -- make all keymaps silent by default
 local keymap_set = vim.keymap.set
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -15,7 +14,6 @@ vim.api.nvim_set_keymap('n', '<leader>oe','<cmd>silent !explorer.exe .<cr>' , {n
 
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-
 
 -- vim.keymap.set("n", "J", "mzJ`z$")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -36,6 +34,8 @@ vim.keymap.set("n", "<leader>p", "<nop>")  -- I press this so much before decidi
 
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
+
+vim.keymap.set("v", "gk", ":norm gcc<CR>")
 
 vim.api.nvim_set_keymap('n', 'j','gj' , {noremap = true})
 vim.api.nvim_set_keymap('n', 'k','gk' , {noremap = true})
