@@ -2,7 +2,11 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	desc = "Clear whitespaces on end of line when saving",
 	group = vim.api.nvim_create_augroup("nomig-clear-whitespace", { clear = true }),
 	pattern = "*",
-	command = [[%s/\s\+$//e]],
+	callback = function()
+		local view = vim.fn.winsaveview()
+		vim.cmd([[%s:\s\+$::e]])
+		vim.fn.winrestview(view) -- restore cached window view
+	end,
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
