@@ -1,81 +1,41 @@
 return {
-	"mhartington/formatter.nvim",
+	"stevearc/conform.nvim",
 	keys = {
 		{
 			"<leader>cf",
-			"<cmd>Format<cr>",
-			mode = { "n", "x" },
+			function()
+				require("conform").format({ lsp_format = "fallback" })
+			end,
+			mode = { "n", "v" },
 			desc = "Conform File",
 		},
 	},
 	config = function()
-		local prettier = {
-			require("formatter.filetypes.javascript").prettier,
-		}
-		require("formatter").setup({
-			logging = false,
-			log_level = vim.log.levels.ERROR,
-			filetype = {
-				markdown = {
-					require("formatter.filetypes.markdown").prettier,
-				},
-				lua = { require("formatter.filetypes.lua").stylua },
+		require("conform").setup({
+			formatters_by_ft = {
+				markdown = { "prettier" },
+                javascript = { "prettier", "eslint_d" },
+				lua = { "stylua" },
 				python = {
-					function()
-						local iruff = require("formatter.filetypes.python").iruff()
-						iruff.args = {
-							"check",
-							"-q",
-							"--select",
-							"I",
-							"--fix",
-							-- "-",
-						}
-						iruff.stdin = false
-						return iruff
-					end,
-					function()
-						local ruff = require("formatter.filetypes.python").iruff()
-						ruff.args = {
-							"format",
-							"-q",
-							-- "-",
-						}
-						ruff.stdin = false
-						return ruff
-					end,
-				},
-				cs = {
-					function()
-						local csharpier = require("formatter.filetypes.cs").csharpier
-						return csharpier
-					end,
+					"ruff_format",
+					"ruff_organize_imports",
 				},
 				json = {
-					function()
-						local jq = require("formatter.filetypes.json").jq()
-						jq.args = { "--indent", "4", "." }
-						return jq
-					end,
+					"jq",
 				},
-				yaml = { require("formatter.filetypes.yaml").prettier },
-				rust = { require("formatter.filetypes.rust").rustfmt },
-				go = {
-					-- require("formatter.filetypes.go").goimports,
-					require("formatter.filetypes.go").gofumpt,
-				},
+				yaml = { "prettier" },
+				rust = { "rustfmt" },
+				go = { "gofumpt" },
 				http = {
-					function()
-						return {
-							exe = "kulala-fmt",
-							args = { "format" },
-							stdin = false,
-						}
-					end,
+					{
+						command = "kulala-fmt",
+						args = { "format" },
+						stdin = false,
+					},
 				},
-				css = prettier,
-				html = require("formatter.filetypes.html").htmlbeautifier,
-				htmldjango = prettier,
+				css = { "prettier" },
+				html = { "htmlbeautifier" },
+				htmldjango = { "prettier" },
 			},
 		})
 	end,
