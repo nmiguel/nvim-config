@@ -1,4 +1,4 @@
-vim.lsp.config.tsserver = {
+return {
   init_options = { hostInfo = 'neovim' },
   cmd = { 'typescript-language-server', '--stdio' },
   filetypes = {
@@ -41,5 +41,3 @@ vim.lsp.config.tsserver = {
     end, {})
   end,
 }
-
-vim.lsp.enable("tsserver")
