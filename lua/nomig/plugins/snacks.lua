@@ -130,8 +130,8 @@ return {
 					finder = "files",
 					format = "file",
 					show_empty = true,
-					hidden = true,
-					ignored = true,
+					-- hidden = true,
+					-- ignored = true,
 					follow = false,
 				})
 				-- Snacks.picker.smart({
