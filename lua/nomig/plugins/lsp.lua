@@ -71,7 +71,7 @@ return {
 
 			local group = vim.api.nvim_create_augroup("OoO", {})
 
-            -- Set up diagnostic float window
+			-- Set up diagnostic float window
 			local function au(typ, pattern, cmdOrFn)
 				if type(cmdOrFn) == "function" then
 					vim.api.nvim_create_autocmd(typ, { pattern = pattern, callback = cmdOrFn, group = group })
@@ -84,7 +84,7 @@ return {
 				local opts = {
 					focusable = false,
 					scope = "cursor",
-                    border = "rounded",
+					border = "rounded",
 					close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
 				}
 				vim.diagnostic.open_float(nil, opts)
@@ -127,7 +127,26 @@ return {
 				capabilities = capabilities,
 			})
 
-			-- require("nomig.plugins.lsp_servers")
+			local get_lsp = function(dir)
+                local lsp_files = {}
+				for _, file in ipairs(vim.fn.globpath(dir, "*.lua", false, true)) do
+					-- Read the first line of the file
+					local f = io.open(file, "r")
+					local first_line = f and f:read("*l") or ""
+					if f then
+						f:close()
+					end
+					-- Only include the file if it doesn't start with "-- disable"
+					if not first_line:match("^%-%- disable") then
+						local name = vim.fn.fnamemodify(file, ":t:r") -- `:t` gets filename, `:r` removes extension
+						table.insert(lsp_files, name)
+					end
+				end
+                return lsp_files
+			end
+
+			vim.lsp.enable(get_lsp(vim.fn.stdpath("config") .. "/lsp/"))
+			vim.lsp.enable(get_lsp(vim.fn.stdpath("config") .. "/after/lsp/"))
 		end,
 	},
 }

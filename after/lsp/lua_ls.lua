@@ -1,4 +1,4 @@
-vim.lsp.config.lua_ls = {
+return {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
 	settings = {
@@ -26,5 +26,3 @@ vim.lsp.config.lua_ls = {
 		},
 	},
 }
-
-vim.lsp.enable("lua_ls")
