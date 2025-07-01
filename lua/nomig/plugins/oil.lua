@@ -1,11 +1,9 @@
 return {
 	{
 		"refractalize/oil-git-status.nvim",
-
 		dependencies = {
 			"stevearc/oil.nvim",
 		},
-
 		config = true,
 	},
 	{
@@ -19,6 +17,8 @@ return {
 
 			keymaps = {
 				["q"] = { "actions.close", mode = "n" },
+				["<C-h>"] = false,
+				["<C-l>"] = false,
 			},
 			view_options = {
 				show_hidden = true,
@@ -26,7 +26,12 @@ return {
 		},
 		keys = {
 			{ mode = "n", "-", "<cmd>Oil<CR>", { noremap = true, silent = true, description = "Open Oil" } },
-			{ mode = "n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, silent = true, description = "Open Oil in CWD" } },
+			{
+				mode = "n",
+				"<leader>-",
+				"<cmd>Oil .<CR>",
+				{ noremap = true, silent = true, description = "Open Oil in CWD" },
+			},
 		},
 
 		-- Optional dependencies
