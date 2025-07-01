@@ -1,5 +1,25 @@
 return {
 	"supermaven-inc/supermaven-nvim",
+	keys = {
+		{
+			mode = "n",
+			"<leader>cd",
+			function()
+				vim.cmd("SupermavenStop")
+				vim.notify("Supermaven stopped")
+			end,
+			desc = "Stop Supermaven",
+		},
+		{
+			mode = "n",
+			"<leader>ce",
+			function()
+				vim.cmd("SupermavenStart")
+				vim.notify("Supermaven started")
+			end,
+			desc = "Start Supermaven",
+		},
+	},
 	config = function()
 		require("supermaven-nvim").setup({
 			keymaps = {
@@ -8,14 +28,5 @@ return {
 				accept_word = "<C->>",
 			},
 		})
-
-		vim.keymap.set("n", "<leader>cd", function()
-			vim.cmd("SupermavenStop")
-			vim.notify("Supermaven stopped")
-		end, { noremap = true, silent = true })
-		vim.keymap.set("n", "<leader>ce", function()
-			vim.cmd("SupermavenStart")
-			vim.notify("Supermaven started")
-		end, { noremap = true, silent = true })
 	end,
 }
