@@ -34,5 +34,8 @@ vim.keymap.set("n", "<leader>p", "<nop>")  -- I press this so much before decidi
 
 vim.keymap.set("v", "gk", ":norm gcc<CR>")
 
-vim.api.nvim_set_keymap('n', 'j','gj' , {noremap = true})
-vim.api.nvim_set_keymap('n', 'k','gk' , {noremap = true})
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+
+vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
+vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
