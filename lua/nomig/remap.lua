@@ -32,9 +32,6 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<c-v>")
 vim.keymap.set("n", "<leader>p", "<nop>")  -- I press this so much before deciding on telescope
 
-vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
-
 vim.keymap.set("v", "gk", ":norm gcc<CR>")
 
 vim.api.nvim_set_keymap('n', 'j','gj' , {noremap = true})
