@@ -9,8 +9,8 @@ return {
 			analysis = {
 				autoImportCompletions = true,
 				diagnosticMode = "openFilesOnly",
-				autoSearchPaths = true,
-				useLibraryCodeForTypes = true,
+				autoSearchPaths = false,
+				useLibraryCodeForTypes = false,
 				typeCheckingMode = "basic",
 				inlayHints = {
 					variableTypes = true,
@@ -22,7 +22,7 @@ return {
 					reportIgnoreCommentWithoutRule = true,
 				},
 				ignore = { "*" },
-				exclude = { "**/venv", "**/__pycache__" },
+				exclude = { "**/venv", "**/.venv", "**/__pycache__" },
 			},
 		},
 	},
