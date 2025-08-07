@@ -96,9 +96,9 @@ return {
 		},
 		{
 			mode = "n",
-			"<leader>pt",
+			"<leader>pm",
 			function()
-				Snacks.picker.explorer({})
+				Snacks.picker.marks({})
 			end,
 		},
 		{
