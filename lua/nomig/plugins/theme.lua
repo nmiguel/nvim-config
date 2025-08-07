@@ -57,7 +57,11 @@ return {
 						fg = c.blue,
 						bg = "none",
 					}
-
+                    hl.Folded = {
+                        fg = hl.Folded.fg,
+                        bg = hl.Folded.bg,
+                        italic = true,
+                    }
 					hl.TabLineFill = {
 						fg = hl.TabLineFill.fg,
 						bg = "none",

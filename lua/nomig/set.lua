@@ -14,7 +14,7 @@ vim.opt.hidden = true
 vim.opt.showtabline = 0
 
 vim.opt.swapfile = false
-vim.opt.fillchars = { eob = " " }
+vim.opt.fillchars = { eob = " ", fold = " " }
 vim.opt.backup = false
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
@@ -34,7 +34,6 @@ vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
 
-
 -- vim.o.winborder = 'rounded'
 
 -- Open help in vertical split
@@ -45,3 +44,15 @@ vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 vim.opt.showmode = false
+
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 20
+vim.opt.foldenable = false
+
+function _G.CustomFoldText()
+    indent = vim.fn.indent(vim.v.foldstart)
+    spacing = string.rep(" ", indent)
+    start = vim.fn.getline(vim.v.foldstart):gsub("^%s*", "")
+    return spacing .. start .. " ... " .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
+end
+vim.opt.foldtext = "v:lua.CustomFoldText()"
