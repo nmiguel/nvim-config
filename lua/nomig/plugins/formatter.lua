@@ -14,7 +14,7 @@ return {
 		require("conform").setup({
 			formatters_by_ft = {
 				markdown = { "prettier" },
-                javascript = { "prettier", "eslint_d" },
+				javascript = { "prettier" },
 				lua = { "stylua" },
 				python = {
 					"ruff_format",
@@ -34,8 +34,8 @@ return {
 					},
 				},
 				css = { "prettier" },
-				html = { "htmlbeautifier" },
-				htmldjango = { "prettier" },
+				html = { "prettier" },
+				htmldjango = { "djlint" },
 			},
 		})
 	end,
