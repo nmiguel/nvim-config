@@ -39,5 +39,6 @@ vim.keymap.set("v", "<", "<gv")
 
 vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
 vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gp', '`[v`]', {noremap = true})
 
 -- vim.api.nvim_set_keymap('x', '<leader>f', ':fold<cr>', {noremap = true})
