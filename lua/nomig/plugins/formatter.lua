@@ -4,7 +4,7 @@ return {
 		{
 			"<leader>cf",
 			function()
-				require("conform").format({ lsp_format = "fallback" })
+				require("conform").format({ lsp_format = "fallback", timeout_ms= 5000, async = true})
 			end,
 			mode = { "n", "v" },
 			desc = "Conform File",
