@@ -115,6 +115,7 @@ return {
 	},
 	-- {
 	-- 	"nvim-treesitter/nvim-treesitter-context",
+	-- 	branch = "main",
 	-- 	event = "BufRead",
 	-- 	dependencies = {
 	-- 		"nvim-treesitter/nvim-treesitter",
@@ -124,54 +125,90 @@ return {
 	-- 		multiwindow = true,
 	-- 	},
 	-- },
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter-textobjects",
-	-- 	branch = "main",
-	-- 	dependencies = "nvim-treesitter/nvim-treesitter",
-	-- 	config = function()
-	-- 		require("nvim-treesitter.config").setup({
-	-- 			textobjects = {
-	-- 				select = {
-	-- 					enable = true,
-	-- 					lookahead = true,
-	--
-	-- 					keymaps = {
-	-- 						["if"] = "@function.inner",
-	-- 						["af"] = "@function.outer",
-	--
-	-- 						["iC"] = "@class.inner",
-	-- 						["aC"] = "@class.outer",
-	--
-	-- 						["ic"] = "@conditional.inner",
-	-- 						["ac"] = "@conditional.outer",
-	--
-	-- 						["is"] = "@block.inner",
-	-- 						["as"] = "@block.outer",
-	-- 					},
-	-- 					include_surrounding_whitespace = true,
-	-- 				},
-	-- 				move = {
-	-- 					enable = true,
-	-- 					set_jumps = true, -- whether to set jumps in the jumplist
-	-- 					goto_next_start = {
-	-- 						["]f"] = "@function.outer",
-	-- 						["]C"] = { query = "@class.outer", desc = "Next class start" },
-	-- 					},
-	-- 					goto_previous_start = {
-	-- 						["[f"] = "@function.outer",
-	-- 						["[C"] = "@class.outer",
-	-- 					},
-	-- 					goto_next = {
-	-- 						["]c"] = "@conditional.outer",
-	-- 						["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-	-- 					},
-	-- 					goto_previous = {
-	-- 						["[c"] = "@conditional.outer",
-	-- 						["[s"] = { query = "@local.scope", query_group = "locals", desc = "Previous scope" },
-	-- 					},
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			local ts_textobjects = require("nvim-treesitter-textobjects")
+
+			ts_textobjects.setup({
+				select = {
+					enable = true,
+					lookahead = true,
+					include_surrounding_whitespace = true,
+					-- Set line select mode
+					selection_modes = {
+						["@function.inner"] = "V",
+						["@class.inner"] = "V",
+						["@function.outer"] = "V",
+						["@class.outer"] = "V",
+					},
+				},
+				move = {
+					enable = true,
+					set_jumps = true,
+				},
+			})
+
+			local select = require("nvim-treesitter-textobjects.select")
+			local move = require("nvim-treesitter-textobjects.move")
+			local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
+
+			-- SELECT keymaps
+			vim.keymap.set({ "x", "o" }, "if", function()
+				select.select_textobject("@function.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "af", function()
+				select.select_textobject("@function.outer", "textobjects")
+			end)
+
+			vim.keymap.set({ "x", "o" }, "iC", function()
+				select.select_textobject("@class.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "aC", function()
+				select.select_textobject("@class.outer", "textobjects")
+			end)
+
+			vim.keymap.set({ "x", "o" }, "ic", function()
+				select.select_textobject("@conditional.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "ac", function()
+				select.select_textobject("@conditional.outer", "textobjects")
+			end)
+
+			vim.keymap.set({ "x", "o" }, "is", function()
+				select.select_textobject("@block.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "as", function()
+				select.select_textobject("@block.outer", "textobjects")
+			end)
+
+			-- MOVE keymaps
+			vim.keymap.set({ "n", "x", "o" }, "]f", function()
+				move.goto_next_start("@function.outer", "textobjects")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "]C", function()
+				move.goto_next_start("@class.outer", "textobjects")
+			end)
+
+			vim.keymap.set({ "n", "x", "o" }, "[f", function()
+				move.goto_previous_start("@function.outer", "textobjects")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "[C", function()
+				move.goto_previous_start("@class.outer", "textobjects")
+			end)
+
+			vim.keymap.set({ "n", "x", "o" }, "]c", function()
+				move.goto_next("@conditional.outer", "textobjects")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "[c", function()
+				move.goto_previous("@conditional.outer", "textobjects")
+			end)
+
+			-- Repeatable movement (; and ,)
+			vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+			vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+		end,
+	},
 }
