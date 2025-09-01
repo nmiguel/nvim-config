@@ -37,9 +37,6 @@ return {
 
 			vim.diagnostic.config({
 				severity_sort = true,
-				-- virtual_lines = {
-				-- 	current_line = true,
-				-- },
 				underline = {
 					severity = { vim.diagnostic.severity.ERROR },
 				},
@@ -54,49 +51,38 @@ return {
 					-- linehl = diagnostic_highlights,
 					priority = 10000,
 				},
-				-- virtual_text = {
-				-- 	spacing = 2,
-				-- 	prefix = " ",
-				-- 	source = "if_many",
-				--                 severity = vim.diagnostic.severity.ERROR,
-				-- 	format = function(_) -- disable text
-				-- 		return ""
-				-- 	end,
-				-- 	current_line = false,
-				-- },
 				update_in_insert = false,
 			})
 
 			vim.lsp.inlay_hint.enable()
 
-			local group = vim.api.nvim_create_augroup("OoO", {})
-
-			-- Set up diagnostic float window
-			local function au(typ, pattern, cmdOrFn)
-				if type(cmdOrFn) == "function" then
-					vim.api.nvim_create_autocmd(typ, { pattern = pattern, callback = cmdOrFn, group = group })
-				else
-					vim.api.nvim_create_autocmd(typ, { pattern = pattern, command = cmdOrFn, group = group })
+			local group = vim.api.nvim_create_augroup("LSP", {})
+			function OpenDiagnosticIfNoFloat()
+				for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+					if vim.api.nvim_win_get_config(winid).zindex then
+						return
+					end
 				end
-			end
-
-			au({ "CursorHold", "InsertLeave" }, nil, function()
-				local opts = {
-					focusable = false,
+				vim.diagnostic.open_float(0, {
+                    border = "rounded",
 					scope = "cursor",
-					border = "rounded",
-					close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
-				}
-				vim.diagnostic.open_float(nil, opts)
-			end)
-
-			au("InsertEnter", nil, function()
-				vim.diagnostic.enable(false)
-			end)
-
-			au("InsertLeave", nil, function()
-				vim.diagnostic.enable(true)
-			end)
+					focusable = false,
+					close_events = {
+						"CursorMoved",
+						"CursorMovedI",
+						"BufHidden",
+						"InsertCharPre",
+						"WinLeave",
+					},
+				})
+			end
+			-- Show diagnostics under the cursor when holding position
+			vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
+			vim.api.nvim_create_autocmd({ "CursorHold" }, {
+				pattern = "*",
+				command = "lua OpenDiagnosticIfNoFloat()",
+				group = "lsp_diagnostics_hold",
+			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
@@ -108,8 +94,6 @@ return {
 					vim.keymap.set("n", "gi", require("snacks").picker.lsp_implementations, opts)
 					vim.keymap.set("n", "<leader>vr", require("snacks").picker.lsp_references, opts)
 					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
-					vim.keymap.set("n", "<leader>ds", require("snacks").picker.lsp_symbols, opts)
-					vim.keymap.set("n", "<leader>ws", require("snacks").picker.lsp_workspace_symbols, opts)
 					vim.keymap.set("n", "K", function()
 						vim.lsp.buf.hover({ border = "rounded" })
 					end, opts)
@@ -126,7 +110,7 @@ return {
 			})
 
 			local get_lsp = function(dir)
-                local lsp_files = {}
+				local lsp_files = {}
 				for _, file in ipairs(vim.fn.globpath(dir, "*.lua", false, true)) do
 					-- Read the first line of the file
 					local f = io.open(file, "r")
@@ -140,7 +124,7 @@ return {
 						table.insert(lsp_files, name)
 					end
 				end
-                return lsp_files
+				return lsp_files
 			end
 
 			vim.lsp.enable(get_lsp(vim.fn.stdpath("config") .. "/lsp/"))

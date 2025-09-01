@@ -176,13 +176,6 @@ return {
 		},
 		{
 			mode = "n",
-			"<leader>ds",
-			function()
-				Snacks.picker.help()
-			end,
-		},
-		{
-			mode = "n",
 			"<leader>:",
 			function()
 				Snacks.picker.commands()
