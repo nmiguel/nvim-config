@@ -138,12 +138,7 @@ return {
 					lookahead = true,
 					include_surrounding_whitespace = true,
 					-- Set line select mode
-					selection_modes = {
-						["@function.inner"] = "V",
-						["@class.inner"] = "V",
-						["@function.outer"] = "V",
-						["@class.outer"] = "V",
-					},
+					selection_modes = function() return "V" end,
 				},
 				move = {
 					enable = true,
