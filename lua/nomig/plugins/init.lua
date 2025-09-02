@@ -61,6 +61,11 @@ return {
 			"folke/snacks.nvim",
 		},
 		cmd = "Nerdy",
+		opts = {
+			max_recents = 30,
+			add_default_keybindings = false,
+			copy_to_clipboard = false,
+		},
 	},
 	{
 		"levouh/tint.nvim",
