@@ -1,51 +1,62 @@
 vim.g.mapleader = " "
 
 -- make all keymaps silent by default
-local keymap_set = vim.keymap.set
+local _keymap_set = vim.keymap.set
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.keymap.set = function(mode, lhs, rhs, opts)
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    return keymap_set(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  return _keymap_set(mode, lhs, rhs, opts)
 end
 
-vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>oe','<cmd>silent !explorer.exe .<cr>' , {noremap = true})
+local map = vim.keymap.set
 
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+map("i", "<C-H>", "<C-W>")
+map("n", "<leader>oe", "<cmd>silent !xdg-open %:h<cr>")
 
--- vim.keymap.set("n", "J", "mzJ`z$")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "G", "Gzzzv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv")
 
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- map("n", "J", "mzJ`z$")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+map("n", "G", "Gzzzv")
 
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+map("x", "<leader>p", [["_dP]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+map({ "n", "v" }, "<leader>y", [["+y]])
+map("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set("n", "Q", "<c-v>")
-vim.keymap.set("n", "<leader>p", "<nop>")  -- I press this so much before deciding on telescope
+map({ "n", "v" }, "<leader>d", [["_d]])
 
-vim.keymap.set("v", "gk", ":norm gcc<CR>")
+map("n", "Q", "<c-v>")
+map("n", "<leader>p", "<nop>") -- I press this so much before deciding on telescope
 
-vim.keymap.set("v", ">", ">gv")
-vim.keymap.set("v", "<", "<gv")
+map("v", "gk", ":norm gcc<CR>")
 
-vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
-vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gp', '`[v`]', {noremap = true})
+map("v", ">", ">gv")
+map("v", "<", "<gv")
 
+map("n", "j", "gj", { noremap = true })
+map("n", "k", "gk", { noremap = true })
+map("n", "gp", "`[v`]", { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<C-H>', '<C-W><C-H>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-J>', '<C-W><C-J>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-K>', '<C-W><C-K>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-L>', '<C-W><C-L>', {noremap = true})
+local function smart_split(key, direction, fallback_cmd)
+  map("n", key, function()
+    local curwin = vim.api.nvim_get_current_win()
+    vim.cmd("wincmd " .. direction)
+    if curwin == vim.api.nvim_get_current_win() then
+      vim.cmd(fallback_cmd)
+    end
+  end, { noremap = true, silent = true })
+end
 
+smart_split("<C-h>", "h", "vsplit")
+smart_split("<C-j>", "j", "split | wincmd j")
+smart_split("<C-k>", "k", "split ")
+smart_split("<C-l>", "l", "vsplit | wincmd l")
 
--- vim.api.nvim_set_keymap('x', '<leader>f', ':fold<cr>', {noremap = true})
+-- map('x', '<leader>f', ':fold<cr>', { noremap = true })
+
