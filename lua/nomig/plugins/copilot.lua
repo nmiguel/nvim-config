@@ -28,5 +28,8 @@ return {
 				accept_word = "<C->>",
 			},
 		})
+		-- vim.cmd("SupermavenStart")
+		-- vim.cmd("SupermavenStop")
 	end,
+	event = "InsertEnter",
 }
