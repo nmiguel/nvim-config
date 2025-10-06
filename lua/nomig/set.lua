@@ -50,9 +50,13 @@ vim.opt.foldlevel = 20
 vim.opt.foldenable = false
 
 function _G.CustomFoldText()
-    indent = vim.fn.indent(vim.v.foldstart)
-    spacing = string.rep(" ", indent)
-    start = vim.fn.getline(vim.v.foldstart):gsub("^%s*", "")
+    local indent = vim.fn.indent(vim.v.foldstart)
+    local spacing = string.rep(" ", indent)
+    local start = vim.fn.getline(vim.v.foldstart):gsub("^%s*", "")
     return spacing .. start .. " ... " .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
 end
 vim.opt.foldtext = "v:lua.CustomFoldText()"
+
+-- Disable deprecation warnings
+---@diagnostic disable-next-line: duplicate-set-field
+vim.deprecate = function() end
