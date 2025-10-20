@@ -7,7 +7,15 @@ return {
 				disable = { "missing-fields", "incomplete-signature-doc" },
 			},
 			workspace = {
-				checkThirdParty = false,
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+					[vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types"] = true,
+					[vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
+					[vim.fn.expand("${3rd}/love2d/library")] = true,
+				},
+				maxPreload = 100000,
+				preloadFileSize = 10000,
 			},
 			codeLens = {
 				enable = true,
