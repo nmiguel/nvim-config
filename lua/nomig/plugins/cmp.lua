@@ -56,7 +56,8 @@ return {
 			},
 			cmdline = {enabled = false},
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				-- default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "snippets", "buffer" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
