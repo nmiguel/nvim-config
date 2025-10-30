@@ -1,8 +1,14 @@
 return {
 	{
 		"benomahony/uv.nvim",
+        enabled = false,
+        dependencies = {
+            "folke/snacks.nvim",
+        },
+        ft = "python",
 		config = function()
 			require("uv").setup({
+                picker_integration = true,
                 keymaps = false,
             })
 		end,
