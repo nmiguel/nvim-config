@@ -80,6 +80,11 @@ return {
 					hl.WinBar = {
 						bg = "none",
 					}
+                    hl.DebugPrintLine = {
+                        fg = c.purple,
+                        bg = "none",
+                        italic = true,
+                    }
 
 					-- Completion Menu Adjustments
 					hl.BlinkCmpMenu = {
