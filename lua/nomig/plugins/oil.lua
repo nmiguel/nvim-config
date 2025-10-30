@@ -8,8 +8,6 @@ return {
 	},
 	{
 		"stevearc/oil.nvim",
-		---@module 'oil'
-		---@type oil.SetupOpts
 		opts = {
 			win_options = {
 				signcolumn = "yes:1",
