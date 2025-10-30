@@ -10,6 +10,7 @@ return {
 	{
 		"mfussenegger/nvim-dap-python",
 		ft = "python",
+        enabled = false,
 		config = function()
 			require("dap-python").setup("python3")
 		end,

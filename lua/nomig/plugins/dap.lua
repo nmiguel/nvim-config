@@ -2,6 +2,7 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 		lazy = true,
+        enabled = false,
 		dependencies = {
 			{ "igorlfs/nvim-dap-view", opts = {} },
 			{
@@ -60,6 +61,7 @@ return {
 	-- Remember nvim-dap breakpoints between sessions, ``:PBToggleBreakpoint``
 	{
 		"Weissle/persistent-breakpoints.nvim",
+        enabled = false,
 		config = function()
 			require("persistent-breakpoints").setup({
 				load_breakpoints_event = { "BufReadPost" },
