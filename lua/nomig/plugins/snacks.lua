@@ -89,6 +89,13 @@ return {
 		-- Pickers
 		{
 			mode = "n",
+			"<leader>pt",
+			function()
+				Snacks.explorer()
+			end,
+		},
+		{
+			mode = "n",
 			"<leader>PP",
 			function()
 				Snacks.picker()
