@@ -1,9 +1,6 @@
 return {
 	"sschleemilch/slimline.nvim",
 	version = "1.2.x",
-	dependencies = {
-		"cbochs/grapple.nvim",
-	},
 	config = function()
 		vim.opt.laststatus = 3
 		require("slimline").setup({
