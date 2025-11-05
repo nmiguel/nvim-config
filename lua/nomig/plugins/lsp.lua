@@ -92,6 +92,7 @@ return {
 					vim.keymap.set("n", "gd", require("snacks").picker.lsp_definitions, opts)
 					vim.keymap.set("n", "gt", require("snacks").picker.lsp_type_definitions, opts)
 					vim.keymap.set("n", "gi", require("snacks").picker.lsp_implementations, opts)
+					vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>vr", require("snacks").picker.lsp_references, opts)
 					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
 					vim.keymap.set("n", "K", function()

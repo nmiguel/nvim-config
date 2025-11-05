@@ -4,7 +4,7 @@ return {
 		{
 			"<leader>cf",
 			function()
-				require("conform").format({ lsp_format = "fallback", timeout_ms= 5000, async = true})
+				require("conform").format({ lsp_format = "fallback", timeout_ms = 5000, async = true })
 			end,
 			mode = { "n", "v" },
 			desc = "Conform File",
@@ -27,11 +27,9 @@ return {
 				rust = { "rustfmt" },
 				go = { "gofumpt" },
 				http = {
-					{
-						command = "kulala-fmt",
-						args = { "format" },
-						stdin = false,
-					},
+					command = "kulala-fmt",
+					args = { "format" },
+					stdin = false,
 				},
 				css = { "prettier" },
 				html = { "prettier" },
