@@ -68,11 +68,6 @@ return {
 		},
 	},
 	{
-		"levouh/tint.nvim",
-		enabled = false,
-		opts = {},
-	},
-	{
 		"echasnovski/mini.surround",
 		event = { "VeryLazy" },
 		version = "*",
