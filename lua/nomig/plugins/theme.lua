@@ -57,11 +57,11 @@ return {
 						fg = c.blue,
 						bg = "none",
 					}
-                    hl.Folded = {
-                        fg = hl.Folded.fg,
-                        bg = hl.Folded.bg,
-                        italic = true,
-                    }
+					hl.Folded = {
+						fg = hl.Folded.fg,
+						bg = hl.Folded.bg,
+						italic = true,
+					}
 					hl.TabLineFill = {
 						fg = hl.TabLineFill.fg,
 						bg = "none",
@@ -80,11 +80,11 @@ return {
 					hl.WinBar = {
 						bg = "none",
 					}
-                    hl.DebugPrintLine = {
-                        fg = c.purple,
-                        bg = "none",
-                        italic = true,
-                    }
+					hl.DebugPrintLine = {
+						fg = c.purple,
+						bg = "none",
+						italic = true,
+					}
 
 					-- Completion Menu Adjustments
 					hl.BlinkCmpMenu = {
@@ -132,6 +132,16 @@ return {
 						fg = hl.SnacksPickerToggle.fg,
 						bg = "none",
 					}
+
+					-- MiniHipatterns highlights
+					hl.MiniHipatternsFixme = { fg = c.error, bg = "none", italic = true }
+					hl.MiniHipatternsHack = { fg = c.green1, bg = "none", italic = true }
+					hl.MiniHipatternsTodo = { fg = c.cyan, bg = "none", italic = true }
+					hl.MiniHipatternsNote = { fg = c.teal, bg = "none", italic = true }
+					hl.CustomHighlight1 = { fg = c.terminal.cyan_bright, bg = "none", underline = true, italic = true }
+					hl.CustomHighlight2 = { fg = c.terminal.magenta_bright, bg = "none", underline = true, italic = true }
+					hl.CustomHighlight3 = { fg = c.terminal.yellow_bright, bg = "none", underline = true, italic = true }
+					hl.CustomHighlight4 = { fg = c.terminal.green_bright, bg = "none", underline = true, italic = true }
 				end,
 			})
 			vim.cmd("colorscheme tokyonight")
