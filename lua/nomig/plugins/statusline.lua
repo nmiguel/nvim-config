@@ -28,7 +28,7 @@ return {
 					-- 	return h.hl_component({ primary = primary, secondary = secondary }, h.hls.component, c.sep)
 					-- end,
 					"filetype_lsp",
-					-- "progress",
+					"progress",
 				},
 			},
 			spaces = {
