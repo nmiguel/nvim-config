@@ -45,7 +45,7 @@ vim.opt.grepformat = "%f:%l:%c:%m"
 
 vim.opt.showmode = false
 
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "manual"
 vim.opt.foldlevel = 20
 vim.opt.foldenable = false
 
