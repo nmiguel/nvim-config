@@ -1,7 +1,24 @@
 return {
 	cmd = { "basedpyright-langserver", "--stdio" },
 	filetypes = { "python" },
-	root_markers = { "pyrightconfig.json", "pyproject.toml", "Pipfile", "setup.py", "setup.cfg", ".git" },
+	root_dir = function(bufnr, cb)
+		local root = vim.fs.root(bufnr, {
+			"pyproject.toml",
+			"pyrightconfig.json",
+			".git",
+		}) or vim.fn.expand("%:p:h")
+		cb(root)
+	end,
+	on_attach = function(client, _)
+        -- Keep these true while pyrefly crashes often
+		client.server_capabilities.completionProvider = false -- use pyrefly for fast response
+		client.server_capabilities.definitionProvider = false -- use pyrefly for fast response
+        client.server_capabilities.referencesProvider = false
+
+		client.server_capabilities.documentHighlightProvider = false -- use pyrefly for fast response
+		client.server_capabilities.renameProvider = false -- use pyrefly as I think it is stable
+		client.server_capabilities.semanticTokensProvider = false -- use pyrefly it is more rich
+	end,
 	settings = {
 		basedpyright = {
 			disableOrganizeImports = true,
