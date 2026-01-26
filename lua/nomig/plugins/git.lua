@@ -105,4 +105,9 @@ return {
 			})
 		end,
 	},
+	{
+		"spacedentist/resolve.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {},
+	},
 }
