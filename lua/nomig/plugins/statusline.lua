@@ -16,17 +16,17 @@ return {
 				center = {},
 				right = {
 					"git",
-					-- function()
-					-- 	local h = require("slimline.highlights")
-					-- 	local c = require("slimline").config
-					-- 	local primary = require("grapple").statusline({ include_icon = false })
-					-- 	if #primary == 0 then
-					-- 		return ""
-					-- 	end
-					-- 	local secondary = "󰛢"
-					--
-					-- 	return h.hl_component({ primary = primary, secondary = secondary }, h.hls.component, c.sep)
-					-- end,
+					function()
+						local h = require("slimline.highlights")
+						local c = require("slimline").config
+						local primary = require("grapple").statusline({ include_icon = false })
+						if #primary == 0 then
+							return ""
+						end
+						local secondary = "󰛢"
+
+						return h.hl_component({ primary = primary, secondary = secondary }, h.hls.component, c.sep)
+					end,
 					"filetype_lsp",
 					"progress",
 				},
