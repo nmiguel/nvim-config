@@ -113,18 +113,6 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter-context",
-	-- 	branch = "main",
-	-- 	event = "BufRead",
-	-- 	dependencies = {
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		event = "BufRead",
-	-- 	},
-	-- 	opts = {
-	-- 		multiwindow = true,
-	-- 	},
-	-- },
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		branch = "main",
@@ -174,10 +162,10 @@ return {
 				select.select_textobject("@conditional.outer", "textobjects")
 			end)
 
-			vim.keymap.set({ "x", "o" }, "is", function()
+			vim.keymap.set({ "x", "o" }, "ib", function()
 				select.select_textobject("@block.inner", "textobjects")
 			end)
-			vim.keymap.set({ "x", "o" }, "as", function()
+			vim.keymap.set({ "x", "o" }, "ab", function()
 				select.select_textobject("@block.outer", "textobjects")
 			end)
 
@@ -201,6 +189,13 @@ return {
 			end)
 			vim.keymap.set({ "n", "x", "o" }, "[c", function()
 				move.goto_previous("@conditional.outer", "textobjects")
+			end)
+
+			vim.keymap.set({ "n", "x", "o" }, "]b", function()
+				move.goto_next("@block.outer", "textobjects")
+			end)
+			vim.keymap.set({ "n", "x", "o" }, "[b", function()
+				move.goto_previous("@block.outer", "textobjects")
 			end)
 
 			-- Repeatable movement (; and ,)
