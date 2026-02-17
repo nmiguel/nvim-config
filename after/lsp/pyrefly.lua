@@ -5,6 +5,9 @@ return {
 		local root = vim.fs.root(bufnr, {
 			"pyrefly.roml",
 			"pyrefly.toml",
+			"pyproject.toml",
+			"pyrightconfig.json",
+			".git",
 		}) or vim.fn.expand("%:p:h")
 		cb(root)
 	end,
