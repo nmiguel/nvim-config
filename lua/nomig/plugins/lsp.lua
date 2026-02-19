@@ -35,6 +35,8 @@ return {
 				[vim.diagnostic.severity.HINT] = "DiagnosticHint",
 			}
 
+			vim.lsp.inlay_hint.enable()
+
 			vim.diagnostic.config({
 				severity_sort = true,
 				underline = {
@@ -48,13 +50,10 @@ return {
 						[vim.diagnostic.severity.HINT] = "?",
 					},
 					numhl = diagnostic_highlights,
-					-- linehl = diagnostic_highlights,
 					priority = 10000,
 				},
 				update_in_insert = false,
 			})
-
-			vim.lsp.inlay_hint.enable()
 
 			local group = vim.api.nvim_create_augroup("LSP", {})
 			function OpenDiagnosticIfNoFloat()
@@ -64,7 +63,7 @@ return {
 					end
 				end
 				vim.diagnostic.open_float(0, {
-                    border = "rounded",
+					border = "rounded",
 					scope = "cursor",
 					focusable = false,
 					close_events = {
@@ -95,6 +94,12 @@ return {
 					vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>vr", require("snacks").picker.lsp_references, opts)
 					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
+					vim.keymap.set("n", "[e", function()
+						vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
+					end, opts)
+					vim.keymap.set("n", "]e", function()
+						vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
+					end, opts)
 					vim.keymap.set("n", "K", function()
 						vim.lsp.buf.hover({ border = "rounded" })
 					end, opts)
