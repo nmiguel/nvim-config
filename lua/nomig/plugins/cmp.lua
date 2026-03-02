@@ -3,6 +3,7 @@ return {
 	lazy = false,
 	-- enabled = false,
 	dependencies = { { "L3MON4D3/LuaSnip", version = "v2.*" }, "xzbdmw/colorful-menu.nvim" },
+    branch = "fix/visual-artifacts",  -- remove once the PR is merged: https://github.com/saghen/blink.cmp/pull/2394
     build = "cargo build --release",
 	-- version = "v1.x.x",
 
