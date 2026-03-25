@@ -2,149 +2,20 @@ return {
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
-		-- enabled = false,
 		priority = 1000,
 		config = function()
 			require("tokyonight").setup({
 				transparent = true,
-				sidebars = { "Packer" },
 				style = "night",
 				dim_inactive = true,
 				styles = {
 					sidebars = "transparent",
-					float = "transparent",
+					floats = "transparent",
 				},
-				on_colors = function(c)
-					c.bg = "NONE"
-					c.bg_dark = "NONE"
-					c.bg_float = "NONE"
-				end,
-
-				on_highlights = function(hl, c)
-					hl.StatusLine = {
-						fg = c.fg,
-						bg = "none",
-					}
-					hl.LineNr = {
-						fg = c.purple,
-						bg = "none",
-					}
-					hl.DiagnosticVirtualTextInfo = {
-						bg = "none",
-						fg = hl.DiagnosticVirtualTextInfo.fg,
-					}
-					hl.DiagnosticVirtualTextWarn = {
-						bg = "none",
-						fg = hl.DiagnosticVirtualTextWarn.fg,
-					}
-					hl.DiagnosticVirtualTextError = {
-						bg = "none",
-						fg = hl.DiagnosticVirtualTextError.fg,
-					}
-					hl.DiagnosticVirtualTextHint = {
-						bg = "none",
-						fg = hl.DiagnosticVirtualTextHint.fg,
-					}
-					hl.WinSeparator = {
-						fg = c.purple,
-						bg = "none",
-					}
-					hl.GitSignsAdd = {
-						fg = c.green,
-						bg = "none",
-					}
-					hl.GitSignsChange = {
-						fg = c.blue,
-						bg = "none",
-					}
-					hl.Folded = {
-						fg = hl.Folded.fg,
-						bg = hl.Folded.bg,
-						italic = true,
-					}
-					hl.TabLineFill = {
-						fg = hl.TabLineFill.fg,
-						bg = "none",
-					}
-					hl.TabLine = {
-						fg = hl.TabLine.fg,
-						bg = "none",
-					}
-					hl.TabLineSel = {
-						fg = hl.TabLineSel.bg,
-						bg = "none",
-					}
-					hl.WinBarNC = {
-						bg = "none",
-					}
-					hl.WinBar = {
-						bg = "none",
-					}
-					hl.DebugPrintLine = {
-						fg = c.purple,
-						bg = "none",
-						italic = true,
-					}
-
-					-- Completion Menu Adjustments
-					hl.BlinkCmpMenu = {
-						fg = c.fg,
-						bg = "none",
-					}
-					hl.Pmenu = {
-						fg = c.fg,
-						bg = "none",
-					}
-					hl.BlinkCmpMenuBorder = hl.TelescopeBorder
-					hl.BlinkCmpMenuSelection = hl.PmenuSel
-					hl.BlinkCmpLabel = {
-						fg = "none",
-						bg = "none",
-					}
-					hl.BlinkCmpLabelMatch = {
-						fg = c.red,
-						bg = "none",
-					}
-
-					-- Scrollbar and Border Adjustments
-					hl.PmenuThumb = {
-						fg = hl.TelescopeBorder.fg,
-						bg = "none",
-					}
-					hl.BlinkCmpScrollBarThumb = { fg = c.fg, bg = c.fg }
-
-					-- Additional Blink Highlight Groups
-					hl.BlinkCmpDoc = hl.Float
-					hl.BlinkCmpDocBorder = hl.TelescopeBorder
-					hl.BlinkCmpLabelMatch = { fg = c.purple, bg = "none" }
-					hl.BlinkCmpSignatureHelp = hl.Float
-					hl.BlinkCmpSignatureHelpBorder = hl.TelescopeBorder
-					hl.BlinkCmpSignatureHelpActiveParameter = hl.LspSignatureActiveParameter
-
-					hl.LspInlayHint = {
-						fg = hl.Comment.fg,
-						bg = "none",
-						italic = true,
-						-- underline = true,
-					}
-
-					hl.SnacksPickerToggle = {
-						fg = hl.SnacksPickerToggle.fg,
-						bg = "none",
-					}
-
-					-- MiniHipatterns highlights
-					hl.MiniHipatternsFixme = { fg = c.error, bg = "none", italic = true }
-					hl.MiniHipatternsHack = { fg = c.green1, bg = "none", italic = true }
-					hl.MiniHipatternsTodo = { fg = c.cyan, bg = "none", italic = true }
-					hl.MiniHipatternsNote = { fg = c.teal, bg = "none", italic = true }
-					hl.CustomHighlight1 = { fg = c.terminal.cyan_bright, bg = "none", underline = true, italic = true }
-					hl.CustomHighlight2 = { fg = c.terminal.magenta_bright, bg = "none", underline = true, italic = true }
-					hl.CustomHighlight3 = { fg = c.terminal.yellow_bright, bg = "none", underline = true, italic = true }
-					hl.CustomHighlight4 = { fg = c.terminal.green_bright, bg = "none", underline = true, italic = true }
-				end,
 			})
-			vim.cmd("colorscheme tokyonight")
+
+			vim.cmd.colorscheme("tokyonight")
+            require("nomig.highlights").apply()
 		end,
 	},
 }
