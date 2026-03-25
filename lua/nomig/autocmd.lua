@@ -29,3 +29,13 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.cmd([[
 aunmenu PopUp
 ]])
+
+-- Set custom theme override
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		vim.schedule(function()
+			require("nomig.colors").apply()
+		end)
+	end,
+})
+

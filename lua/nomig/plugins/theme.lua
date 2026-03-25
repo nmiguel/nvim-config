@@ -1,9 +1,12 @@
-return {
+local opts = {
+    lazy = false,
+    cond = false,
+    priority = 1000,
+}
+
+local themes = {
 	{
 		"folke/tokyonight.nvim",
-		lazy = false,
-		enabled = false,
-		priority = 1000,
 		config = function()
 			require("tokyonight").setup({
 				transparent = true,
@@ -16,39 +19,35 @@ return {
 			})
 
 			vim.cmd.colorscheme("tokyonight")
-			require("nomig.colors").apply()
 		end,
 	},
 	{
 		"neanias/everforest-nvim",
-		lazy = false,
-		priority = 1000,
 		config = function()
 			require("everforest").setup({})
 			vim.cmd.colorscheme("everforest")
-			require("nomig.colors").apply()
 		end,
 	},
 	{
 		"catppuccin/nvim",
-		name = "catppuccin",
-		enabled = false,
-		lazy = false,
-		priority = 1000,
+        name = "catppuccin",
 		config = function()
 			vim.cmd.colorscheme("catppuccin-macchiato")
-			require("nomig.colors").apply()
 		end,
 	},
 	{
 		"rose-pine/neovim",
-		name = "rose-pine",
-		priority = 1000,
-		enabled = false,
-		lazy = false,
+        name = "rose-pine",
 		config = function()
 			vim.cmd("colorscheme rose-pine")
-			require("nomig.colors").apply()
 		end,
 	},
 }
+
+for i, theme in ipairs(themes) do
+    themes[i] = vim.tbl_extend("keep", theme, opts)
+end
+
+themes[3].cond = true
+
+return themes

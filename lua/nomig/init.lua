@@ -1,7 +1,9 @@
+require("nomig.autocmd")
 require("nomig.remap")
 require("nomig.set")
+
+-- Fire all custom code before any plugin
 require("nomig.lazy")
-require("nomig.autocmd")
 
 
 -- Better reloading and printing

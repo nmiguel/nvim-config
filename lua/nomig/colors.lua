@@ -1,12 +1,10 @@
 local M = {}
 
 local defaults = {
-	lineNrFg = "#5eacd3",
+	lineNrFg = "#3b4261",
+	cursorLineNrFg = "#ffc777",
 	statusLineFg = "#c0caf5",
 	winSeparatorFg = "#5eacd3",
-
-	gitAddFg = "#9ece6a",
-	gitChangeFg = "#7aa2f7",
 
 	diagnosticInfoFg = "#7dcfff",
 	diagnosticWarnFg = "#e0af68",
@@ -48,23 +46,18 @@ local function set_partial_hl(name, opts)
 	vim.api.nvim_set_hl(0, name, merged)
 end
 
+local function make_transparent(name)
+    set_partial_hl(name, { bg = "none" })
+end
+
 M.apply = function(user_colors)
 	local colors = vim.tbl_deep_extend("force", defaults, user_colors or {})
 
 	-- core UI
 	set_partial_hl("StatusLine", { fg = colors.statusLineFg, bg = "none" })
 	set_partial_hl("LineNr", { fg = colors.lineNrFg, bg = "none" })
+	set_partial_hl("CursorLineNr", { fg = colors.cursorLineNrFg, bg = "none", bold = true })
 	set_partial_hl("WinSeparator", { fg = colors.winSeparatorFg, bg = "none" })
-
-	set_partial_hl("Normal", { bg = "none" })
-	set_partial_hl("NormalNC", { bg = "none" })
-	set_partial_hl("NormalFloat", { bg = "none" })
-	set_partial_hl("FloatBorder", { bg = "none" })
-	set_partial_hl("FloatTitle", { bg = "none" })
-
-	-- git
-	set_partial_hl("GitSignsAdd", { fg = colors.gitAddFg, bg = "none" })
-	set_partial_hl("GitSignsChange", { fg = colors.gitChangeFg, bg = "none" })
 
 	-- diagnostics
 	set_partial_hl("DiagnosticVirtualTextInfo", { fg = colors.diagnosticInfoFg, bg = "none" })
@@ -83,19 +76,27 @@ M.apply = function(user_colors)
 	set_partial_hl("MiniHipatternsTodo", { fg = colors.miniTodoFg, bg = "none", italic = true })
 	set_partial_hl("MiniHipatternsNote", { fg = colors.miniNoteFg, bg = "none", italic = true })
 
-	-- Slimline
-	set_partial_hl("SlimlinePrimarySep", { bg = "none" })
-	set_partial_hl("SlimlineSecondarySep", { bg = "none" })
-
 	-- always transparent
-	set_partial_hl("WinBar", { bg = "none" })
-	set_partial_hl("WinBarNC", { bg = "none" })
-	set_partial_hl("Pmenu", { bg = "none" })
-	set_partial_hl("BlinkCmpMenu", { bg = "none" })
-	set_partial_hl("BlinkCmpDoc", { bg = "none" })
-	set_partial_hl("TabLine", { bg = "none" })
-	set_partial_hl("TabLineFill", { bg = "none" })
-	set_partial_hl("TabLineSel", { bg = "none" })
+	make_transparent("Normal")
+	make_transparent("NormalNC")
+	make_transparent("NormalFloat")
+	make_transparent("FloatBorder")
+	make_transparent("FloatTitle")
+
+	make_transparent("GitSignsAdd")
+	make_transparent("GitSignsChange")
+	make_transparent("SlimlinePrimarySep")
+	make_transparent("Slimline")
+	make_transparent("SlimlineSecondarySep")
+	make_transparent("WinBar")
+	make_transparent("WinBarNC")
+	make_transparent("Pmenu")
+	make_transparent("BlinkCmpMenu")
+	make_transparent("BlinkCmpMenuBorder")
+	make_transparent("BlinkCmpDoc")
+	make_transparent("TabLine")
+	make_transparent("TabLineFill")
+	make_transparent("TabLineSel")
 end
 
 return M
