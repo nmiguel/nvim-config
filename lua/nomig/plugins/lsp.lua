@@ -55,33 +55,34 @@ return {
 				update_in_insert = false,
 			})
 
-			local group = vim.api.nvim_create_augroup("LSP", {})
-			function OpenDiagnosticIfNoFloat()
-				for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-					if vim.api.nvim_win_get_config(winid).zindex then
-						return
-					end
-				end
-				vim.diagnostic.open_float(0, {
-					border = "rounded",
-					scope = "cursor",
-					focusable = false,
-					close_events = {
-						"CursorMoved",
-						"CursorMovedI",
-						"BufHidden",
-						"InsertCharPre",
-						"WinLeave",
-					},
-				})
-			end
-			-- Show diagnostics under the cursor when holding position
-			vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
-			vim.api.nvim_create_autocmd({ "CursorHold" }, {
-				pattern = "*",
-				command = "lua OpenDiagnosticIfNoFloat()",
-				group = "lsp_diagnostics_hold",
-			})
+            -- Show diagnostics in a floating window when the cursor is held still
+			-- local group = vim.api.nvim_create_augroup("LSP", {})
+			-- function OpenDiagnosticIfNoFloat()
+			-- 	for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+			-- 		if vim.api.nvim_win_get_config(winid).zindex then
+			-- 			return
+			-- 		end
+			-- 	end
+			-- 	vim.diagnostic.open_float(0, {
+			-- 		border = "rounded",
+			-- 		scope = "cursor",
+			-- 		focusable = false,
+			-- 		close_events = {
+			-- 			"CursorMoved",
+			-- 			"CursorMovedI",
+			-- 			"BufHidden",
+			-- 			"InsertCharPre",
+			-- 			"WinLeave",
+			-- 		},
+			-- 	})
+			-- end
+			-- -- Show diagnostics under the cursor when holding position
+			-- vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
+			-- vim.api.nvim_create_autocmd({ "CursorHold" }, {
+			-- 	pattern = "*",
+			-- 	command = "lua OpenDiagnosticIfNoFloat()",
+			-- 	group = "lsp_diagnostics_hold",
+			-- })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
@@ -95,10 +96,10 @@ return {
 					vim.keymap.set("n", "<leader>vr", require("snacks").picker.lsp_references, opts)
 					vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
 					vim.keymap.set("n", "[e", function()
-						vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
+						vim.diagnostic.jump({ count = -1, float = false, severity = vim.diagnostic.severity.ERROR })
 					end, opts)
 					vim.keymap.set("n", "]e", function()
-						vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
+						vim.diagnostic.jump({ count = 1, float = false, severity = vim.diagnostic.severity.ERROR })
 					end, opts)
 					vim.keymap.set("n", "K", function()
 						vim.lsp.buf.hover({ border = "rounded" })

@@ -29,8 +29,6 @@ map("x", "<leader>p", [["_dP]])
 map({ "n", "v" }, "<leader>y", [["+y]])
 map("n", "<leader>Y", [["+Y]])
 
-map({ "n", "v" }, "<leader>d", [["_d]])
-
 map("n", "Q", "<c-v>")
 map("n", "<leader>p", "<nop>") -- I press this so much before deciding on telescope
 
