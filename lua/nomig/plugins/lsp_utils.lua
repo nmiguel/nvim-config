@@ -1,15 +1,53 @@
 return {
 	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		priority = 1000,
+		config = function()
+			require("tiny-inline-diagnostic").setup({
+				options = {
+					show_source = true,
+					show_all_diags_on_cursorline = true,
+				},
+                transparent_bg = true,
+				hi = {
+					error = "DiagnosticError", -- Highlight for error diagnostics
+					warn = "DiagnosticWarn", -- Highlight for warning diagnostics
+					info = "DiagnosticInfo", -- Highlight for info diagnostics
+					hint = "DiagnosticHint", -- Highlight for hint diagnostics
+					arrow = "NonText", -- Highlight for the arrow pointing to diagnostic
+					background = "CursorLine", -- Background highlight for diagnostics
+					mixing_color = "None", -- Color to blend background with (or "None")
+				},
+
+				-- transparent_bg = true,
+				signs = {
+					left = "",
+					right = " │",
+					diag = "●",
+					arrow = "",
+					up_arrow = "    ",
+					vertical = " │",
+					vertical_end = " │",
+				},
+				blend = {
+					factor = 0.15,
+				},
+			})
+			vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+		end,
+	},
+	{
 		"Davidyz/inlayhint-filler.nvim",
-		enabled = false,
+		enabled = true,
 		keys = {
 			{
-				"<leader>vi", -- Use whatever keymap you want.
+				"<leader>vi",
 				function()
 					require("inlayhint-filler").fill()
 				end,
 				desc = "Insert the inlay-hint under cursor into the buffer.",
-				mode = { "n", "v" }, -- include 'v' if you want to use it in visual selection mode
+				mode = { "n", "v" },
 			},
 		},
 	},
