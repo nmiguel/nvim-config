@@ -38,12 +38,15 @@ local themes = {
 	rose_pine = {
 		"rose-pine/neovim",
 		config = function()
-			vim.cmd("colorscheme rose-pine")
+			vim.cmd.colorscheme("rose-pine")
 		end,
 	},
 	kanagawa = {
 		"rebelot/kanagawa.nvim",
 		config = function()
+			require("kanagawa").setup({
+				colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
+			})
 			vim.cmd.colorscheme("kanagawa")
 		end,
 	},
@@ -65,14 +68,13 @@ local themes = {
 	},
 }
 
-
-themes.catppuccin.cond = true
+themes.everforest.cond = true
 
 local theme_spec = {}
-for name, theme in pairs(themes) do
+for name, _ in pairs(themes) do
 	themes[name] = vim.tbl_extend("keep", themes[name], opts)
-    themes[name] = vim.tbl_extend("keep", themes[name], { name = name })
-    table.insert(theme_spec, themes[name])
+	themes[name] = vim.tbl_extend("keep", themes[name], { name = name })
+	table.insert(theme_spec, themes[name])
 end
 
 return theme_spec

@@ -77,6 +77,9 @@ M.apply = function(user_colors)
 	set_partial_hl("MiniHipatternsHack", { fg = colors.miniHackFg, bg = "none", italic = true })
 	set_partial_hl("MiniHipatternsTodo", { fg = colors.miniTodoFg, bg = "none", italic = true })
 	set_partial_hl("MiniHipatternsNote", { fg = colors.miniNoteFg, bg = "none", italic = true })
+	set_partial_hl("LspReferenceRead", { bg = "none", italic = true, bold = true, underline = false })
+	set_partial_hl("LspReferenceWrite", { bg = "none", italic = true, bold = true, underline = true })
+	set_partial_hl("LspReferenceText", { bg = "none", italic = true, bold = true, underline = false })
 
 	-- always transparent
 	make_transparent({
@@ -85,11 +88,38 @@ M.apply = function(user_colors)
 		"NormalFloat",
 		"FloatBorder",
 		"FloatTitle",
-        "SignColumn",
-        "EndOfBuffer",
-        "WinSeparator",
+		"SignColumn",
+		"EndOfBuffer",
+		"WinSeparator",
 
 		"GitSignsAdd",
+		"GitSignsChange",
+		"GitSignsDelete",
+		"GitSignsAdd",
+		"GitSignsStagedChangedeleteCul",
+		"GitSignsStagedChangedeleteNr",
+		"GitSignsStagedUntrackedCul",
+		"GitSignsStagedTopdeleteCul",
+		"GitSignsStagedChangedelete",
+		"GitSignsStagedUntrackedNr",
+		"GitSignsStagedTopdeleteNr",
+		"GitSignsStagedUntracked",
+		"GitSignsStagedTopdelete",
+		"GitSignsStagedDeleteCul",
+		"GitSignsStagedChangeCul",
+		"GitSignsStagedDeleteNr",
+		"GitSignsStagedChangeNr",
+		"GitSignsStagedDelete",
+		"GitSignsStagedChange",
+		"GitSignsStagedAddCul",
+		"GitSignsStagedAddNr",
+		"GitSignsStagedAdd",
+		"GitSignsStagedChangedeleteLn",
+		"GitSignsStagedUntrackedLn",
+		"GitSignsStagedChangeLn",
+		"GitSignsStagedAddLn",
+        "OilGitStatusIndex",
+
 		"GitSignsChange",
 		"GitSignsDelete",
 		"SlimlinePrimarySep",
