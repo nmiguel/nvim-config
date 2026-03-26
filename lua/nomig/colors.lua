@@ -46,8 +46,10 @@ local function set_partial_hl(name, opts)
 	vim.api.nvim_set_hl(0, name, merged)
 end
 
-local function make_transparent(name)
-    set_partial_hl(name, { bg = "none" })
+local function make_transparent(names)
+	for _, name in ipairs(type(names) == "table" and names or { names }) do
+		set_partial_hl(name, { bg = "none" })
+	end
 end
 
 M.apply = function(user_colors)
@@ -77,26 +79,31 @@ M.apply = function(user_colors)
 	set_partial_hl("MiniHipatternsNote", { fg = colors.miniNoteFg, bg = "none", italic = true })
 
 	-- always transparent
-	make_transparent("Normal")
-	make_transparent("NormalNC")
-	make_transparent("NormalFloat")
-	make_transparent("FloatBorder")
-	make_transparent("FloatTitle")
+	make_transparent({
+		"Normal",
+		"NormalNC",
+		"NormalFloat",
+		"FloatBorder",
+		"FloatTitle",
+        "SignColumn",
+        "EndOfBuffer",
 
-	make_transparent("GitSignsAdd")
-	make_transparent("GitSignsChange")
-	make_transparent("SlimlinePrimarySep")
-	make_transparent("Slimline")
-	make_transparent("SlimlineSecondarySep")
-	make_transparent("WinBar")
-	make_transparent("WinBarNC")
-	make_transparent("Pmenu")
-	make_transparent("BlinkCmpMenu")
-	make_transparent("BlinkCmpMenuBorder")
-	make_transparent("BlinkCmpDoc")
-	make_transparent("TabLine")
-	make_transparent("TabLineFill")
-	make_transparent("TabLineSel")
+		"GitSignsAdd",
+		"GitSignsChange",
+		"GitSignsDelete",
+		"SlimlinePrimarySep",
+		"Slimline",
+		"SlimlineSecondarySep",
+		"WinBar",
+		"WinBarNC",
+		"Pmenu",
+		"BlinkCmpMenu",
+		"BlinkCmpMenuBorder",
+		"BlinkCmpDoc",
+		"TabLine",
+		"TabLineFill",
+		"TabLineSel",
+	})
 end
 
 return M
