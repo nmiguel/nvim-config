@@ -87,6 +87,7 @@ M.apply = function(user_colors)
 		"FloatTitle",
         "SignColumn",
         "EndOfBuffer",
+        "WinSeparator",
 
 		"GitSignsAdd",
 		"GitSignsChange",
