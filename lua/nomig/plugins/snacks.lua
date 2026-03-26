@@ -4,7 +4,6 @@ return {
 	priority = 1000,
 	lazy = false,
 	config = function()
-		local hl = "WinSeparator"
 		require("snacks").setup({
 			styles = {},
 			scroll = {
@@ -34,18 +33,8 @@ return {
 					return found
 				end,
 				enabled = true,
-				animate = { enabled = false },
-				scope = { enabled = false, hl = hl },
-				chunk = {
-					enabled = true,
-					only_current = true,
-					hl = hl,
-					char = {
-						corner_top = "╭",
-						corner_bottom = "╰",
-						arrow = "",
-					},
-				},
+				animate = { enabled = false},
+				scope = { enabled = true, only_current = true },
 			},
 
 			picker = {
