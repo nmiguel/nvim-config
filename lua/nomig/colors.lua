@@ -2,9 +2,10 @@ local M = {}
 
 local defaults = {
 	lineNrFg = "#3b4261",
+	floatBorder = "#aba2a1",
 	cursorLineNrFg = "#ffc777",
 	statusLineFg = "#c0caf5",
-	winSeparatorFg = "#5eacd3",
+	winSeparatorFg = "#c0caf5",
 
 	diagnosticInfoFg = "#7dcfff",
 	diagnosticWarnFg = "#e0af68",
@@ -60,6 +61,7 @@ M.apply = function(user_colors)
 	set_partial_hl("LineNr", { fg = colors.lineNrFg, bg = "none" })
 	set_partial_hl("CursorLineNr", { fg = colors.cursorLineNrFg, bg = "none", bold = true })
 	set_partial_hl("WinSeparator", { fg = colors.winSeparatorFg, bg = "none" })
+	set_partial_hl("FloatBorder", { fg = colors.floatBorder, bg = "none" })
 
 	-- diagnostics
 	set_partial_hl("DiagnosticVirtualTextInfo", { fg = colors.diagnosticInfoFg, bg = "none" })
@@ -84,13 +86,12 @@ M.apply = function(user_colors)
 	-- always transparent
 	make_transparent({
 		"Normal",
-		"NormalNC",
 		"NormalFloat",
 		"FloatBorder",
 		"FloatTitle",
-		"SignColumn",
 		"EndOfBuffer",
 		"WinSeparator",
+        "SignColumn",
 
 		"GitSignsAdd",
 		"GitSignsChange",
@@ -118,7 +119,7 @@ M.apply = function(user_colors)
 		"GitSignsStagedUntrackedLn",
 		"GitSignsStagedChangeLn",
 		"GitSignsStagedAddLn",
-        "OilGitStatusIndex",
+       "OilGitStatusIndex",
 
 		"GitSignsChange",
 		"GitSignsDelete",

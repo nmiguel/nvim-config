@@ -68,7 +68,7 @@ local themes = {
 	},
 }
 
-themes.everforest.cond = true
+themes.kanagawa.cond = true
 
 local theme_spec = {}
 for name, _ in pairs(themes) do
