@@ -37,7 +37,7 @@ vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
 
-vim.o.winborder = 'rounded'
+vim.o.winborder = "rounded"
 
 -- Open help in vertical split
 vim.cmd("cnorea h vert bo help")
@@ -53,26 +53,42 @@ vim.opt.foldlevel = 20
 vim.opt.foldenable = false
 
 function _G.CustomFoldText()
-    local indent = vim.fn.indent(vim.v.foldstart)
-    local spacing = string.rep(" ", indent)
-    local start = vim.fn.getline(vim.v.foldstart):gsub("^%s*", "")
-    return spacing .. start .. " ... " .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
+	local start_lnum = vim.v.foldstart
+	local end_lnum = vim.v.foldend
+
+	local indent = vim.fn.indent(start_lnum)
+	local spacing = string.rep(" ", indent)
+
+	local function first50(line)
+		line = line:gsub("^%s*", "")
+		if #line > 50 then
+			return line:sub(1, 50)
+		end
+		return line
+	end
+
+	local start = first50(vim.fn.getline(start_lnum))
+	local finish = first50(vim.fn.getline(end_lnum))
+
+	local line_count = end_lnum - start_lnum + 1
+
+	return string.format("%s%s ... (%d lines) ... %s...", spacing, start, line_count, finish)
 end
+
 vim.opt.foldtext = "v:lua.CustomFoldText()"
 
 -- Disable deprecation warnings
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.deprecate = function() end
 
-
 vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
 }

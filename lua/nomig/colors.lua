@@ -73,6 +73,7 @@ M.apply = function(user_colors)
 	set_partial_hl("DebugPrintLine", { fg = colors.debugPrintFg, bg = "none", italic = true })
 	set_partial_hl("BlinkCmpLabelMatch", { fg = colors.blinkMatchFg, bg = "none" })
 	set_partial_hl("LspInlayHint", { fg = colors.inlayHintFg, bg = "none", italic = true })
+	set_partial_hl("Folded", { italic = true, bg = "none" })
 
 	-- mini.hipatterns
 	set_partial_hl("MiniHipatternsFixme", { fg = colors.miniFixmeFg, bg = "none", italic = true })
