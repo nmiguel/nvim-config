@@ -23,7 +23,7 @@ local defaults = {
 }
 
 local function update_hl(name, opts)
-	opts = vim.tbl_extend("force", opts, { update = true })
+	opts.update = true
 	vim.api.nvim_set_hl(0, name, opts)
 end
 
@@ -63,6 +63,7 @@ M.apply = function(user_colors)
 	update_hl("LspReferenceRead", { bg = "none", italic = true, bold = true, underline = false })
 	update_hl("LspReferenceWrite", { bg = "none", italic = true, bold = true, underline = true })
 	update_hl("LspReferenceText", { bg = "none", italic = true, bold = true, underline = false })
+    update_hl("MsgSeparator", {bg = "none", underline = true, fg = colors.statusLineFg})
 
 	-- always transparent
 	make_transparent({
