@@ -39,9 +39,6 @@ vim.g.mapleader = " "
 
 vim.o.winborder = "rounded"
 
--- Open help in vertical split
-vim.cmd("cnorea h vert bo help")
-
 -- Use ripgrep
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"
