@@ -62,7 +62,7 @@ function _G.CustomFoldText()
 	local function first50(line)
 		line = line:gsub("^%s*", "")
 		if #line > 50 then
-			return line:sub(1, 50)
+			return line:sub(1, 50) .. " ..."
 		end
 		return line
 	end
@@ -72,7 +72,7 @@ function _G.CustomFoldText()
 
 	local line_count = end_lnum - start_lnum + 1
 
-	return string.format("%s%s ... (%d lines) ... %s...", spacing, start, line_count, finish)
+	return string.format("%s%s (%d lines) %s", spacing, start, line_count, finish)
 end
 
 vim.opt.foldtext = "v:lua.CustomFoldText()"
