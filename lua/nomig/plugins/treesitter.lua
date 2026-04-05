@@ -38,6 +38,13 @@ return {
 			},
 		},
 		config = function(_, opts)
+			vim.keymap.set("x", "n", function()
+				require("vim.treesitter._select").select_parent(vim.v.count1)
+			end, { noremap = true, silent = true})
+			vim.keymap.set("x", "N", function()
+				require("vim.treesitter._select").select_child(vim.v.count1)
+			end, { noremap = true, silent = true})
+
 			-- install parsers from custom opts.ensure_installed
 			if opts.ensure_installed and #opts.ensure_installed > 0 then
 				require("nvim-treesitter").install(opts.ensure_installed)
