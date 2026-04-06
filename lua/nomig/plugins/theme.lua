@@ -70,10 +70,21 @@ local themes = {
 
 themes.kanagawa.cond = true
 
+
+
 local theme_spec = {}
 for name, _ in pairs(themes) do
 	themes[name] = vim.tbl_extend("keep", themes[name], opts)
 	themes[name] = vim.tbl_extend("keep", themes[name], { name = name })
+
+    -- Hook into the config function to apply color fixes
+    themes[name].config = (function(orig_config)
+        return function()
+            orig_config()
+            require("nomig.colors").apply()
+        end
+    end)(themes[name].config)
+
 	table.insert(theme_spec, themes[name])
 end
 
