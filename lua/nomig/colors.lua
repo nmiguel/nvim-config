@@ -65,9 +65,14 @@ M.apply = function(user_colors)
 	update_hl("LspReferenceText", { bg = "none", italic = true, bold = true, underline = false })
     update_hl("MsgSeparator", {bg = "none", underline = true, fg = colors.statusLineFg})
 
-    -- LSP
+    -- Filetype-specific
     update_hl("@lsp.typemod.parameter.selfParameter.python", { link = "@variable.builtin" })
     update_hl("@lsp.typemod.parameter.clsParameter.python", { link = "@variable.builtin" })
+    update_hl("@markup.heading.1.markdown", { link = "@variable.builtin" })
+    update_hl("@markup.heading.2.markdown", { link = "@character" })
+    update_hl("@markup.heading.3.markdown", { link = "@function" })
+    update_hl("@markup.heading.4.markdown", { link = "@keyword" })
+    update_hl("@markup.heading.5.markdown", { link = "@constant" })
 
 	-- always transparent
 	make_transparent({
