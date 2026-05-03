@@ -1,15 +1,8 @@
 return {
 	"stevearc/quicker.nvim",
-	event = "FileType qf",
-	keys = {
-		{
-			mode = "n",
-			"<leader>q",
-			function()
-				require("quicker").toggle()
-			end,
-		},
-	},
+	ft = "qf",
+	---@module "quicker"
+	---@type quicker.SetupOptions
 	opts = {
 		borders = {
 			vert = "|",
