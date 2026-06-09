@@ -34,6 +34,7 @@ return {
 				css = { "prettier" },
 				html = { "prettier" },
 				htmldjango = { "djlint" },
+                nix = { "nixfmt" },
 			},
 		})
 	end,
