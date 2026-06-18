@@ -3,8 +3,8 @@ return {
 	lazy = false,
 	-- enabled = false,
 	dependencies = { { "L3MON4D3/LuaSnip", version = "v2.*" }, "xzbdmw/colorful-menu.nvim" },
-    build = "cargo build --release",
-	-- version = "v1.x.x",
+	build = "cargo build --release",
+	version = "1.*",
 
 	config = function()
 		local rounded_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
@@ -55,7 +55,7 @@ return {
 					border = rounded_border,
 				},
 			},
-			cmdline = {enabled = false},
+			cmdline = { enabled = false },
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
