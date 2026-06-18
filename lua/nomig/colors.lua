@@ -42,6 +42,8 @@ M.apply = function(user_colors)
 	update_hl("CursorLineNr", { fg = colors.cursorLineNrFg, bg = "none", bold = true })
 	update_hl("WinSeparator", { fg = colors.winSeparatorFg, bg = "none" })
 	update_hl("FloatBorder", { fg = colors.floatBorder, bg = "none" })
+	update_hl("BlinkCmpMenuBorder", { fg = colors.floatBorder, bg = "none" })
+	update_hl("BlinkCmpScrollbarThumb", { bg = colors.floatBorder })
 
 	-- diagnostics
 	update_hl("DiagnosticVirtualTextInfo", { fg = colors.diagnosticInfoFg, bg = "none" })
