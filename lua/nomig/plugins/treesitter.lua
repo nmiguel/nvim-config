@@ -81,6 +81,12 @@ return {
 						return
 					end
 
+					-- Skip filetypes managed by other plugins (kulala.nvim owns http/rest)
+					local plugin_managed = { "http", "rest" }
+					if vim.list_contains(plugin_managed, filetype) then
+						return
+					end
+
 					-- Check if this filetype is already handled by explicit opts.ensure_installed config
 					for _, filetypes in pairs(opts.ensure_installed) do
 						local ft_table = type(filetypes) == "table" and filetypes or { filetypes }
