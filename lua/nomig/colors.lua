@@ -12,7 +12,7 @@ local defaults = {
 	diagnosticErrorFg = "#f7768e",
 	diagnosticHintFg = "#1abc9c",
 
-	blinkMatchFg = "#bb9af7",
+	completionMatchFg = "#bb9af7",
 	inlayHintFg = "#565f89",
 	debugPrintFg = "#bb9af7",
 
@@ -51,7 +51,8 @@ M.apply = function(user_colors)
 
 	-- misc
 	update_hl("DebugPrintLine", { fg = colors.debugPrintFg, bg = "none", italic = true })
-	update_hl("BlinkCmpLabelMatch", { fg = colors.blinkMatchFg, bg = "none" })
+	update_hl("PmenuMatch", { fg = colors.completionMatchFg, bg = "none" })
+	update_hl("PmenuMatchSel", { fg = colors.completionMatchFg })
 	update_hl("LspInlayHint", { fg = colors.inlayHintFg, bg = "none", italic = true })
 	update_hl("Folded", { italic = true, bg = "none" })
 
@@ -63,16 +64,16 @@ M.apply = function(user_colors)
 	update_hl("LspReferenceRead", { bg = "none", italic = true, bold = true, underline = false })
 	update_hl("LspReferenceWrite", { bg = "none", italic = true, bold = true, underline = true })
 	update_hl("LspReferenceText", { bg = "none", italic = true, bold = true, underline = false })
-    update_hl("MsgSeparator", {bg = "none", underline = true, fg = colors.statusLineFg})
+	update_hl("MsgSeparator", { bg = "none", underline = true, fg = colors.statusLineFg })
 
-    -- Filetype-specific
-    update_hl("@lsp.typemod.parameter.selfParameter.python", { link = "@variable.builtin" })
-    update_hl("@lsp.typemod.parameter.clsParameter.python", { link = "@variable.builtin" })
-    update_hl("@markup.heading.1.markdown", { link = "@variable.builtin" })
-    update_hl("@markup.heading.2.markdown", { link = "@character" })
-    update_hl("@markup.heading.3.markdown", { link = "@function" })
-    update_hl("@markup.heading.4.markdown", { link = "@keyword" })
-    update_hl("@markup.heading.5.markdown", { link = "@constant" })
+	-- Filetype-specific
+	update_hl("@lsp.typemod.parameter.selfParameter.python", { link = "@variable.builtin" })
+	update_hl("@lsp.typemod.parameter.clsParameter.python", { link = "@variable.builtin" })
+	update_hl("@markup.heading.1.markdown", { link = "@variable.builtin" })
+	update_hl("@markup.heading.2.markdown", { link = "@character" })
+	update_hl("@markup.heading.3.markdown", { link = "@function" })
+	update_hl("@markup.heading.4.markdown", { link = "@keyword" })
+	update_hl("@markup.heading.5.markdown", { link = "@constant" })
 
 	-- always transparent
 	make_transparent({
@@ -80,6 +81,9 @@ M.apply = function(user_colors)
 		"NormalFloat",
 		"FloatBorder",
 		"FloatTitle",
+		"FloatFooter",
+		"FloatShadow",
+		"FloatShadowThrough",
 		"EndOfBuffer",
 		"WinSeparator",
 		"SignColumn",
@@ -120,9 +124,14 @@ M.apply = function(user_colors)
 		"WinBar",
 		"WinBarNC",
 		"Pmenu",
-		"BlinkCmpMenu",
-		"BlinkCmpMenuBorder",
-		"BlinkCmpDoc",
+		"PmenuKind",
+		"PmenuExtra",
+		"PmenuMatch",
+		"PmenuSbar",
+		-- "PmenuThumb",
+		-- "PmenuBorder",
+		"PmenuShadow",
+		"PmenuShadowThrough",
 		"TabLine",
 		"TabLineFill",
 		"TabLineSel",

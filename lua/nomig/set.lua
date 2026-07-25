@@ -1,5 +1,6 @@
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.infercase = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -38,6 +39,8 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 
 vim.o.winborder = "rounded"
+vim.opt.wildoptions:append("fuzzy")
+vim.opt.wildmode = { "noselect", "full" }
 
 -- Use ripgrep
 vim.opt.grepprg = "rg --vimgrep"
