@@ -1,9 +1,9 @@
-local capabilities = require("blink.cmp").get_lsp_capabilities()
-local ruff_capabilities = vim.tbl_deep_extend("force", {}, capabilities)
-ruff_capabilities.hoverProvider = false
 return {
 	cmd = { "ruff", "server" },
 	filetypes = { "python" },
+	on_attach = function(client)
+		client.server_capabilities.hoverProvider = false
+	end,
 	init_options = {
 		settings = {
 			fixAll = false,
@@ -12,6 +12,4 @@ return {
 			lint = { ignore = { "E741" } },
 		},
 	},
-	capabilities = ruff_capabilities,
 }
-

@@ -6,7 +6,6 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 
-			"saghen/blink.cmp",
 			-- "nvim-telescope/telescope.nvim",
 			"folke/snacks.nvim",
 			"justinsgithub/wezterm-types",
@@ -55,7 +54,7 @@ return {
 				update_in_insert = false,
 			})
 
-            -- Show diagnostics in a floating window when the cursor is held still
+			-- Show diagnostics in a floating window when the cursor is held still
 			-- local group = vim.api.nvim_create_augroup("LSP", {})
 			-- function OpenDiagnosticIfNoFloat()
 			-- 	for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
@@ -110,10 +109,8 @@ return {
 			require("mason").setup({})
 
 			-- Set default configuration for all servers
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			vim.lsp.config("*", {
 				root_markers = { ".git" },
-				capabilities = capabilities,
 			})
 
 			local get_lsp = function(dir)
