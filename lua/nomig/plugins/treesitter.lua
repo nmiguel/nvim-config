@@ -25,9 +25,11 @@ return {
 				"luap",
 				"markdown",
 				"markdown_inline",
+				"nix",
 				"python",
 				"query",
 				"regex",
+				"rust",
 				"toml",
 				"tsx",
 				"typescript",
@@ -38,95 +40,130 @@ return {
 			},
 		},
 		config = function(_, opts)
-			vim.keymap.set("x", "n", function()
-				require("vim.treesitter._select").select_parent(vim.v.count1)
-			end, { noremap = true, silent = true})
-			vim.keymap.set("x", "N", function()
-				require("vim.treesitter._select").select_child(vim.v.count1)
-			end, { noremap = true, silent = true})
+			local treesitter = require("nvim-treesitter")
+			treesitter.setup({
+				-- Keep managed parsers ahead of stale plugin-local and Neovim parsers.
+				install_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "site"),
+			})
 
-			-- install parsers from custom opts.ensure_installed
-			if opts.ensure_installed and #opts.ensure_installed > 0 then
-				require("nvim-treesitter").install(opts.ensure_installed)
-				-- register and start parsers for filetypes
-				for _, parser in ipairs(opts.ensure_installed) do
-					local filetypes = parser -- In this case, parser is the filetype/language name
-					vim.treesitter.language.register(parser, filetypes)
+			vim.keymap.set("x", "n", function()
+				vim.treesitter.select("parent", vim.v.count1)
+			end, { noremap = true, silent = true })
+			vim.keymap.set("x", "N", function()
+				vim.treesitter.select("child", vim.v.count1)
+			end, { noremap = true, silent = true })
+
+			local parser_configs = require("nvim-treesitter.parsers")
+			local install_options = { max_jobs = 4 }
+			local plugin_managed = { "http", "rest" }
+			local ensured = {}
+			for _, parser in ipairs(opts.ensure_installed or {}) do
+				ensured[parser] = true
+			end
+
+			local function start(bufnr)
+				if not vim.api.nvim_buf_is_valid(bufnr) or not vim.api.nvim_buf_is_loaded(bufnr) then
+					return false
+				end
+
+				local filetype = vim.bo[bufnr].filetype
+				if vim.list_contains(plugin_managed, filetype) then
+					return false
+				end
+
+				local parser = vim.treesitter.language.get_lang(filetype)
+				local highlighter = vim.treesitter.highlighter.active[bufnr]
+				if highlighter and highlighter.tree:lang() ~= parser then
+					vim.treesitter.stop(bufnr)
+					if vim.bo[bufnr].indentexpr == "v:lua.require'nvim-treesitter'.indentexpr()" then
+						vim.bo[bufnr].indentexpr = ""
+					end
+					highlighter = nil
+				end
+
+				local started = highlighter ~= nil
+				if not started then
+					local query_ok = pcall(vim.treesitter.query.get, parser, "highlights")
+					if query_ok then
+						started = pcall(vim.treesitter.start, bufnr, parser)
+					end
+				end
+				if started then
+					vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
+				return started
+			end
+
+			local function start_loaded_buffers()
+				for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+					if vim.bo[bufnr].filetype ~= "" then
+						start(bufnr)
+					end
 				end
 			end
 
-			vim.api.nvim_create_autocmd("FileType", {
-				callback = function(ctx)
-					local bufnr = ctx.buf
-					-- highlights
-					local hasStarted = pcall(vim.treesitter.start, bufnr) -- errors for filetypes with no parser
-					-- vim.bo[bufnr].syntax = "on"
-
-					-- indent
-					local noIndent = {}
-					if hasStarted and not vim.list_contains(noIndent, ctx.match) then
-						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-					end
-				end,
-			})
-
-			-- Auto-install and start parsers for any buffer
-			vim.api.nvim_create_autocmd({ "BufRead" }, {
-				callback = function(event)
-					local bufnr = event.buf
-					local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-
-					-- Skip if no filetype
-					if filetype == "" then
-						return
-					end
-
-					-- Skip filetypes managed by other plugins (kulala.nvim owns http/rest)
-					local plugin_managed = { "http", "rest" }
-					if vim.list_contains(plugin_managed, filetype) then
-						return
-					end
-
-					-- Check if this filetype is already handled by explicit opts.ensure_installed config
-					for _, filetypes in pairs(opts.ensure_installed) do
-						local ft_table = type(filetypes) == "table" and filetypes or { filetypes }
-						if vim.tbl_contains(ft_table, filetype) then
-							return -- Already handled above
+			local function enable()
+				vim.api.nvim_create_autocmd("FileType", {
+					group = vim.api.nvim_create_augroup("TreesitterStart", { clear = true }),
+					desc = "Start Treesitter or install a missing parser",
+					callback = function(event)
+						local filetype = event.match
+						if start(event.buf) then
+							return
 						end
-					end
 
-					-- Get parser name based on filetype
-					local parser_name = vim.treesitter.language.get_lang(filetype) -- might return filetype (not helpful)
-					if not parser_name then
-						return
-					end
-					-- Try to get existing parser (helpful check if filetype was returned above)
-					local parser_configs = require("nvim-treesitter.parsers")
-					if not parser_configs[parser_name] then
-						return -- Parser not available, skip silently
-					end
+						-- Skip filetypes managed by other plugins (kulala.nvim owns http/rest)
+						if vim.list_contains(plugin_managed, filetype) then
+							return
+						end
 
-					local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+						local parser = vim.treesitter.language.get_lang(filetype)
+						if not parser or not parser_configs[parser] or ensured[parser] then
+							return
+						end
 
-					if not parser_installed then
-						-- If not installed, install parser synchronously
-						require("nvim-treesitter").install({ parser_name }):wait(30000)
-					end
+						treesitter.install({ parser }, install_options):await(function(err, success)
+							if err or not success then
+								vim.schedule(function()
+									vim.notify(
+										"Failed to install the " .. parser .. " Tree-sitter parser",
+										vim.log.levels.WARN
+									)
+								end)
+								return
+							end
+							vim.schedule(function()
+								start(event.buf)
+							end)
+						end)
+					end,
+				})
+				start_loaded_buffers()
+			end
 
-					-- let's check again
-					parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-					if parser_installed then
-						-- Start treesitter for this buffer
-						vim.treesitter.start(bufnr, parser_name)
-					end
-				end,
-			})
+			if opts.ensure_installed and #opts.ensure_installed > 0 then
+				treesitter.install(opts.ensure_installed, install_options):await(function(install_err, installed)
+					treesitter.update(opts.ensure_installed, install_options):await(function(update_err, updated)
+						if install_err or not installed or update_err or not updated then
+							vim.schedule(function()
+								vim.notify(
+									"Some Tree-sitter parsers failed to install or update; run :checkhealth nvim-treesitter",
+									vim.log.levels.WARN
+								)
+							end)
+						end
+						vim.schedule(enable)
+					end)
+				end)
+			else
+				enable()
+			end
 		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		branch = "main",
+		commit = "93d60a475f0b08a8eceb99255863977d3a25f310",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			local ts_textobjects = require("nvim-treesitter-textobjects")
