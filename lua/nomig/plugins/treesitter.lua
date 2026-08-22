@@ -11,6 +11,7 @@ return {
 				"c",
 				"css",
 				"diff",
+                "fish",
 				"go",
 				"gomod",
 				"gowork",
