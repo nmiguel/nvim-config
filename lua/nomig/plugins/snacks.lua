@@ -39,6 +39,14 @@ return {
 
 			picker = {
 				layout = "telescope",
+				sources = {
+					highlights = {
+						confirm = {
+							{ action = "yank", field = "hl_group" },
+							"close",
+						},
+					},
+				},
 				matcher = {
 					fuzzy = true,
 					smartcase = true,
