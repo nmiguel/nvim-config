@@ -4,9 +4,9 @@ vim.g.mapleader = " "
 local _keymap_set = vim.keymap.set
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.keymap.set = function(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.silent = opts.silent ~= false
-  return _keymap_set(mode, lhs, rhs, opts)
+	opts = opts or {}
+	opts.silent = opts.silent ~= false
+	return _keymap_set(mode, lhs, rhs, opts)
 end
 
 local map = vim.keymap.set
@@ -31,6 +31,7 @@ map("n", "<leader>Y", [["+Y]])
 
 map("n", "Q", "<c-v>")
 map("n", "<leader>p", "<nop>") -- I press this so much before deciding on telescope
+map("n", "<leader>/", "<cmd>nohlsearch<cr>")
 
 map("v", "gk", ":norm gcc<CR>")
 
@@ -42,13 +43,13 @@ map("n", "k", "gk", { noremap = true })
 map("n", "gp", "`[v`]", { noremap = true })
 
 local function smart_split(key, direction, fallback_cmd)
-  map("n", key, function()
-    local curwin = vim.api.nvim_get_current_win()
-    vim.cmd("wincmd " .. direction)
-    if curwin == vim.api.nvim_get_current_win() then
-      vim.cmd(fallback_cmd)
-    end
-  end, { noremap = true, silent = true })
+	map("n", key, function()
+		local curwin = vim.api.nvim_get_current_win()
+		vim.cmd("wincmd " .. direction)
+		if curwin == vim.api.nvim_get_current_win() then
+			vim.cmd(fallback_cmd)
+		end
+	end, { noremap = true, silent = true })
 end
 
 smart_split("<C-h>", "h", "vsplit")
@@ -57,4 +58,3 @@ smart_split("<C-k>", "k", "split ")
 smart_split("<C-l>", "l", "vsplit | wincmd l")
 
 -- map('x', '<leader>f', ':fold<cr>', { noremap = true })
-
