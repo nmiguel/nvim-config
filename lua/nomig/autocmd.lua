@@ -1,31 +1,28 @@
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	desc = "Clear whitespaces on end of line when saving",
-	group = vim.api.nvim_create_augroup("nomig-clear-whitespace", { clear = true }),
-	pattern = "*",
+local group = vim.api.nvim_create_augroup("nomig-autocmds", { clear = true })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	desc = "Remove trailing whitespace on save",
+	group = group,
 	callback = function()
 		local view = vim.fn.winsaveview()
-		vim.cmd([[%s:\s\+$::e]])
-		vim.fn.winrestview(view) -- restore cached window view
+		vim.cmd([[%s/\s\+$//e]])
+		vim.fn.winrestview(view)
 	end,
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	desc = "Highlight yanked text",
+	group = group,
 	callback = function()
 		vim.hl.on_yank()
 	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	desc = "Stop auto commenting",
-	pattern = "*",
+	desc = "Disable automatic comment insertion",
+	group = group,
 	callback = function()
 		vim.opt_local.formatoptions:remove({ "r", "o" })
 	end,
 })
 
--- Disable mouse
-vim.cmd([[
-aunmenu PopUp
-]])

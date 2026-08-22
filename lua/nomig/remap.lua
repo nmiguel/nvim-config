@@ -14,6 +14,13 @@ local map = vim.keymap.set
 map("i", "<C-H>", "<C-W>")
 map("n", "<leader>oe", "<cmd>silent !xdg-open %:h<cr>")
 
+-- Toggle spell checking
+map("n", "<leader>s", function()
+	local current = vim.opt.spell:get()
+	vim.opt.spell = not current
+	vim.notify("Spell checking " .. (vim.opt.spell:get() and "enabled" or "disabled"), vim.log.levels.INFO)
+end)
+
 map("v", "K", ":m '<-2<CR>gv=gv")
 map("v", "J", ":m '>+1<CR>gv=gv")
 

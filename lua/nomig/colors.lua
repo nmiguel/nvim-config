@@ -76,6 +76,11 @@ M.apply = function(user_colors)
     update_hl("@markup.heading.4.markdown", { link = "@keyword" })
     update_hl("@markup.heading.5.markdown", { link = "@constant" })
 
+	update_hl("SpellBad", { sp = defaults.miniFixmeFg})
+	update_hl("SpellCap", { sp = defaults.miniHackFg})
+	update_hl("SpellRare", { sp = defaults.miniTodoFg})
+	update_hl("SpellLocal", { sp = defaults.miniNoteFg})
+
 	-- always transparent
 	make_transparent({
 		"Normal",

@@ -49,6 +49,9 @@ vim.opt.foldmethod = "manual"
 vim.opt.foldlevel = 20
 vim.opt.foldenable = false
 
+-- Disable the right-click popup menu
+vim.cmd("aunmenu PopUp")
+
 function _G.CustomFoldText()
 	local start_lnum = vim.v.foldstart
 	local end_lnum = vim.v.foldend
