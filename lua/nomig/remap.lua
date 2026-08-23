@@ -64,4 +64,3 @@ smart_split("<C-j>", "j", "split | wincmd j")
 smart_split("<C-k>", "k", "split ")
 smart_split("<C-l>", "l", "vsplit | wincmd l")
 
--- map('x', '<leader>f', ':fold<cr>', { noremap = true })
