@@ -13,3 +13,9 @@ vim.cmd("cnorea h vert bo help")
 
 -- LspInfo
 vim.cmd("cnorea LspInfo checkhealth vim.lsp")
+
+vim.api.nvim_create_user_command("DeleteBuffers", function(_)
+	vim.cmd("%bd|e#|bd#")
+end, {
+	desc = "Show LSP log",
+})
