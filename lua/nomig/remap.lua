@@ -36,9 +36,15 @@ map("x", "<leader>p", [["_dP]])
 map({ "n", "v" }, "<leader>y", [["+y]])
 map("n", "<leader>Y", [["+Y]])
 
-map("n", "Q", "<c-v>")
+-- map("n", "Q", "<c-v>")
 map("n", "<leader>p", "<nop>") -- I press this so much before deciding on telescope
 map("n", "<leader>/", "<cmd>nohlsearch<cr>")
+
+-- Clear cursors
+map("n", "<leader>q", function()
+	local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end)
 
 map("v", "gk", ":norm gcc<CR>")
 
